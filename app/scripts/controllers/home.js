@@ -2,7 +2,7 @@
 
 angular
   .module("obrasMduytApp")
-  .controller("HomeCtrl", function($scope, DataService, $filter) {
+  .controller("HomeCtrl", function($scope, DataService, $filter, $http, $sce) {
     var d3 = window.d3;
 
     $scope.pymChild = new window.pym.Child({ polling: 1000 });
@@ -123,9 +123,7 @@ angular
       if (!chart.svg) {
         //Create
         chart.svg = d3.select("#home-chart-container").append("svg");
-        chart.mainGroup = chart.svg
-          .append("g")
-          .classed("main-group", true);
+        chart.mainGroup = chart.svg.append("g").classed("main-group", true);
         chart.mainGroup.append("rect").attr("fill", "white");
 
         chart.svg.append("g").attr("id", "comunas-group");
@@ -134,9 +132,7 @@ angular
         chart.svg.append("g").attr("id", "montos-group");
         chart.redes = chart.svg.append("g").attr("id", "redes-group");
 
-        bubbles.group = chart.svg
-          .append("g")
-          .attr("id", "bubbles-group");
+        bubbles.group = chart.svg.append("g").attr("id", "bubbles-group");
 
         chart.selection = chart.svg
           .append("circle")
@@ -187,9 +183,7 @@ angular
           if (num >= si[i].value) {
             return (
               $filter("currency")(
-                (num / si[i].value)
-                  .toFixed(digits)
-                  .replace(rx, "$1"),
+                (num / si[i].value).toFixed(digits).replace(rx, "$1"),
                 "$",
                 0
               ).replace(/\,/g, ".") + si[i].symbol
@@ -201,9 +195,7 @@ angular
 
       if (!scalechart.svg) {
         //Create
-        scalechart.svg = d3
-          .select("#scale-chart-container")
-          .append("svg");
+        scalechart.svg = d3.select("#scale-chart-container").append("svg");
         scalechart.mainGroup = scalechart.svg
           .append("g")
           .classed("main-group", true);
@@ -225,10 +217,7 @@ angular
             radius: scalechart.w / 8
           },
           {
-            legend: scalechart.nFormatter(
-              (domain[0] + domain[1]) / 2,
-              0
-            ),
+            legend: scalechart.nFormatter((domain[0] + domain[1]) / 2, 0),
             radius: scalechart.w / 12
           },
           {
@@ -397,8 +386,7 @@ angular
       renderFunctions[$scope.selectedGroup]();
 
       var time =
-        initialized[$scope.selectedGroup] ||
-        $scope.selectedGroup === "mapa"
+        initialized[$scope.selectedGroup] || $scope.selectedGroup === "mapa"
           ? 100
           : 2000;
       initialized[$scope.selectedGroup] = true;
@@ -432,10 +420,7 @@ angular
             "translate(" +
               d.x +
               "," +
-              (d.y = Math.max(
-                0,
-                Math.min(sankeychart.h - d.dy, d3.event.y)
-              )) +
+              (d.y = Math.max(0, Math.min(sankeychart.h - d.dy, d3.event.y))) +
               ")"
           );
 
@@ -551,12 +536,8 @@ angular
 
         // loop through each link replacing the text with its index from node
         graph.links.forEach(function(d, i) {
-          graph.links[i].source = graph.nodes.indexOf(
-            graph.links[i].source
-          );
-          graph.links[i].target = graph.nodes.indexOf(
-            graph.links[i].target
-          );
+          graph.links[i].source = graph.nodes.indexOf(graph.links[i].source);
+          graph.links[i].target = graph.nodes.indexOf(graph.links[i].target);
         });
 
         //now loop through each nodes to make nodes an array of objects
@@ -570,9 +551,7 @@ angular
 
       if (!sankeychart.svg) {
         //Create
-        sankeychart.svg = d3
-          .select("#sankey-chart-container")
-          .append("svg");
+        sankeychart.svg = d3.select("#sankey-chart-container").append("svg");
         sankeychart.mainGroup = sankeychart.svg
           .append("g")
           .classed("main-group", true);
@@ -616,8 +595,7 @@ angular
           return Math.max(1, d.dy);
         })
         .style("stroke", function(d) {
-          return $scope.tipo_colors.domain().indexOf(d.source.name) >
-            -1
+          return $scope.tipo_colors.domain().indexOf(d.source.name) > -1
             ? $scope.tipo_colors(d.source.name)
             : $scope.tipo_colors(d.target.name);
         })
@@ -670,9 +648,7 @@ angular
           return d.dy / 2;
         })
         .attr("x", function(d) {
-          return isNaN(d.name)
-            ? -3
-            : 3 + sankeychart.sankey.nodeWidth();
+          return isNaN(d.name) ? -3 : 3 + sankeychart.sankey.nodeWidth();
         })
         .attr("text-anchor", function(d) {
           return isNaN(d.name) ? "end" : "start";
@@ -720,15 +696,15 @@ angular
           .style("opacity", 1);
 
         chart.mapGroup
-            .selectAll("text.map-text")
-            .transition()
-            .duration(1000)
-            .attr("x", function(d) {
-              return chart.mapPath.centroid(d)[0];
-            })
-            .attr("y", function(d) {
-              return chart.mapPath.centroid(d)[1];
-            })
+          .selectAll("text.map-text")
+          .transition()
+          .duration(1000)
+          .attr("x", function(d) {
+            return chart.mapPath.centroid(d)[0];
+          })
+          .attr("y", function(d) {
+            return chart.mapPath.centroid(d)[1];
+          });
       }
 
       if (!chart.mapGroup) {
@@ -764,7 +740,7 @@ angular
             .enter()
             .append("text")
             .attr("class", "map-text")
-            .attr("text-anchor","middle")
+            .attr("text-anchor", "middle")
             .attr("x", function(d) {
               return chart.mapPath.centroid(d)[0];
             })
@@ -837,10 +813,7 @@ angular
       chart.mapGroup
         .transition()
         .duration(750)
-        .attr(
-          "transform",
-          "translate(" + translate + ")scale(" + scale + ")"
-        );
+        .attr("transform", "translate(" + translate + ")scale(" + scale + ")");
 
       chart.mapGroup
         .selectAll("path")
@@ -851,10 +824,7 @@ angular
       bubbles.group
         .transition()
         .duration(750)
-        .attr(
-          "transform",
-          "translate(" + translate + ")scale(" + scale + ")"
-        );
+        .attr("transform", "translate(" + translate + ")scale(" + scale + ")");
     }
 
     function resetMap() {
@@ -888,9 +858,7 @@ angular
         itemH = chart.w;
         itemW = chart.w;
         chart.svg.attr("height", comunas.length * chart.w);
-        chart.mainGroup
-          .select("rect")
-          .attr("height", comunas.length * chart.w);
+        chart.mainGroup.select("rect").attr("height", comunas.length * chart.w);
       } else {
         itemH = chart.h / 3;
         itemW = chart.w / 5;
@@ -975,9 +943,7 @@ angular
       bubbles.clusters = {};
       bubbles.clusterPoints = {};
 
-      var filterId = comunaID
-        ? comunaID.replace("comunas-item-", "")
-        : false;
+      var filterId = comunaID ? comunaID.replace("comunas-item-", "") : false;
 
       var filtered = $scope.obras.filter(function(d) {
         return (
@@ -1007,10 +973,7 @@ angular
 
       bubbles.nodes = filtered
         .filter(function(d) {
-          return (
-            d.comuna &&
-            (!filterId || (filterId && d.comuna === filterId))
-          );
+          return d.comuna && (!filterId || (filterId && d.comuna === filterId));
         })
         .map(function(d) {
           var i = "c" + d.comuna,
@@ -1022,10 +985,7 @@ angular
             ),*/
             c = { cluster: i, radius: r ? r : 10, data: d };
 
-          if (
-            !bubbles.clusters[i] ||
-            r > bubbles.clusters[i].radius
-          ) {
+          if (!bubbles.clusters[i] || r > bubbles.clusters[i].radius) {
             bubbles.clusters[i] = c;
           }
 
@@ -1084,9 +1044,7 @@ angular
           .duration(750)
           .attr("transform", "translate(0,0)")
           .each("end", function() {
-            prepareNodesComunasGroup(
-              d3.select(selectedG).attr("id")
-            );
+            prepareNodesComunasGroup(d3.select(selectedG).attr("id"));
             renderBubbles();
           });
       }
@@ -1130,9 +1088,7 @@ angular
         itemH = chart.w;
         itemW = chart.w;
         chart.svg.attr("height", montos.length * chart.w);
-        chart.mainGroup
-          .select("rect")
-          .attr("height", montos.length * chart.w);
+        chart.mainGroup.select("rect").attr("height", montos.length * chart.w);
       } else {
         itemH = chart.h / 2;
         itemW = chart.w / 2;
@@ -1180,9 +1136,7 @@ angular
       }
 
       if (!clear) {
-        chart.montosGroup
-          .selectAll("g.montos-item")
-          .style("display", "block");
+        chart.montosGroup.selectAll("g.montos-item").style("display", "block");
       }
 
       //update
@@ -1217,9 +1171,7 @@ angular
       bubbles.clusters = {};
       bubbles.clusterPoints = {};
 
-      var filterId = montoID
-        ? montoID.replace("montos-item-", "")
-        : false;
+      var filterId = montoID ? montoID.replace("montos-item-", "") : false;
 
       var filtered = $scope.obras.filter(function(d) {
         return (
@@ -1331,9 +1283,7 @@ angular
           .duration(750)
           .attr("transform", "translate(0,0)")
           .each("end", function() {
-            prepareNodesMontosGroup(
-              d3.select(selectedG).attr("id")
-            );
+            prepareNodesMontosGroup(d3.select(selectedG).attr("id"));
             renderBubbles();
           });
       }
@@ -1360,9 +1310,7 @@ angular
         itemH = chart.w;
         itemW = chart.w;
         chart.svg.attr("height", etapas.length * chart.w);
-        chart.mainGroup
-          .select("rect")
-          .attr("height", etapas.length * chart.w);
+        chart.mainGroup.select("rect").attr("height", etapas.length * chart.w);
       } else {
         itemH = chart.h / 2;
         itemW = chart.w / 2;
@@ -1410,9 +1358,7 @@ angular
       }
 
       if (!clear) {
-        chart.etapasGroup
-          .selectAll("g.etapas-item")
-          .style("display", "block");
+        chart.etapasGroup.selectAll("g.etapas-item").style("display", "block");
       }
 
       //update
@@ -1449,9 +1395,7 @@ angular
 
       bubbles.nodesEtapas = [];
 
-      var filterId = etapaID
-        ? etapaID.replace("etapas-item-", "")
-        : false;
+      var filterId = etapaID ? etapaID.replace("etapas-item-", "") : false;
 
       var filtered = $scope.obras.filter(function(d) {
         return (
@@ -1569,9 +1513,7 @@ angular
           .duration(750)
           .attr("transform", "translate(0,0)")
           .each("end", function() {
-            prepareNodesEtapasGroup(
-              d3.select(selectedG).attr("id")
-            );
+            prepareNodesEtapasGroup(d3.select(selectedG).attr("id"));
             renderBubbles();
           });
       }
@@ -1598,9 +1540,7 @@ angular
           .enter()
           .append("circle")
           .attr("class", function(d) {
-            var red = d.data.red_slug
-              ? "red " + d.data.red_slug
-              : "";
+            var red = d.data.red_slug ? "red " + d.data.red_slug : "";
             return (
               "obra " +
               d.data.tipo_slug +
@@ -1615,6 +1555,66 @@ angular
           .on("mouseenter", function(d) {
             d.color_tipo_obra = $scope.tipo_colors(d.data.tipo);
             $scope.selectedObra = d;
+            if (!$scope.selectedObra.map) {
+              var url = $sce.getTrustedResourceUrl(
+                "https://ws.usig.buenosaires.gob.ar/geocoder/2.2/reversegeocoding?x=" +
+                  d.data.lng +
+                  "&y=" +
+                  d.data.lat
+              );
+              $http
+                .jsonp(url, { jsonpCallbackParam: "callback" })
+                .then(function(d) {
+                  $scope.selectedObra.map =
+                    "http://servicios.usig.buenosaires.gov.ar/LocDir/mapa.phtml?x=" +
+                    d.data.puerta_x +
+                    "&y=" +
+                    d.data.puerta_y +
+                    "&h=100&w=300&punto=1&r=50";
+                });
+            }
+
+            var logoContainer = d3.select("#tooltip-logo-container");
+
+            console.log("llega!", d.data.tipo_slug);
+            d3.xml("images/iconos/" + d.data.tipo_slug + ".svg", function(
+              error,
+              documentFragment
+            ) {
+              if (error) {
+                console.error(error);
+                return;
+              }
+
+              var svgNode = documentFragment.getElementsByTagName("svg")[0];
+              //use plain Javascript to extract the node
+
+              logoContainer.node().innerHTML = "<div class='circle-bg'></div>";
+              logoContainer.node().appendChild(svgNode);
+              //d3's selection.node() returns the DOM node, so we
+              //can use plain Javascript to append content
+
+              var color = $scope.tipo_colors(d.data.tipo);
+
+              var w = logoContainer
+                .select("svg")
+                .attr("width")
+                .replace("px", "");
+
+              w = w / 2;
+
+              var innerSVG = logoContainer
+                .select("svg")
+                .attr("height", 50)
+                .attr("width", 50);
+
+              logoContainer
+                .select(".circle-bg")
+                .style("background-color", color);
+
+              innerSVG.selectAll("path,rect").attr("fill", "#fff");
+            });
+
             $scope.$apply();
             var current = d3.select(this);
             chart.selection
@@ -1628,7 +1628,7 @@ angular
               .style("opacity", 1);
 
             $scope.tooltip
-              .style("width", "250px")
+              .style("width", "300px")
               .transition()
               .duration(200)
               .style("left", d3.event.pageX + "px")
@@ -1642,9 +1642,7 @@ angular
           .enter()
           .append("circle")
           .attr("class", function(d) {
-            var red = d.data.red_slug
-              ? "red " + d.data.red_slug
-              : "";
+            var red = d.data.red_slug ? "red " + d.data.red_slug : "";
             return (
               "obra " +
               d.data.tipo_slug +
@@ -1659,6 +1657,52 @@ angular
           .on("click", function(d) {
             d.color_tipo_obra = $scope.tipo_colors(d.data.tipo);
             $scope.selectedObra = d;
+            if (!$scope.selectedObra.map) {
+              var url = $sce.getTrustedResourceUrl(
+                "https://ws.usig.buenosaires.gob.ar/geocoder/2.2/reversegeocoding?x=" +
+                  d.data.lng +
+                  "&y=" +
+                  d.data.lat
+              );
+              $http
+                .jsonp(url, { jsonpCallbackParam: "callback" })
+                .then(function(d) {
+                  $scope.selectedObra.map =
+                    "http://servicios.usig.buenosaires.gov.ar/LocDir/mapa.phtml?x=" +
+                    d.data.puerta_x +
+                    "&y=" +
+                    d.data.puerta_y +
+                    "&h=100&w=300&punto=1&r=50";
+                });
+            }
+            var logoContainer = container.select("#tooltip-logo-container");
+
+            console.log("llega!", d.data.tipo_slug);
+            d3.xml("images/iconos/" + d.data.tipo_slug + ".svg", function(
+              error,
+              documentFragment
+            ) {
+              if (error) {
+                console.error(error);
+                return;
+              }
+
+              var svgNode = documentFragment.getElementsByTagName("svg")[0];
+              //use plain Javascript to extract the node
+              logoContainer.node().innerHTML = "";
+              logoContainer.node().appendChild(svgNode);
+              //d3's selection.node() returns the DOM node, so we
+              //can use plain Javascript to append content
+
+              var color = $scope.tipo_colors(d.data.tipo);
+
+              var innerSVG = logoContainer
+                .select("svg")
+                .attr("height", 50)
+                .attr("width", 50);
+
+              innerSVG.selectAll("path,rect").attr("fill", color);
+            });
             d3.selectAll("circle.obra").style("opacity", 0.3);
             d3.select(this).style("opacity", 1);
             $scope.$apply();

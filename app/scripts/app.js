@@ -14,7 +14,8 @@ angular
     $logProvider,
     $httpProvider,
     $locationProvider,
-    $provide
+    $provide,
+    $sceDelegateProvider
   ) {
     $routeProvider
       .when("/home", {
@@ -50,6 +51,11 @@ angular
         $delegate.NUMBER_FORMATS.GROUP_SEP = ".";
         return $delegate;
       }
+    ]);
+
+    $sceDelegateProvider.resourceUrlWhitelist([
+        'self',                    // trust all resources from the same origin
+        '*://ws.usig.buenosaires.gob.ar/**'   // trust all resources from `ws.usig.buenosaires.gob.ar`
     ]);
   })
   .service("DataService", function($http, $q, Slug, $sce) {
