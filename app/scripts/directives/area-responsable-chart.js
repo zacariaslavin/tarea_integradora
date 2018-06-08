@@ -17,7 +17,7 @@ angular.module("obrasMduytApp").directive("areaResponsableChart", function() {
 			"<option ng-repeat='option in total_obras_by_area' value='{{option.slug}}'>{{option.area}}</option>" +
 			"</select>" +
 			"</div>" +
-			"<div class='col-md-5'><div id='mini-chart'></div><p ng-show='selectedCantidad'>{{selectedCantidad}} obras <span ng-show='selectedCantidad!=total'>({{selectedCantidad*100/total | number:0}}% del total)</span> </p></div>" +
+			"<div class='col-md-5'><div id='mini-chart' ng-class=\"{'all':selected==''}\"></div><p ng-show='selectedCantidad'>{{selectedCantidad}} obras <span ng-show='selectedCantidad!=total'>({{selectedCantidad*100/total | number:0}}% del total)</span> </p></div>" +
 			"</div>",
 		replace: true,
 		link: function($scope, elm, attrs) {

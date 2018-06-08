@@ -177,6 +177,10 @@ p {
   fill: #ffbc00;
 }
 
+#area-responsable-chart #mini-chart.all .area-rect{
+  fill: #ffbc00;
+}
+
 #home-chart-container path.map-item,
 #home-chart-container path.comunas-item,
 #home-chart-container path.montos-item {
@@ -203,6 +207,14 @@ p {
   cursor: -webkit-zoom-out;
   cursor: zoom-out;
 }
+
+#home-chart-container text.map-text {
+  fill: #ffbc00;
+  font-family: "OpenSans", Helvetica, Arial, sans-serif;
+  font-size:30px;
+  font-weight: bold;
+}
+
 
 .chart-item {
   background-color: #efefef;
@@ -600,6 +612,10 @@ div.obra .ficha-tecnica .progress-bar {
 
   #stats-home .col-custom-2-5 {
     width: 100%;
+  }
+
+  #home-chart-container text.map-text {
+    font-size: 15px;
   }
 }
 

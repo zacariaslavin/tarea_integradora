@@ -718,6 +718,17 @@ angular
           .style("stroke-width", 3)
           .attr("d", chart.mapPath)
           .style("opacity", 1);
+
+        chart.mapGroup
+            .selectAll("text.map-text")
+            .transition()
+            .duration(1000)
+            .attr("x", function(d) {
+              return chart.mapPath.centroid(d)[0];
+            })
+            .attr("y", function(d) {
+              return chart.mapPath.centroid(d)[1];
+            })
       }
 
       if (!chart.mapGroup) {
@@ -746,6 +757,23 @@ angular
             })
             .classed("shape", true)
             .on("click", clickedMap);
+
+          chart.mapGroup
+            .selectAll("text.map-text")
+            .data(chart.mapFeatures)
+            .enter()
+            .append("text")
+            .attr("class", "map-text")
+            .attr("text-anchor","middle")
+            .attr("x", function(d) {
+              return chart.mapPath.centroid(d)[0];
+            })
+            .attr("y", function(d) {
+              return chart.mapPath.centroid(d)[1];
+            })
+            .text(function(d) {
+              return d.properties.comuna;
+            });
 
           updateMap();
         });
