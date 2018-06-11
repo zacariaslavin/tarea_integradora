@@ -28,6 +28,8 @@ angular
     $scope.oldGroup = "mapa";
     $scope.selectedObra = false;
 
+    var logoTipoCache = {};
+
     $scope.selectedFilter = false;
 
     $scope.availableGroups = [
@@ -353,8 +355,12 @@ angular
         d3.selectAll("circle.obra").style("opacity", 1);
         filterSlug = false;
       } else {
-        d3.selectAll("circle.obra").style("opacity", 0.3);
-        d3.selectAll("circle.obra." + filterSlug).style("opacity", 1);
+        if (filterSlug == "") {
+          d3.selectAll("circle.obra").style("opacity", 1);
+        } else {
+          d3.selectAll("circle.obra").style("opacity", 0.3);
+          d3.selectAll("circle.obra." + filterSlug).style("opacity", 1);
+        }
       }
       $scope.selectedFilter = filterSlug;
       $scope.closeTooltip();
@@ -1522,6 +1528,32 @@ angular
 
     /* Bubble functions ====================================================== */
 
+    function renderLogoTipo(type, svgNode, logoContainer) {
+      //use plain Javascript to extract the node
+      logoContainer.node().innerHTML = "<div class='circle-bg'></div>";
+      logoContainer.node().appendChild(svgNode);
+      //d3's selection.node() returns the DOM node, so we
+      //can use plain Javascript to append content
+
+      var color = $scope.tipo_colors(type);
+
+      var w = logoContainer
+        .select("svg")
+        .attr("width")
+        .replace("px", "");
+
+      w = w / 2;
+
+      var innerSVG = logoContainer
+        .select("svg")
+        .attr("height", 50)
+        .attr("width", 50);
+
+      logoContainer.select(".circle-bg").style("background-color", color);
+
+      innerSVG.selectAll("path,rect").attr("fill", "#fff");
+    }
+
     function renderBubbles() {
       bubbles.force = d3.layout
         .force()
@@ -1556,66 +1588,36 @@ angular
           .on("mouseenter", function(d) {
             d.color_tipo_obra = $scope.tipo_colors(d.data.tipo);
             $scope.selectedObra = d;
-            if (!$scope.selectedObra.map) {
-              var url = $sce.getTrustedResourceUrl(
-                "https://ws.usig.buenosaires.gob.ar/geocoder/2.2/reversegeocoding?x=" +
-                  d.data.lng +
-                  "&y=" +
-                  d.data.lat
-              );
-              $http
-                .jsonp(url, { jsonpCallbackParam: "callback" })
-                .then(function(d) {
-                  $scope.selectedObra.map =
-                    "http://servicios.usig.buenosaires.gov.ar/LocDir/mapa.phtml?x=" +
-                    d.data.puerta_x +
-                    "&y=" +
-                    d.data.puerta_y +
-                    "&h=100&w=300&punto=1&r=50";
-                });
-            }
+            $scope.$apply();
 
             var logoContainer = d3.select("#tooltip-logo-container");
 
-            d3.xml("images/iconos/" + d.data.tipo_slug + ".svg", function(
-              error,
-              documentFragment
-            ) {
-              if (error) {
-                console.error(error);
-                return;
-              }
+            if (!logoTipoCache[d.data.tipo_slug]) {
+              d3.xml("images/iconos/" + d.data.tipo_slug + ".svg", function(
+                error,
+                documentFragment
+              ) {
+                if (error) {
+                  console.error(error);
+                  return;
+                }
+                logoTipoCache[
+                  d.data.tipo_slug
+                ] = documentFragment.getElementsByTagName("svg")[0];
+                renderLogoTipo(
+                  d.data.tipo,
+                  logoTipoCache[d.data.tipo_slug],
+                  logoContainer
+                );
+              });
+            } else {
+              renderLogoTipo(
+                d.data.tipo,
+                logoTipoCache[d.data.tipo_slug],
+                logoContainer
+              );
+            }
 
-              var svgNode = documentFragment.getElementsByTagName("svg")[0];
-              //use plain Javascript to extract the node
-
-              logoContainer.node().innerHTML = "<div class='circle-bg'></div>";
-              logoContainer.node().appendChild(svgNode);
-              //d3's selection.node() returns the DOM node, so we
-              //can use plain Javascript to append content
-
-              var color = $scope.tipo_colors(d.data.tipo);
-
-              var w = logoContainer
-                .select("svg")
-                .attr("width")
-                .replace("px", "");
-
-              w = w / 2;
-
-              var innerSVG = logoContainer
-                .select("svg")
-                .attr("height", 50)
-                .attr("width", 50);
-
-              logoContainer
-                .select(".circle-bg")
-                .style("background-color", color);
-
-              innerSVG.selectAll("path,rect").attr("fill", "#fff");
-            });
-
-            $scope.$apply();
             var current = d3.select(this);
             chart.selection
               .attr("cx", current.attr("cx"))
@@ -1657,66 +1659,35 @@ angular
           .on("click", function(d) {
             d.color_tipo_obra = $scope.tipo_colors(d.data.tipo);
             $scope.selectedObra = d;
-            if (!$scope.selectedObra.map) {
-              var url = $sce.getTrustedResourceUrl(
-                "https://ws.usig.buenosaires.gob.ar/geocoder/2.2/reversegeocoding?x=" +
-                  d.data.lng +
-                  "&y=" +
-                  d.data.lat
+            var logoContainer = d3.select("#tooltip-logo-container");
+            if (!logoTipoCache[d.data.tipo_slug]) {
+              d3.xml("images/iconos/" + d.data.tipo_slug + ".svg", function(
+                error,
+                documentFragment
+              ) {
+                if (error) {
+                  console.error(error);
+                  return;
+                }
+                logoTipoCache[
+                  d.data.tipo_slug
+                ] = documentFragment.getElementsByTagName("svg")[0];
+                renderLogoTipo(
+                  d.data.tipo,
+                  logoTipoCache[d.data.tipo_slug],
+                  logoContainer
+                );
+              });
+            } else {
+              renderLogoTipo(
+                d.data.tipo,
+                logoTipoCache[d.data.tipo_slug],
+                logoContainer
               );
-              $http
-                .jsonp(url, { jsonpCallbackParam: "callback" })
-                .then(function(d) {
-                  $scope.selectedObra.map =
-                    "http://servicios.usig.buenosaires.gov.ar/LocDir/mapa.phtml?x=" +
-                    d.data.puerta_x +
-                    "&y=" +
-                    d.data.puerta_y +
-                    "&h=100&w=300&punto=1&r=50";
-                });
             }
-            var logoContainer = container.select("#tooltip-logo-container");
 
-            d3.xml("images/iconos/" + d.data.tipo_slug + ".svg", function(
-              error,
-              documentFragment
-            ) {
-              if (error) {
-                console.error(error);
-                return;
-              }
-
-              var svgNode = documentFragment.getElementsByTagName("svg")[0];
-              //use plain Javascript to extract the node
-
-              logoContainer.node().innerHTML = "<div class='circle-bg'></div>";
-              logoContainer.node().appendChild(svgNode);
-              //d3's selection.node() returns the DOM node, so we
-              //can use plain Javascript to append content
-
-              var color = $scope.tipo_colors(d.data.tipo);
-
-              var w = logoContainer
-                .select("svg")
-                .attr("width")
-                .replace("px", "");
-
-              w = w / 2;
-
-              var innerSVG = logoContainer
-                .select("svg")
-                .attr("height", 50)
-                .attr("width", 50);
-
-              logoContainer
-                .select(".circle-bg")
-                .style("background-color", color);
-
-              innerSVG.selectAll("path,rect").attr("fill", "#fff");
-            });
             d3.selectAll("circle.obra").style("opacity", 0.3);
             d3.select(this).style("opacity", 1);
-            $scope.$apply();
             $scope.tooltip
               .style("width", chart.w - 20 + "px")
               .transition()
@@ -1724,6 +1695,7 @@ angular
               .style("left", "10px")
               .style("top", d3.event.pageY + "px")
               .style("opacity", 1);
+            $scope.$apply();
           });
       }
 
@@ -1743,40 +1715,6 @@ angular
         });
 
       bubbles.circles.exit().remove();
-
-      /*create redes*/
-      /*setTimeout(function() {
-        var red = d3.selectAll("circle.red")[0];
-        red = red.sort(function(a, b) {
-          a = d3.select(a);
-          b = d3.select(b);
-          return a.attr("cx") > b.attr("cx") ? 1 : -1;
-        });
-        console.log("La red", red);
-
-        var line = d3.svg
-          .line()
-          .interpolate("linear")
-          .x(function(d) {
-            return d3.select(d).attr("cx");
-          })
-          .y(function(d) {
-            return d3.select(d).attr("cy");
-          });
-
-        chart.redes
-          .append("path")
-          .classed("red", true)
-          .attr("stroke-width", 2)
-          .attr("stroke", "black")
-          .attr("fill", "none")
-          .transition()
-          .attr("d", function(d) {
-            return line(red);
-          });
-      }, 2000);*/
-
-      /*fin redes*/
 
       $scope.filterBubbles($scope.selectedFilter);
     }

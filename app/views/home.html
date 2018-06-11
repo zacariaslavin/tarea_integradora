@@ -61,7 +61,7 @@
     </div>
   </div>
 
-  <img class="obra-pic img-responsive" ng-show="selectedObra.data.fotos.length>0" ng-src="{{selectedObra.data.fotos[0]}}"/>
+  <img class="obra-pic img-responsive" ng-show="selectedObra.data.thumb" ng-src="{{selectedObra.data.thumb}}"/>
 
   <div class="row">
     <div class="col-xs-12">
@@ -80,8 +80,7 @@
   <p class="tooltip-text" ng-show="selectedObra.data.area_responsable">{{selectedObra.data.area_responsable}}</p>
 
   <p class="tooltip-text">
-    <span ng-show="!selectedObra.map"><small>Cargando mapa...</small></span>
-    <img class="obra-pic img-responsive" ng-show="selectedObra.map" ng-src="{{selectedObra.map}}"/>
+    <img class="obra-pic img-responsive" ng-show="selectedObra.data.map!=''" ng-src="{{selectedObra.data.map}}"/>
   </p>
 
   <p class="tooltip-text" ng-show="selectedObra.data.direccion">{{selectedObra.data.direccion}}<br/>Comuna {{selectedObra.data.comuna}}</p>

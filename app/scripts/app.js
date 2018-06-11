@@ -54,8 +54,8 @@ angular
     ]);
 
     $sceDelegateProvider.resourceUrlWhitelist([
-        'self',                    // trust all resources from the same origin
-        '*://ws.usig.buenosaires.gob.ar/**'   // trust all resources from `ws.usig.buenosaires.gob.ar`
+      "self", // trust all resources from the same origin
+      "*://ws.usig.buenosaires.gob.ar/**" // trust all resources from `ws.usig.buenosaires.gob.ar`
     ]);
   })
   .service("DataService", function($http, $q, Slug, $sce) {
@@ -144,6 +144,8 @@ angular
         }
       }
 
+      reg.thumb = reg.fotos[0] ? reg.fotos[0] : false;
+
       //slug
       reg.entorno_slug = reg.entorno ? Slug.slugify(reg.entorno.trim()) : null;
 
@@ -160,6 +162,19 @@ angular
       reg.monto_slug = reg.monto_contrato
         ? getMontoRange(reg.monto_contrato)
         : null;
+
+      reg.map =
+        reg.lat && reg.lng
+          ? "https://maps.googleapis.com/maps/api/staticmap?center=" +
+            reg.lat +
+            "," +
+            reg.lng +
+            "&zoom=18&size=300x100&maptype=roadmap&markers=color:blue%7Clabel:%7C" +
+            reg.lat +
+            "," +
+            reg.lng +
+            "&key=AIzaSyBNzIaO8-waiNE1fjdDOAI4TN00ALkOa4o"
+          : "";
 
       return reg;
     };
