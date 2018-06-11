@@ -1592,6 +1592,25 @@ angular
 
             var logoContainer = d3.select("#tooltip-logo-container");
 
+            if (!$scope.selectedObra.map) {
+              var url = $sce.getTrustedResourceUrl(
+                "https://ws.usig.buenosaires.gob.ar/geocoder/2.2/reversegeocoding?x=" +
+                  d.data.lng +
+                  "&y=" +
+                  d.data.lat
+              );
+              $http
+                .jsonp(url, { jsonpCallbackParam: "callback" })
+                .then(function(d) {
+                  $scope.selectedObra.map =
+                    "http://servicios.usig.buenosaires.gov.ar/LocDir/mapa.phtml?x=" +
+                    d.data.puerta_x +
+                    "&y=" +
+                    d.data.puerta_y +
+                    "&h=100&w=300&punto=1&r=50";
+                });
+            }
+
             if (!logoTipoCache[d.data.tipo_slug]) {
               d3.xml("images/iconos/" + d.data.tipo_slug + ".svg", function(
                 error,
@@ -1659,6 +1678,26 @@ angular
           .on("click", function(d) {
             d.color_tipo_obra = $scope.tipo_colors(d.data.tipo);
             $scope.selectedObra = d;
+
+            if (!$scope.selectedObra.map) {
+              var url = $sce.getTrustedResourceUrl(
+                "https://ws.usig.buenosaires.gob.ar/geocoder/2.2/reversegeocoding?x=" +
+                  d.data.lng +
+                  "&y=" +
+                  d.data.lat
+              );
+              $http
+                .jsonp(url, { jsonpCallbackParam: "callback" })
+                .then(function(d) {
+                  $scope.selectedObra.map =
+                    "http://servicios.usig.buenosaires.gov.ar/LocDir/mapa.phtml?x=" +
+                    d.data.puerta_x +
+                    "&y=" +
+                    d.data.puerta_y +
+                    "&h=100&w=300&punto=1&r=50";
+                });
+            }
+
             var logoContainer = d3.select("#tooltip-logo-container");
             if (!logoTipoCache[d.data.tipo_slug]) {
               d3.xml("images/iconos/" + d.data.tipo_slug + ".svg", function(
