@@ -1704,7 +1704,7 @@ angular
           .on("click", function(d) {
             d.color_tipo_obra = $scope.tipo_colors(d.data.tipo);
             $scope.selectedObra = d;
-
+            $scope.tooltipThumb = false;
             if (!$scope.selectedObra.map) {
               var url = $sce.getTrustedResourceUrl(
                 "https://ws.usig.buenosaires.gob.ar/geocoder/2.2/reversegeocoding?x=" +

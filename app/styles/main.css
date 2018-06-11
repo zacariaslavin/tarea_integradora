@@ -669,6 +669,10 @@ div.obra .ficha-tecnica .progress-bar {
   background-color: #27c3b9;
 }
 
+#mobile-filler {
+  display: none;
+}
+
 /* Medium Devices, Desktops */
 @media only screen and (max-width: 992px) {
   #stats-home .col-custom-1-5 {
@@ -696,6 +700,10 @@ div.obra .ficha-tecnica .progress-bar {
 
   #home-chart-container text.map-text {
     font-size: 15px;
+  }
+  #mobile-filler {
+    display: block;
+    height: 400px;
   }
 }
 
