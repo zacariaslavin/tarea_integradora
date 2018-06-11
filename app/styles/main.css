@@ -209,7 +209,7 @@ p {
 }
 
 #home-chart-container text.map-text {
-  fill: #ffbc00;
+  fill: #000;
   font-family: "OpenSans", Helvetica, Arial, sans-serif;
   font-size: 20px;
   font-weight: bold;
