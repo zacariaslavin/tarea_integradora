@@ -61,12 +61,14 @@
     </div>
   </div>
 
-  <img class="obra-pic img-responsive" ng-show="selectedObra.data.thumb" ng-src="{{selectedObra.data.thumb}}"/>
+  <div class="tooltip-img" ng-show="selectedObra.data.thumb">
+    <img class="obra-pic img-responsive" ng-src="{{tooltipThumb}}"/>
+  </div>
 
   <div class="row">
     <div class="col-xs-12">
       <div ng-show="selectedObra.data.porcentaje_avance" class="progress">
-        <span class="desc">{{selectedObra.data.etapa}} <span ng-show="selectedObra.data.porcentaje_avance">:{{selectedObra.data.porcentaje_avance}}%</span></span>
+        <span class="desc">{{selectedObra.data.etapa}}<span ng-show="selectedObra.data.porcentaje_avance">: {{selectedObra.data.porcentaje_avance}}%</span></span>
         <div class="progress-bar"
           role="progressbar"
             ng-style="{ 'width': selectedObra.data.porcentaje_avance + '%' }">
@@ -79,9 +81,11 @@
 
   <p class="tooltip-text" ng-show="selectedObra.data.area_responsable">{{selectedObra.data.area_responsable}}</p>
 
-  <p class="tooltip-text">
-    <span ng-show="!selectedObra.map"><small>Cargando mapa...</small></span>
-    <img class="obra-pic img-responsive" ng-show="selectedObra.map" ng-src="{{selectedObra.map}}"/>
+  <p class="tooltip-text tooltip-map">
+    <span class="tooltip-map-loading" ng-show="!selectedObra.map"><small>Cargando mapa</small></span>
+    <span class="tooltip-map-placeholder">
+      <img class="obra-pic img-responsive" ng-show="selectedObra.map" ng-src="{{selectedObra.map}}"/>
+    </span>
   </p>
 
   <p class="tooltip-text" ng-show="selectedObra.data.direccion">{{selectedObra.data.direccion}}<br/>Comuna {{selectedObra.data.comuna}}</p>

@@ -144,7 +144,7 @@ angular
         }
       }
 
-      reg.thumb = reg.fotos[0] ? reg.fotos[0] : false;
+      reg.thumb = reg.fotos[0] ? reg.fotos[0] : "";
 
       //slug
       reg.entorno_slug = reg.entorno ? Slug.slugify(reg.entorno.trim()) : null;

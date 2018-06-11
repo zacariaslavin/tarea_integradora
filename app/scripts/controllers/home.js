@@ -1588,6 +1588,7 @@ angular
           .on("mouseenter", function(d) {
             d.color_tipo_obra = $scope.tipo_colors(d.data.tipo);
             $scope.selectedObra = d;
+            $scope.tooltipThumb = d.data.thumb;
             $scope.$apply();
 
             var logoContainer = d3.select("#tooltip-logo-container");
@@ -1648,12 +1649,37 @@ angular
               .attr("r", 13)
               .style("opacity", 1);
 
+            var leftvalue =
+              chart.w / 2 < d3.event.pageX
+                ? d3.event.pageX - 320
+                : d3.event.pageX;
+
+            var tooltipH = parseInt(
+              $scope.tooltip.style("height").replace("px", "")
+            );
+
+            var body = document.body,
+              html = document.documentElement;
+
+            var docH = Math.max(
+              body.scrollHeight,
+              body.offsetHeight,
+              html.clientHeight,
+              html.scrollHeight,
+              html.offsetHeight
+            );
+
+            var topValue =
+              docH - 600 < d3.event.pageY
+                ? d3.event.pageY - tooltipH
+                : d3.event.pageY;
+
             $scope.tooltip
               .style("width", "300px")
               .transition()
               .duration(200)
-              .style("left", d3.event.pageX + "px")
-              .style("top", d3.event.pageY + "px")
+              .style("top", topValue + "px")
+              .style("left", leftvalue + "px")
               .style("opacity", 1);
           })
           .on("mouseout", function(d) {});

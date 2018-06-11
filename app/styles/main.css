@@ -332,8 +332,14 @@ p {
   margin-top: 2px;
 }
 
-#tooltip-home-chart img.obra-pic {
+#tooltip-home-chart .tooltip-img {
   margin-bottom: 5px;
+  min-height: 100px;
+  max-height: 150px;
+  background-color: #eee;
+  overflow: hidden;
+  & img.obra-pic {
+  }
 }
 
 #tooltip-home-chart span.title,
@@ -365,6 +371,23 @@ p {
   font-weight: bold;
   font-size: 14px;
   margin-bottom: 7px;
+}
+
+#tooltip-home-chart .tooltip-map {
+  min-height: 90px;
+  position: relative;
+}
+#tooltip-home-chart .tooltip-map .tooltip-map-placeholder {
+  background-color: #eee;
+  min-height: 86px;
+  display: block;
+}
+
+#tooltip-home-chart .tooltip-map .tooltip-map-loading {
+  position: absolute;
+  display: block;
+  text-align: center;
+  width: 87%;
 }
 
 .btn-home {
