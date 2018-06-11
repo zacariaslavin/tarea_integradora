@@ -740,6 +740,7 @@ angular
             .enter()
             .append("text")
             .attr("class", "map-text")
+            .classed("child", true)
             .attr("text-anchor", "middle")
             .attr("x", function(d) {
               return chart.mapPath.centroid(d)[0];
@@ -1576,7 +1577,6 @@ angular
 
             var logoContainer = d3.select("#tooltip-logo-container");
 
-            console.log("llega!", d.data.tipo_slug);
             d3.xml("images/iconos/" + d.data.tipo_slug + ".svg", function(
               error,
               documentFragment
@@ -1677,7 +1677,6 @@ angular
             }
             var logoContainer = container.select("#tooltip-logo-container");
 
-            console.log("llega!", d.data.tipo_slug);
             d3.xml("images/iconos/" + d.data.tipo_slug + ".svg", function(
               error,
               documentFragment
@@ -1689,19 +1688,31 @@ angular
 
               var svgNode = documentFragment.getElementsByTagName("svg")[0];
               //use plain Javascript to extract the node
-              logoContainer.node().innerHTML = "";
+
+              logoContainer.node().innerHTML = "<div class='circle-bg'></div>";
               logoContainer.node().appendChild(svgNode);
               //d3's selection.node() returns the DOM node, so we
               //can use plain Javascript to append content
 
               var color = $scope.tipo_colors(d.data.tipo);
 
+              var w = logoContainer
+                .select("svg")
+                .attr("width")
+                .replace("px", "");
+
+              w = w / 2;
+
               var innerSVG = logoContainer
                 .select("svg")
                 .attr("height", 50)
                 .attr("width", 50);
 
-              innerSVG.selectAll("path,rect").attr("fill", color);
+              logoContainer
+                .select(".circle-bg")
+                .style("background-color", color);
+
+              innerSVG.selectAll("path,rect").attr("fill", "#fff");
             });
             d3.selectAll("circle.obra").style("opacity", 0.3);
             d3.select(this).style("opacity", 1);
