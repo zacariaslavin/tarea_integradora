@@ -1,4 +1,9 @@
 # CHANGELOG
+* 2018-06-13 - v3.7-RC1
+  * Nuevo filtro por etapas
+  * Mejoras visuales
+  * Nuevo diseño tooltip
+  * Mapa de USIG en tooltip
 
 * 2018-03-28 - v3.6
   * Limpieza de código

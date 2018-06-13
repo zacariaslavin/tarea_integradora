@@ -701,7 +701,7 @@ angular
           .attr("d", chart.mapPath)
           .style("opacity", 1);
 
-        chart.mapGroup
+        /*chart.mapGroup
           .selectAll("text.map-text")
           .transition()
           .duration(1000)
@@ -710,7 +710,7 @@ angular
           })
           .attr("y", function(d) {
             return chart.mapPath.centroid(d)[1];
-          });
+          });*/
       }
 
       if (!chart.mapGroup) {
@@ -740,7 +740,7 @@ angular
             .classed("shape", true)
             .on("click", clickedMap);
 
-          chart.mapGroup
+          /*chart.mapGroup
             .selectAll("text.map-text")
             .data(chart.mapFeatures)
             .enter()
@@ -756,7 +756,7 @@ angular
             })
             .text(function(d) {
               return d.properties.comuna;
-            });
+            });*/
 
           updateMap();
         });
