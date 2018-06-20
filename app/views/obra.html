@@ -3,10 +3,25 @@
           <h3>{{obra.nombre}}</h3>
           <div class="row">
            <div class="col-md-8">
-           <flex-slider slide="s in slides" animation="slide" control-nav="thumbnails">
-              <li data-thumb="{{s}}">
-                <img ng-src="{{s}}">
-              </li>
+            
+           <flex-slider slide="s in slides track by s.url" animation="slide" control-nav="thumbnails">
+              <li data-thumb="{{s.pic}}" ng-switch="s.mode">
+                  <div ng-switch-when="video" > 
+                    
+                      <ng-youtube-embed 
+                        url="s.url"
+                        playauto="true"
+                        color="white"
+                        disablekb="true"
+                        width="100%"
+                        rel="false"
+                        theme="light"
+                        modestbranding="1"
+                        >
+                    </ng-youtube-embed>
+                </div>
+                  <img ng-switch-default ng-src="{{s.pic}}">
+                </li>
             </flex-slider>
              <p> {{obra.descripcion}} </p>
           </div>

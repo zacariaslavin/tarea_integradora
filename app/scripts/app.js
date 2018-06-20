@@ -7,6 +7,7 @@ angular
     "slugifier",
     "angular-flexslider",
     "leaflet-directive",
+    "ngYoutubeEmbed",
     "ngTable"
   ])
   .config(function(

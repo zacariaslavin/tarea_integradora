@@ -59,7 +59,13 @@ angular.module('obrasMduytApp')
         $scope.secondColoredLoaded(data);
       }
         //setup slider
-      $scope.slides = data.fotos;
+      $scope.slides = data.fotos.map(function(f){
+        return {
+          mode: f.includes("youtu") ? "video" : "photo",
+          url: f,
+          pic: f.includes("youtu") ? getYoutubePic(f) : f,
+        }
+      });
       //Setup Map
       angular.extend($scope, {
                   center: {
