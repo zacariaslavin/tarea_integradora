@@ -4,7 +4,7 @@ html {
 
 body {
   background-color: #fff;
-  font-family: "OpenSans", Helvetica, Arial, sans-serif;
+  font-family: "CHANEWEI", Helvetica, Arial, sans-serif;
 }
 
 h4 {
@@ -12,7 +12,7 @@ h4 {
 }
 
 p {
-  font-family: "OpenSans", Helvetica, Arial, sans-serif !important;
+  font-family: "CHANEWEI", Helvetica, Arial, sans-serif !important;
 }
 
 #stats-home {
@@ -60,7 +60,7 @@ p {
 
 #stats-home span.value {
   display: block;
-  font-family: "OpenSans", Helvetica, Arial, sans-serif;
+  font-family: "CHANEWEI", Helvetica, Arial, sans-serif;
   font-size: 30px;
   font-weight: normal;
 }
@@ -210,7 +210,7 @@ p {
 
 #home-chart-container text.map-text {
   fill: #000;
-  font-family: "OpenSans", Helvetica, Arial, sans-serif;
+  font-family: "CHANEWEI", Helvetica, Arial, sans-serif;
   font-size: 20px;
   font-weight: bold;
 }
@@ -496,7 +496,9 @@ div.obra .etapa {
   padding: 3px;
 }
 div.obra .ficha-tecnica p {
-  margin: 4px 0;
+    margin: 4px 0;
+    color: darkgray;
+    font-size: 0.9em;
 }
 div.obra .ficha-tecnica h4 {
   color: #808080;
@@ -518,7 +520,7 @@ div.obra .ficha-tecnica .progress {
 }
 
 div.obra .toolTip {
-  font-family: "OpenSans", Helvetica, Arial, sans-serif;
+  font-family: "CHANEWEI", Helvetica, Arial, sans-serif;
   position: absolute;
   display: none;
   width: auto;
