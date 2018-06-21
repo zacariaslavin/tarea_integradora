@@ -14,14 +14,14 @@ angular
     $scope.tipo_colors = d3.scale
       .ordinal()
       .range([
-        "#036633",
-        "#698AC6",
-        "#956336",
-        "#92C14D",
-        "#2B3180",
-        "#E3117E",
-        "#EF830C",
-        "#E31F20"
+        "#A7C64D",
+        "#7874B2",
+        "#F1AD3C",
+        "#38A0D7",
+        "#BD3E93",
+        "#E84D00",
+        "#22B496",
+        "#CC4916"
       ]);
 
     $scope.selectedGroup = false;
