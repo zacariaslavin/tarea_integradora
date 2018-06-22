@@ -1,6 +1,25 @@
 <div class="row obra">
-  	<div class="col-md-12">
-          <h3>{{obra.nombre}}</h3>
+  	
+      
+    <div class="row">
+          <div class="col-xs-12">
+            <div class="tooltip-title">
+              <div class="row">
+                <div class="col-xs-1">
+                  <div class="inner">
+                    <div id="tooltip-logo-container" class=" icon pull-left" ng-style="{'background-color': tipo_colors(obra.tipo)}">
+                      <img src="images/iconos/{{obra.tipo_slug}}.svg">
+                    </div>
+                </div>
+              </div>
+              <div class="col-xs-10">
+                <p class="type" ng-style="{color: tipo_colors(obra.tipo)}">{{obra.tipo}}</p>
+                <h3 class="title">{{obra.nombre}}</h3>  
+              </div>
+            </div>
+            </div>
+          </div>
+        </div>
           <div class="row">
            <div class="col-md-8">
             
@@ -23,10 +42,16 @@
                   <img ng-switch-default ng-src="{{s.pic}}">
                 </li>
             </flex-slider>
-             <p> {{obra.descripcion}} </p>
+             <p> {{c.descripcion}} </p>
           </div>
           <div class="col-md-3 ficha-tecnica">
                <h4> Ficha técnica</h4>
+               <p class="etiquetas">
+                    <span  ng-show="obra.compromiso" class="label label-primary compromiso-row">
+                       <img src="images/iconos/compromiso.svg"/>Compromiso de Gobierno</span>
+                    <span  ng-show="obra.destacada" class="label label-primary compromiso-row ">   <img src="images/iconos/archivo.svg"/>Obra Destacada</span>
+                    <span  ng-show="obra.ba_elige" class="label label-primary  compromiso-row ">   <img src="images/iconos/archivo.svg"/>BA Elige</span>
+                </p>
               <div class="etapa">
                 <div class="row">
                    <div class="col-md-2">
@@ -45,10 +70,12 @@
                           </div>
                           <div class="progress-w" ng-show="obra.porcentaje_avance<22" ng-style="{ 'width': (100 - obra.porcentaje_avance) + '%' }"></div>
                         </div>
-                        <div ng-if="!obra.hideDates" class="row fechas" ng-show="obra.fecha_inicio">
-                          <div class="col-md-12">
-                           <progress-line callback="mainCallback">
-                            </progress-line>
+                        <div ng-if="!obra.hideDates" class="row fechas"  ng-show="obra.fecha_inicio">
+                          <div class="col-md-6"  ng-show="obra.fecha_inicio">
+                           <p> Inicio: <strong>{{obra.fecha_inicio}}</strong></p>
+                          </div>
+                          <div class="col-md-6"  ng-show="obra.fecha_fin">
+                           <p> Fin: <strong>{{obra.fecha_fin}}</strong> </p>
                           </div>
 
                         </div>

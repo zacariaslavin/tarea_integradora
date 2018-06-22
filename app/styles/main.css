@@ -491,8 +491,11 @@ div.obra .ficha-tecnica {
   box-shadow: 0 0 4px #aaa;
   padding: 1em;
 }
+div.obra .ficha-tecnica strong{
+  color:#000;
+  font-size: 0.90em;
+}
 div.obra .etapa {
-  border: 2px solid #f1662f;
   padding: 3px;
 }
 div.obra .ficha-tecnica p {
@@ -515,8 +518,8 @@ div.obra .ficha-tecnica .fechas .right {
   text-align: right;
 }
 div.obra .ficha-tecnica .progress {
-  height: 35px;
-  margin-bottom: 15px;
+    height: 24px;
+    margin-bottom: 15px;
 }
 
 div.obra .toolTip {
@@ -567,10 +570,10 @@ div.obra .bar {
   fill-opacity: 0.9;
 }
 div.obra .ficha-tecnica .progress-bar {
-  background-color: #f1662f;
-  background-image: linear-gradient(to bottom, #f1662f 0%, #f1662f 100%);
-  border-color: #f1662f;
-  color: white;
+    background-color: #808080;
+    background-image: linear-gradient(to bottom, #808080 0%, #808080 100%);
+    border-color: #808080;
+    color: black;
 }
 
 /* Historias */
@@ -711,4 +714,49 @@ div.obra .ficha-tecnica .progress-bar {
 
 /* Extra Small Devices, Phones */
 @media only screen and (max-width: 480px) {
+}
+
+
+#tooltip-logo-container.icon{
+    max-width: 50px;
+    border-radius: 100px;
+    height: 50px;
+    text-align: center;
+    margin: 1em;
+}
+
+#tooltip-logo-container.icon img{
+  filter: brightness(1000000);
+  height: 45px;
+
+}
+
+.tooltip-title h3{
+  padding:0;
+  margin-top:0;
+}
+.tooltip-title .col-xs-10{
+  padding:0;
+}
+.tooltip-title p{
+    padding-top: 12px;
+    margin-bottom: 4px;
+}
+
+.ficha-tecnica span{
+    font-weight: 900;
+    padding: 0.5em;
+    border-radius: 1em;
+    margin-right: 4px;
+    font-size: 0.8em;
+    display: inline-block;
+    margin-bottom: 4px;
+}
+
+.ficha-tecnica .etiquetas span img {
+    width: 10px;
+    margin-bottom: 1px;
+    margin-left: 1px;
+    margin-right: 1px;
+}
 }

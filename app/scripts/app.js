@@ -93,6 +93,8 @@ angular
       }
 
       reg.compromiso = reg.compromiso == "SI" ? true : false;
+      reg.destacada = reg.destacada == "SI" ? true : false;
+      reg.ba_elige = reg.ba_elige == "SI" ? true : false;
 
       //arrays
       //reg.tipo = (reg.tipo)?reg.tipo.split('|'):[];

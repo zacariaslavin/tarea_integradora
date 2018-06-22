@@ -6,7 +6,18 @@ angular.module('obrasMduytApp')
   	$scope.pymChild = new window.pym.Child({ polling: 1000 });
     $scope.pymChild.sendHeight();
     $scope.obraId = $routeParams.id;
-
+       $scope.tipo_colors = d3.scale
+      .ordinal()
+      .range([
+        "#A7C64D",
+        "#7874B2",
+        "#F1AD3C",
+        "#38A0D7",
+        "#BD3E93",
+        "#E84D00",
+        "#22B496",
+        "#CC4916"
+      ]);
 
     var tilesUSIG = {
                 url: '//tiles1.usig.buenosaires.gob.ar/mapcache/tms/1.0.0/amba_con_transporte_3857@GoogleMapsCompatible/{z}/{x}/{y}.png',
