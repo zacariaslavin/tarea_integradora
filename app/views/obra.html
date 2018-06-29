@@ -1,6 +1,5 @@
 <div class="row obra">
   	
-      
     <div class="row">
           <div class="col-xs-12">
             <div class="tooltip-title">
@@ -105,6 +104,8 @@
                         <img src="images/iconos/ministerio.svg"/>
                    </div>
                     <div class="col-md-10">
+                      <p> Área responsable: </p>
+                      
                       <strong> {{obra.area_responsable}}</strong>
                     </div>
                   </div>
@@ -172,7 +173,22 @@
                       <strong>  {{obra.monto_contrato | currency}} </strong> 
                     </div>
                   </div>
-                
+                  <div class="row" ng-show="obra.direccion">
+                   <div class="col-md-2">
+                        <img src="images/iconos/pin.svg"/>
+                   </div>
+                    <div class="col-md-10">
+                      <strong>  {{obra.direccion}} </strong> 
+                    </div>
+                  </div>
+                  <div class="row" ng-show="obra.direccion">
+                   <div class="col-md-2">
+                        <img src="images/iconos/dinero.svg"/>
+                   </div>
+                    <div class="col-md-10">
+                      <strong>  {{obra.direccion}} </strong> 
+                    </div>
+                  </div>
                 <div class="row" ng-show="obra.licitacion_presupuesto_oficial">
                    <div class="col-md-2">
                         <img src="images/iconos/dinero.svg"/>
@@ -182,12 +198,29 @@
                       <strong>   {{obra.licitacion_presupuesto_oficial | currency}} </strong> 
                     </div>
                 </div>
-                 <div class="row" ng-show="obra.pliego_descarga">
+                <div class="row" ng-show="obra.financiamiento">
+                   <div class="col-md-2">
+                        <img src="images/iconos/dinero.svg"/>
+                   </div>
+                    <div class="col-md-10">
+                      <p>Financiamiento:</p>
+                      <strong>{{obra.financiamiento}}</strong>
+                    </div>
+                </div>
+                <div class="row" ng-show="obra.pliego_descarga">
                    <div class="col-md-2">
                         <img src="images/iconos/archivo.svg"/>
                    </div>
                     <div class="col-md-10">
-                      <a ng-href="{{obra.pliego_descarga}}" target="_blank"><i class="detalle-frame-icon glyphicon glyphicon glyphicon-download-alt"></i> Ver Pliego </a>
+                      <p><a ng-href="{{obra.pliego_descarga}}" target="_blank">Contrato de licitación </a> </p>
+                    </div>
+                </div>
+                <div class="row" ng-show="obra.estudio_ambiental_descarga">
+                   <div class="col-md-2">
+                        <img src="images/iconos/archivo.svg"/>
+                   </div>
+                    <div class="col-md-10">
+                      <p><a ng-href="{{obra.estudio_ambiental_descarga}}" target="_blank">Estudio de impacto ambiental y social</a> </p>
                     </div>
                 </div>
           </div>

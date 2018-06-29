@@ -31,6 +31,14 @@ angular
     var logoTipoCache = {};
 
     $scope.selectedFilter = false;
+    $scope.labels = {};
+    $scope.labels["espacio-publico"]= "Esta es la descripcion de Espacio Publico";
+    $scope.labels["escuelas"]="Esta es la descripcion de escuelas";
+    $scope.labels["arquitectura"]="Esta es la descripcion de arquitectura";
+    $scope.labels["salud"] = "Esta es la descripcion de salud";
+    $scope.labels["vivienda"] = "Esta es la descripcion de vivienda";
+    $scope.labels["transporte"] = "Esta es la descripcion de transporte";
+    $scope.labels["hidraulica-e-infraestructura"] = "Esta es la descripcion de hidraulica-e-infraestructura";
 
     $scope.availableGroups = [
       { id: "mapa", name: "Mapa" },
