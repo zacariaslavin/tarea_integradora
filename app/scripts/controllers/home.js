@@ -10,7 +10,11 @@ angular
     var scalechart = {};
     var sankeychart = {};
     var bubbles = {};
+    var compromisoIconSVG = "";
+    d3.xml("images/iconos/compromiso.svg", function(e,d){
+      compromisoIconSVG = d;
 
+    });
     $scope.tipo_colors = d3.scale
       .ordinal()
       .range([
@@ -143,6 +147,7 @@ angular
         chart.redes = chart.svg.append("g").attr("id", "redes-group");
 
         bubbles.group = chart.svg.append("g").attr("id", "bubbles-group");
+        bubbles.icons = chart.svg.append("g").attr("id", "bubbles-icons");
 
         chart.selection = chart.svg
           .append("circle")
@@ -378,6 +383,7 @@ angular
     };
 
     $scope.changeGroup = function(group) {
+      console.log(group);
       $scope.selectedGroup = group;
       $scope.showGroup();
     };
@@ -840,6 +846,11 @@ angular
         .transition()
         .duration(750)
         .attr("transform", "translate(" + translate + ")scale(" + scale + ")");
+
+      bubbles.icons
+        .transition()
+        .duration(750)
+        .attr("transform", "translate(" + translate + ")scale(" + scale + ")");
     }
 
     function resetMap() {
@@ -857,6 +868,9 @@ angular
         .duration(750)
         .style("stroke-width", "3px");
 
+      bubbles.icons.transition()
+        .duration(750)
+        .attr("transform", "");
       bubbles.group
         .transition()
         .duration(750)
@@ -1561,8 +1575,12 @@ angular
 
       innerSVG.selectAll("path,rect").attr("fill", "#fff");
     }
-
+    var loadedBanderita = false;
     function renderBubbles() {
+      if ($scope.selectedGroup != "mapa"){
+        bubbles.icons.transition()
+              .duration(500).attr("opacity",0);
+      }
       bubbles.force = d3.layout
         .force()
         .nodes(bubbles.nodes)
@@ -1570,13 +1588,39 @@ angular
         .gravity(0)
         .charge(1)
         .on("tick", tick)
-        .start();
+        .start()
+        .on('end', function() { 
+          if (!loadedBanderita){
+            
+                bubbles.circles.each(function(d){ 
+                    if(d.data.compromiso) {
+                      
+                     var x = d.x - 9;
+                     var y = d.y - 25;
+                      bubbles.icons.append("g")
+                      .attr("class","banderita")
+                      .attr("transform","translate(" + x  + "," + y + ") scale(0.25)")
+                      d3.selectAll('g.banderita').append(function(){ return compromisoIconSVG.cloneNode(true).documentElement;})
+                    }
+                    loadedBanderita = true;
+                  });
+        }else {
+            if ($scope.selectedGroup == "mapa"){
+            bubbles.icons.transition()
+              .duration(500)
+              .attr("opacity",1);
+            }
+        }
+
+          
+        });
 
       bubbles.circles = bubbles.group
         .selectAll("circle.obra")
         .data(bubbles.nodes);
 
       if (!$scope.isSmallDevice) {
+        
         bubbles.circles
           .enter()
           .append("circle")
@@ -1690,7 +1734,9 @@ angular
               .style("left", leftvalue + "px")
               .style("opacity", 1);
           })
-          .on("mouseout", function(d) {});
+          .on("mouseout", function(d) {})
+          
+        
       }
       if ($scope.isSmallDevice) {
         bubbles.circles
@@ -1699,7 +1745,7 @@ angular
           .attr("class", function(d) {
             var red = d.data.red_slug ? "red " + d.data.red_slug : "";
             return (
-              "obra " +
+              "obra "  +
               d.data.tipo_slug +
               " " +
               d.data.area_slug +
@@ -1788,7 +1834,6 @@ angular
         });
 
       bubbles.circles.exit().remove();
-
       $scope.filterBubbles($scope.selectedFilter);
     }
 
