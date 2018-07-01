@@ -17,7 +17,18 @@
       <area-responsable-chart obras="obras" selected-filter="selectedFilter" filter-fn="filterBubbles(filter)"></area-responsable-chart>
   </div>
 </div>
-
+<div class="row">
+  <div class="col-sm-12">
+      <div id="search-box" class="row chart-item">
+        <div class="col-md-2">
+          <h4> Buscar por </h4>
+        </div>
+        <div class="col-md-8 search">
+          <input ng-model="textFilter" ng-change="filterByText" class="form-control" type="search" placeholder="Filtra por nombre o descripcion de obra">
+        </div>
+      </div>
+    </div>
+</div>
 <div id="main-chart-container" class="row">
   <div class="col-sm-12">
       <div id="home-chart-container"></div>
@@ -109,7 +120,7 @@
 
     </div>
   
-  <p class="tooltip-text" ng-show="selectedObra.data.link_interno"><a target="_parent" ng-href="{{selectedObra.data.link_interno}}" class="btn btn-link btn-xs btn-block btn-ver-mas">VER MÁS</a></p>
+  <p  class="tooltip-text" ng-show="selectedObra.data.link_interno"><a target="_parent" ng-href="{{selectedObra.data.link_interno}}" class="btn btn-link btn-xs btn-block btn-ver-mas">VER MÁS</a></p>
 
   <div class="row compromiso-row" ng-show="selectedObra.data.compromiso">
     <div class="col-xs-12">

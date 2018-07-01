@@ -34,6 +34,10 @@ angular
 
     var logoTipoCache = {};
 
+
+
+
+
     $scope.selectedFilter = false;
     $scope.labels = {};
     $scope.labels["espacio-publico"]= "Esta es la descripcion de Espacio Publico";
@@ -113,6 +117,21 @@ angular
         }
       });
     });
+
+    $scope.textFilter = '';
+    $scope.$watch("textFilter", function(newValue, oldValue){
+       $scope.filterByText();
+    });
+    $scope.filterByText = function(){
+      if ($scope.textFilter.length > 3){
+        $scope.filterBubbles($scope.selectedFilter, $scope.textFilter);  
+      }
+      if ($scope.textFilter.length  === 0 ){
+        $scope.filterBubbles($scope.selectedFilter);
+      }
+      
+
+    }
 
     /** Generic Functions ====================================================== **/
 
@@ -364,22 +383,34 @@ angular
     };
 
     $scope.filterBubbles = function(filterSlug) {
+      
       if ($scope.selectedFilter == filterSlug) {
         d3.selectAll("circle.obra").style("opacity", 1);
         filterSlug = false;
-      } else {
-        if (filterSlug == "") {
+      } 
+      if (filterSlug == "" && $scope.textFilter == "") {
           d3.selectAll("circle.obra").style("opacity", 1);
-        } else {
+      }else if ($scope.textFilter == ""){
           d3.selectAll("circle.obra").style("opacity", 0.3);
-          d3.selectAll("circle.obra." + filterSlug).style("opacity", 1);
-        }
+          d3.selectAll("circle.obra." + filterSlug).style("opacity", 1);  
+      }else {
+            d3.selectAll("circle.obra").style("opacity", 0.3);
+            var allText = $scope.textFilter.toLowerCase().split(' ');
+            for (var i = 0; i < allText.length; i++) {
+              var cls = ""
+              if (filterSlug != ""){
+                cls += "." + filterSlug;
+              }
+              cls += "." + allText[i];
+              d3.selectAll("circle.obra" + cls ).style("opacity", 1);
+            }
       }
+      
       $scope.selectedFilter = filterSlug;
       $scope.closeTooltip();
-      //if (!$scope.$$phase) {
+      if (!$scope.$$phase) {
       $scope.$apply();
-      //}
+      }
     };
 
     $scope.changeGroup = function(group) {
@@ -1634,7 +1665,9 @@ angular
               " " +
               d.data.etapa_slug +
               " " +
-              red
+              red +
+              " " +
+              d.data.nombre.toLowerCase()
             );
           })
           .on("mouseenter", function(d) {
