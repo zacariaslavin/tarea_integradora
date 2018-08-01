@@ -456,26 +456,6 @@ rect.click-rect {
   cursor: pointer;
 }
 
-#sankey-chart-container .node rect {
-  fill-opacity: 0.9;
-  shape-rendering: crispEdges;
-}
-
-#sankey-chart-container .node text {
-  pointer-events: none;
-  text-shadow: 0 1px 0 #fff;
-}
-
-#sankey-chart-container .link {
-  fill: none;
-  stroke: #000;
-  stroke-opacity: 0.2;
-}
-
-#sankey-chart-container .link:hover {
-  stroke-opacity: 0.5;
-}
-
 slick.slider-nav img {
   max-width: 50%;
   text-align: center;
@@ -491,17 +471,17 @@ div.obra .ficha-tecnica {
   box-shadow: 0 0 4px #aaa;
   padding: 1em;
 }
-div.obra .ficha-tecnica strong{
-  color:#000;
-  font-size: 0.90em;
+div.obra .ficha-tecnica strong {
+  color: #000;
+  font-size: 0.9em;
 }
 div.obra .etapa {
   padding: 3px;
 }
 div.obra .ficha-tecnica p {
-    margin: 4px 0;
-    color: darkgray;
-    font-size: 0.9em;
+  margin: 4px 0;
+  color: darkgray;
+  font-size: 0.9em;
 }
 div.obra .ficha-tecnica h4 {
   color: #808080;
@@ -518,8 +498,8 @@ div.obra .ficha-tecnica .fechas .right {
   text-align: right;
 }
 div.obra .ficha-tecnica .progress {
-    height: 24px;
-    margin-bottom: 15px;
+  height: 24px;
+  margin-bottom: 15px;
 }
 
 div.obra .toolTip {
@@ -570,10 +550,10 @@ div.obra .bar {
   fill-opacity: 0.9;
 }
 div.obra .ficha-tecnica .progress-bar {
-    background-color: #808080;
-    background-image: linear-gradient(to bottom, #808080 0%, #808080 100%);
-    border-color: #808080;
-    color: black;
+  background-color: #808080;
+  background-image: linear-gradient(to bottom, #808080 0%, #808080 100%);
+  border-color: #808080;
+  color: black;
 }
 
 /* Historias */
@@ -716,58 +696,53 @@ div.obra .ficha-tecnica .progress-bar {
 @media only screen and (max-width: 480px) {
 }
 
-
-#tooltip-logo-container.icon{
-    max-width: 50px;
-    border-radius: 100px;
-    height: 50px;
-    text-align: center;
-    margin: 1em;
+#tooltip-logo-container.icon {
+  max-width: 50px;
+  border-radius: 100px;
+  height: 50px;
+  text-align: center;
+  margin: 1em;
 }
 
-#tooltip-logo-container.icon img{
+#tooltip-logo-container.icon img {
   filter: brightness(1000000);
   height: 45px;
-
 }
 
-.tooltip-title h3{
-  padding:0;
-  margin-top:0;
+.tooltip-title h3 {
+  padding: 0;
+  margin-top: 0;
 }
-.tooltip-title .col-xs-10{
-  padding:0;
+.tooltip-title .col-xs-10 {
+  padding: 0;
 }
-.tooltip-title p{
-    padding-top: 12px;
-    margin-bottom: 4px;
+.tooltip-title p {
+  padding-top: 12px;
+  margin-bottom: 4px;
 }
 
-.ficha-tecnica span{
-    font-weight: 900;
-    padding: 0.5em;
-    border-radius: 1em;
-    margin-right: 4px;
-    font-size: 0.8em;
-    display: inline-block;
-    margin-bottom: 4px;
+.ficha-tecnica span {
+  font-weight: 900;
+  padding: 0.5em;
+  border-radius: 1em;
+  margin-right: 4px;
+  font-size: 0.8em;
+  display: inline-block;
+  margin-bottom: 4px;
 }
 
 .ficha-tecnica .etiquetas span img {
-    width: 10px;
-    margin-bottom: 1px;
-    margin-left: 1px;
-    margin-right: 1px;
+  width: 10px;
+  margin-bottom: 1px;
+  margin-left: 1px;
+  margin-right: 1px;
 }
 #search-box {
-    padding-top: 10px;
+  padding-top: 10px;
 }
-.search{
-    vertical-align: middle;
-    display: table-cell;
-    vertical-align: middle;
-    padding-top: 1em;
+.search {
+  padding-top: 5px;
 }
-.search input{
+.search input {
   width: 100%;
 }

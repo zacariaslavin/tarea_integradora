@@ -5,15 +5,16 @@ angular
   .controller("HomeCtrl", function($scope, DataService, $filter, $http, $sce) {
     var d3 = window.d3;
 
-    $scope.pymChild = new window.pym.Child({ polling: 1000 });
+    $scope.loading = true;
+    $scope.pymChild = new window.pym.Child({
+      polling: 1000
+    });
     var chart = {};
     var scalechart = {};
-    var sankeychart = {};
     var bubbles = {};
     var compromisoIconSVG = "";
-    d3.xml("images/iconos/compromiso.svg", function(e,d){
+    d3.xml("images/iconos/compromiso.svg", function(e, d) {
       compromisoIconSVG = d;
-
     });
     $scope.tipo_colors = d3.scale
       .ordinal()
@@ -34,19 +35,17 @@ angular
 
     var logoTipoCache = {};
 
-
-
-
-
     $scope.selectedFilter = false;
     $scope.labels = {};
-    $scope.labels["espacio-publico"]= "Esta es la descripcion de Espacio Publico";
-    $scope.labels["escuelas"]="Esta es la descripcion de escuelas";
-    $scope.labels["arquitectura"]="Esta es la descripcion de arquitectura";
+    $scope.labels["espacio-publico"] =
+      "Esta es la descripcion de Espacio Publico";
+    $scope.labels["escuelas"] = "Esta es la descripcion de escuelas";
+    $scope.labels["arquitectura"] = "Esta es la descripcion de arquitectura";
     $scope.labels["salud"] = "Esta es la descripcion de salud";
     $scope.labels["vivienda"] = "Esta es la descripcion de vivienda";
     $scope.labels["transporte"] = "Esta es la descripcion de transporte";
-    $scope.labels["hidraulica-e-infraestructura"] = "Esta es la descripcion de hidraulica-e-infraestructura";
+    $scope.labels["hidraulica-e-infraestructura"] =
+      "Esta es la descripcion de hidraulica-e-infraestructura";
 
     $scope.availableGroups = [
       { id: "mapa", name: "Mapa" },
@@ -58,6 +57,8 @@ angular
     $scope.selectedRadioDimension = "monto_contrato";
 
     $scope.tooltip = d3.select("#tooltip-home-chart");
+
+    $scope.pymChild.sendHeight();
 
     var renderFunctions = {
       comunas: renderComunasGroup,
@@ -99,8 +100,11 @@ angular
       $scope.obras = data;
       $scope.selectedGroup = "mapa";
 
-      //renderSankeyChart();
-      renderChart();
+      $scope.loading = false;
+
+      setTimeout(function() {
+        renderChart();
+      }, 1000);
       window.$(window).resize(function() {
         if (w != $(window).width()) {
           clearTimeout($scope.timeoutId);
@@ -111,27 +115,26 @@ angular
               etapas: false,
               mapa: false
             };
-            //renderSankeyChart();
             renderChart();
           }, 1000);
         }
       });
     });
 
-    $scope.textFilter = '';
-    $scope.$watch("textFilter", function(newValue, oldValue){
-       $scope.filterByText();
-    });
-    $scope.filterByText = function(){
-      if ($scope.textFilter.length > 3){
-        $scope.filterBubbles($scope.selectedFilter, $scope.textFilter);  
+    $scope.textFilter = "";
+    $scope.$watch("textFilter", function(newValue, oldValue) {
+      if (!$scope.loading) {
+        $scope.filterByText();
       }
-      if ($scope.textFilter.length  === 0 ){
+    });
+    $scope.filterByText = function() {
+      if ($scope.textFilter.length > 3) {
+        $scope.filterBubbles($scope.selectedFilter, $scope.textFilter);
+      }
+      if ($scope.textFilter.length === 0) {
         $scope.filterBubbles($scope.selectedFilter);
       }
-      
-
-    }
+    };
 
     /** Generic Functions ====================================================== **/
 
@@ -163,7 +166,6 @@ angular
         chart.svg.append("g").attr("id", "map-group");
         chart.svg.append("g").attr("id", "etapas-group");
         chart.svg.append("g").attr("id", "montos-group");
-        chart.redes = chart.svg.append("g").attr("id", "redes-group");
 
         bubbles.group = chart.svg.append("g").attr("id", "bubbles-group");
         bubbles.icons = chart.svg.append("g").attr("id", "bubbles-icons");
@@ -191,165 +193,6 @@ angular
       $scope.showGroup();
     }
 
-    function renderScaleChart() {
-      scalechart.w = d3
-        .select("#scale-chart-container")
-        .node()
-        .getBoundingClientRect().width;
-
-      scalechart.h = 300;
-      scalechart.margin = scalechart.w / 100;
-
-      scalechart.gap = 5;
-
-      scalechart.nFormatter = function(num, digits) {
-        var si = [
-            /*        { value: 1E18, symbol: "E" },
-        { value: 1E15, symbol: "P" },
-        { value: 1E12, symbol: "T" },
-        { value: 1E9,  symbol: "G" },*/
-            { value: 1e6, symbol: " millones" },
-            { value: 1e3, symbol: " mil" }
-          ],
-          rx = /\.0+$|(\.[0-9]*[1-9])0+$/,
-          i;
-        for (i = 0; i < si.length; i++) {
-          if (num >= si[i].value) {
-            return (
-              $filter("currency")(
-                (num / si[i].value).toFixed(digits).replace(rx, "$1"),
-                "$",
-                0
-              ).replace(/\,/g, ".") + si[i].symbol
-            );
-          }
-        }
-        return num.toFixed(digits).replace(rx, "$1");
-      };
-
-      if (!scalechart.svg) {
-        //Create
-        scalechart.svg = d3.select("#scale-chart-container").append("svg");
-        scalechart.mainGroup = scalechart.svg
-          .append("g")
-          .classed("main-group", true);
-        scalechart.mainGroup.append("rect").attr("fill", "white");
-      }
-
-      var legendData;
-      if (bubbles.scale) {
-        var domain = bubbles.scale.domain();
-        var range = bubbles.scale.range();
-
-        //format $
-        //var max = $filter('currency')(NN, '$', 0).replace(/\,/g,'.')
-        //$filter('currency')((domain[0]+domain[1])/2, '$', 0).replace(/\,/g,'.')
-
-        legendData = [
-          {
-            legend: scalechart.nFormatter(domain[1], 0),
-            radius: scalechart.w / 8
-          },
-          {
-            legend: scalechart.nFormatter((domain[0] + domain[1]) / 2, 0),
-            radius: scalechart.w / 12
-          },
-          {
-            legend: scalechart.nFormatter(domain[0], 0),
-            radius: scalechart.w / 16
-          }
-        ];
-      } else {
-        legendData = [{ legend: "Obra", radius: 10 }];
-      }
-
-      //Update
-
-      scalechart.groups = scalechart.mainGroup
-        .selectAll("g.legend-group")
-        .data(legendData);
-
-      scalechart.groups
-        .enter()
-        .append("g")
-        .attr("id", function(d, i) {
-          return "legend-group-" + i;
-        })
-        .classed("legend-group", true)
-        .each(function(d) {
-          var group = d3.select(this);
-
-          group
-            .append("circle")
-            .datum(d)
-            .classed("legend-circle", true)
-            .attr("fill", "#B5B5B5");
-
-          group
-            .append("text")
-            .datum(d)
-            .classed("legend-text", true)
-            .attr("fill", "#000");
-        });
-
-      scalechart.groups.each(function(d) {
-        var group = d3.select(this);
-
-        group.select("circle").datum(d);
-
-        group.select("text").datum(d);
-      });
-
-      scalechart.groups.exit().remove();
-
-      var acum = 0;
-
-      scalechart.groups.transition().attr("transform", function(d) {
-        var y = acum;
-        acum += scalechart.gap + d.radius * 2;
-        return "translate(0," + y + ")";
-      });
-
-      var maxRadius = d3.max(legendData, function(d) {
-        return d.radius;
-      });
-
-      scalechart.groups
-        .selectAll("circle.legend-circle")
-        .attr("cy", function(d) {
-          return d.radius;
-        })
-        .attr("cx", function(d) {
-          return maxRadius;
-        })
-        .attr("r", function(d) {
-          return d.radius;
-        });
-
-      scalechart.groups
-        .selectAll("text.legend-text")
-        .attr("text-anchor", "start")
-        .attr("x", function(d) {
-          return maxRadius * 2 + 3;
-        })
-        .attr("y", function(d) {
-          return d.radius + 5;
-        })
-        .style("opacity", 0)
-        .text(function(d) {
-          return d.legend;
-        })
-        .transition()
-        .style("opacity", 1);
-
-      scalechart.svg.attr("width", scalechart.w).attr("height", acum);
-
-      scalechart.mainGroup
-        .select("rect")
-        .attr("width", scalechart.w)
-        .attr("height", acum);
-    }
-
     function sortItems($items, itemW, itemH) {
       var xLimit = Math.floor(chart.w / itemW),
         xCount = 0,
@@ -372,44 +215,33 @@ angular
         });
     }
 
-    $scope.tipoChartFinished = function() {
-      //console.log('$scope.tipoChartFinished');
-      //renderSankeyChart();
-      //renderChart();
-      /*bubbles.circles
-        .style("fill", function(d) {
-          return $scope.tipo_colors(d.data.tipo);
-        });*/
-    };
-
     $scope.filterBubbles = function(filterSlug) {
-      
       if ($scope.selectedFilter == filterSlug) {
         d3.selectAll("circle.obra").style("opacity", 1);
         filterSlug = false;
-      } 
-      if (filterSlug == "" && $scope.textFilter == "") {
-          d3.selectAll("circle.obra").style("opacity", 1);
-      }else if ($scope.textFilter == ""){
-          d3.selectAll("circle.obra").style("opacity", 0.3);
-          d3.selectAll("circle.obra." + filterSlug).style("opacity", 1);  
-      }else {
-            d3.selectAll("circle.obra").style("opacity", 0.3);
-            var allText = $scope.textFilter.toLowerCase().split(' ');
-            for (var i = 0; i < allText.length; i++) {
-              var cls = ""
-              if (filterSlug != ""){
-                cls += "." + filterSlug;
-              }
-              cls += "." + allText[i];
-              d3.selectAll("circle.obra" + cls ).style("opacity", 1);
-            }
       }
-      
+      if (filterSlug == "" && $scope.textFilter == "") {
+        d3.selectAll("circle.obra").style("opacity", 1);
+      } else if ($scope.textFilter == "") {
+        d3.selectAll("circle.obra").style("opacity", 0.3);
+        d3.selectAll("circle.obra." + filterSlug).style("opacity", 1);
+      } else {
+        d3.selectAll("circle.obra").style("opacity", 0.3);
+        var allText = $scope.textFilter.toLowerCase().split(" ");
+        for (var i = 0; i < allText.length; i++) {
+          var cls = "";
+          if (filterSlug != "") {
+            cls += "." + filterSlug;
+          }
+          cls += "." + allText[i];
+          d3.selectAll("circle.obra" + cls).style("opacity", 1);
+        }
+      }
+
       $scope.selectedFilter = filterSlug;
       $scope.closeTooltip();
       if (!$scope.$$phase) {
-      $scope.$apply();
+        $scope.$apply();
       }
     };
 
@@ -447,278 +279,6 @@ angular
         renderBubbles();
       }, time);
     };
-
-    function renderSankeyChart() {
-      sankeychart.w = d3
-        .select("#sankey-chart-container")
-        .node()
-        .getBoundingClientRect().width;
-
-      sankeychart.w =
-        !sankeychart.svg || sankeychart.w < 500
-          ? sankeychart.w - 15
-          : sankeychart.w;
-
-      sankeychart.h = 700;
-      sankeychart.margin = sankeychart.w / 100;
-
-      // the function for moving the nodes
-      function dragmove(d) {
-        d3
-          .select(this)
-          .attr(
-            "transform",
-            "translate(" +
-              d.x +
-              "," +
-              (d.y = Math.max(0, Math.min(sankeychart.h - d.dy, d3.event.y))) +
-              ")"
-          );
-
-        sankeychart.sankey.relayout();
-
-        sankeychart.link.attr("d", sankeychart.path);
-      }
-
-      function prepareSankeyData() {
-        //set up graph in same style as original example but empty
-        var graph = { nodes: [], links: [] };
-
-        var data = [];
-
-        var temp = d3
-          .nest()
-          .key(function(d) {
-            return d.comuna;
-          })
-          .rollup(function(hojasComuna) {
-            return {
-              cantidad: hojasComuna.length,
-              hijos: d3
-                .nest()
-                .key(function(d) {
-                  return d.tipo;
-                })
-                .rollup(function(hojasTipo) {
-                  return {
-                    cantidad: hojasTipo.length,
-                    hijos: d3
-                      .nest()
-                      .key(function(d) {
-                        return d.etapa;
-                      })
-                      .rollup(function(hojasEtapa) {
-                        return {
-                          cantidad: hojasEtapa.length,
-                          hijos: hojasEtapa
-                        };
-                      })
-                      .map(
-                        hojasTipo.filter(function(d) {
-                          return d.etapa != "";
-                        })
-                      )
-                  };
-                })
-                .map(
-                  hojasComuna.filter(function(d) {
-                    return d.tipo != "";
-                  })
-                )
-            };
-          })
-          .map(
-            $scope.obras.filter(function(d) {
-              return d.comuna && d.tipo && d.etapa;
-            })
-          );
-
-        _.each(temp, function(c, comuna) {
-          _.each(c.hijos, function(t, tipo) {
-            data.push({
-              source: comuna,
-              target: tipo,
-              value: t.cantidad
-            });
-            _.each(t.hijos, function(e, etapa) {
-              data.push({
-                source: tipo,
-                target: etapa,
-                value: e.cantidad
-              });
-            });
-          });
-        });
-
-        var links = {};
-
-        data.forEach(function(d) {
-          graph.nodes.push({ name: d.source });
-          graph.nodes.push({ name: d.target });
-
-          if (!links[d.source + "|" + d.target]) {
-            links[d.source + "|" + d.target] = {
-              source: d.source,
-              target: d.target,
-              value: 0
-            };
-          }
-
-          links[d.source + "|" + d.target].value += d.value;
-
-          /*graph.links.push({ "source": d.source,
-                             "target": d.target,
-                             "value": +d.value });*/
-        });
-
-        _.forOwn(links, function(value, key) {
-          graph.links.push(value);
-        });
-
-        // return only the distinct / unique nodes
-        graph.nodes = d3.keys(
-          d3
-            .nest()
-            .key(function(d) {
-              return d.name;
-            })
-            .map(graph.nodes)
-        );
-
-        // loop through each link replacing the text with its index from node
-        graph.links.forEach(function(d, i) {
-          graph.links[i].source = graph.nodes.indexOf(graph.links[i].source);
-          graph.links[i].target = graph.nodes.indexOf(graph.links[i].target);
-        });
-
-        //now loop through each nodes to make nodes an array of objects
-        // rather than an array of strings
-        graph.nodes.forEach(function(d, i) {
-          graph.nodes[i] = { "node:": i, name: d };
-        });
-
-        return graph;
-      }
-
-      if (!sankeychart.svg) {
-        //Create
-        sankeychart.svg = d3.select("#sankey-chart-container").append("svg");
-        sankeychart.mainGroup = sankeychart.svg
-          .append("g")
-          .classed("main-group", true);
-        sankeychart.mainGroup.append("rect").attr("fill", "white");
-      }
-
-      //Update
-      sankeychart.svg
-        .attr("width", sankeychart.w)
-        .attr("height", sankeychart.h);
-
-      sankeychart.mainGroup
-        .select("rect")
-        .attr("width", sankeychart.w)
-        .attr("height", sankeychart.h);
-
-      sankeychart.sankey = d3
-        .sankey()
-        .nodeWidth(20)
-        .nodePadding(2)
-        .size([sankeychart.w, sankeychart.h]);
-
-      sankeychart.path = sankeychart.sankey.link();
-
-      sankeychart.graph = prepareSankeyData();
-
-      //render
-      sankeychart.sankey
-        .nodes(sankeychart.graph.nodes)
-        .links(sankeychart.graph.links)
-        .layout(32);
-
-      sankeychart.link = sankeychart.mainGroup
-        .selectAll(".link")
-        .data(sankeychart.graph.links)
-        .enter()
-        .append("path")
-        .attr("class", "link")
-        .attr("d", sankeychart.path)
-        .style("stroke-width", function(d) {
-          return Math.max(1, d.dy);
-        })
-        .style("stroke", function(d) {
-          return $scope.tipo_colors.domain().indexOf(d.source.name) > -1
-            ? $scope.tipo_colors(d.source.name)
-            : $scope.tipo_colors(d.target.name);
-        })
-        .sort(function(a, b) {
-          return b.dy - a.dy;
-        });
-
-      // add the link titles
-      sankeychart.link.append("title").text(function(d) {
-        var from = isNaN(d.source.name)
-          ? d.source.name
-          : "Comuna " + d.source.name;
-        return from + " → " + d.target.name + "\nObras: " + d.value;
-      });
-
-      // add in the nodes
-      sankeychart.node = sankeychart.mainGroup
-        .selectAll(".node")
-        .data(sankeychart.graph.nodes)
-        .enter()
-        .append("g")
-        .attr("class", "node")
-        .attr("transform", function(d) {
-          return "translate(" + d.x + "," + d.y + ")";
-        });
-
-      // add the rectangles for the nodes
-      sankeychart.node
-        .append("rect")
-        .attr("height", function(d) {
-          return d.dy;
-        })
-        .attr("width", sankeychart.sankey.nodeWidth())
-        .style("fill", function(d) {
-          return $scope.tipo_colors.domain().indexOf(d.name) > -1
-            ? $scope.tipo_colors(d.name)
-            : "#000";
-        })
-        .append("title")
-        .text(function(d) {
-          var name = isNaN(d.name) ? d.name : "Comuna " + d.name;
-          name += "\nObras: " + d.value;
-          return name;
-        });
-
-      // add in the title for the nodes
-      sankeychart.node
-        .append("text")
-        .attr("y", function(d) {
-          return d.dy / 2;
-        })
-        .attr("x", function(d) {
-          return isNaN(d.name) ? -3 : 3 + sankeychart.sankey.nodeWidth();
-        })
-        .attr("text-anchor", function(d) {
-          return isNaN(d.name) ? "end" : "start";
-        })
-        .attr("dy", ".35em")
-        .attr("transform", null)
-        .style("font-size", function(d) {
-          return isNaN(d.name) ? "14px" : "10px";
-        })
-        .text(function(d) {
-          return d.name;
-        })
-        .filter(function(d) {
-          return d.x < sankeychart.width / 2;
-        });
-
-      //default, comunas
-      //$scope.showGroup($scope.selectedGroup);
-    }
 
     /** MAPA Functions ====================================================== **/
 
@@ -842,7 +402,6 @@ angular
         });
 
       bubbles.scale = false;
-      //renderScaleChart();
     }
 
     var activeMap = d3.select(null);
@@ -899,7 +458,8 @@ angular
         .duration(750)
         .style("stroke-width", "3px");
 
-      bubbles.icons.transition()
+      bubbles.icons
+        .transition()
         .duration(750)
         .attr("transform", "");
       bubbles.group
@@ -1028,8 +588,6 @@ angular
         .linear()
         .domain([parseInt(min), parseInt(max)])
         .range([10, filterId ? 100 : 50]);
-
-      //renderScaleChart();
 
       bubbles.nodes = filtered
         .filter(function(d) {
@@ -1481,8 +1039,6 @@ angular
         .domain([parseInt(min), parseInt(max)])
         .range([10, filterId ? 100 : 50]);
 
-      //renderScaleChart();
-
       bubbles.nodes = filtered.map(function(d) {
         var i = "e-" + d.etapa_slug,
           r = filterId ? 10 : 5,
@@ -1608,9 +1164,11 @@ angular
     }
     var loadedBanderita = false;
     function renderBubbles() {
-      if ($scope.selectedGroup != "mapa"){
-        bubbles.icons.transition()
-              .duration(500).attr("opacity",0);
+      if ($scope.selectedGroup != "mapa") {
+        bubbles.icons
+          .transition()
+          .duration(500)
+          .attr("opacity", 0);
       }
       bubbles.force = d3.layout
         .force()
@@ -1620,30 +1178,33 @@ angular
         .charge(1)
         .on("tick", tick)
         .start()
-        .on('end', function() { 
-          if (!loadedBanderita){
-            
-                bubbles.circles.each(function(d){ 
-                    if(d.data.compromiso) {
-                      
-                     var x = d.x - 9;
-                     var y = d.y - 25;
-                      bubbles.icons.append("g")
-                      .attr("class","banderita")
-                      .attr("transform","translate(" + x  + "," + y + ") scale(0.25)")
-                      d3.selectAll('g.banderita').append(function(){ return compromisoIconSVG.cloneNode(true).documentElement;})
-                    }
-                    loadedBanderita = true;
-                  });
-        }else {
-            if ($scope.selectedGroup == "mapa"){
-            bubbles.icons.transition()
-              .duration(500)
-              .attr("opacity",1);
+        .on("end", function() {
+          if (!loadedBanderita) {
+            bubbles.circles.each(function(d) {
+              if (d.data.compromiso) {
+                var x = d.x - 9;
+                var y = d.y - 25;
+                bubbles.icons
+                  .append("g")
+                  .attr("class", "banderita")
+                  .attr(
+                    "transform",
+                    "translate(" + x + "," + y + ") scale(0.25)"
+                  );
+                d3.selectAll("g.banderita").append(function() {
+                  return compromisoIconSVG.cloneNode(true).documentElement;
+                });
+              }
+              loadedBanderita = true;
+            });
+          } else {
+            if ($scope.selectedGroup == "mapa") {
+              bubbles.icons
+                .transition()
+                .duration(500)
+                .attr("opacity", 1);
             }
-        }
-
-          
+          }
         });
 
       bubbles.circles = bubbles.group
@@ -1651,7 +1212,6 @@ angular
         .data(bubbles.nodes);
 
       if (!$scope.isSmallDevice) {
-        
         bubbles.circles
           .enter()
           .append("circle")
@@ -1767,9 +1327,7 @@ angular
               .style("left", leftvalue + "px")
               .style("opacity", 1);
           })
-          .on("mouseout", function(d) {})
-          
-        
+          .on("mouseout", function(d) {});
       }
       if ($scope.isSmallDevice) {
         bubbles.circles
@@ -1778,7 +1336,7 @@ angular
           .attr("class", function(d) {
             var red = d.data.red_slug ? "red " + d.data.red_slug : "";
             return (
-              "obra "  +
+              "obra " +
               d.data.tipo_slug +
               " " +
               d.data.area_slug +

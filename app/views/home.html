@@ -1,66 +1,56 @@
-<div class="row">
+<div ng-show="loading" class="row">
   <div class="col-sm-12">
-      <stats-home obras="obras"></stats-home>
+    <h1 id="loading" class="text-center">Cargando obras</h1>
+    <p class="text-center"><img src="images/loader.gif"/></p>
+    <hr/>
   </div>
 </div>
 
-<selector-home list="availableGroups" selected-group="selectedGroup" update-fn="changeGroup(group)"></selector-home>
 
-<div class="row">
-  <div class="col-sm-12">
-      <tipo-chart labels="labels" obras="obras" selected-filter="selectedFilter" filter-fn="filterBubbles(filter)" tipo-colors="tipo_colors" finish-fn="tipoChartFinished()"></tipo-chart>
-  </div>
-</div>
+<div ng-if="!loading">
 
-<div class="row">
-  <div class="col-sm-12">
-      <area-responsable-chart obras="obras" selected-filter="selectedFilter" filter-fn="filterBubbles(filter)"></area-responsable-chart>
+  <div class="row">
+    <div class="col-sm-12">
+        <stats-home obras="obras"></stats-home>
+    </div>
   </div>
-</div>
-<div class="row">
-  <div class="col-sm-12">
-      <div id="search-box" class="row chart-item">
-        <div class="col-md-2">
-          <h4> Buscar por </h4>
-        </div>
-        <div class="col-md-8 search">
-          <input ng-model="textFilter" ng-change="filterByText" class="form-control" type="search" placeholder="Filtra por nombre o descripcion de obra">
+
+  <selector-home list="availableGroups" selected-group="selectedGroup" update-fn="changeGroup(group)"></selector-home>
+
+  <div class="row">
+    <div class="col-sm-12">
+        <tipo-chart labels="labels" obras="obras" selected-filter="selectedFilter" filter-fn="filterBubbles(filter)" tipo-colors="tipo_colors" finish-fn="tipoChartFinished()"></tipo-chart>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-sm-12">
+        <area-responsable-chart obras="obras" selected-filter="selectedFilter" filter-fn="filterBubbles(filter)"></area-responsable-chart>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-12">
+        <div id="search-box" class="row chart-item">
+          <div class="col-md-2">
+            <h4> Buscar por </h4>
+          </div>
+          <div class="col-md-8 search">
+            <input ng-model="textFilter" ng-change="filterByText" class="form-control" type="search" placeholder="Filtra por nombre o descripcion de obra">
+          </div>
         </div>
       </div>
+  </div>
+  <div id="main-chart-container" class="row">
+    <div class="col-sm-12">
+        <div id="home-chart-container"></div>
     </div>
-</div>
-<div id="main-chart-container" class="row">
-  <div class="col-sm-12">
-      <div id="home-chart-container"></div>
   </div>
-</div>
 
-<div id="mobile-filler" class="row">
+  <div id="mobile-filler" class="row">
+
+  </div>
 
 </div>
-
-<!--div class="row">
-  <div class="col-md-12">
-    <h4>Obras para una Ciudad a tu medida</h4>
-    <p>En un solo vistazo, conocé qué estamos haciendo para mejorar la Ciudad.</p>
-  </div>
-  <div class="col-xs-4">
-    Dónde: Comunas
-  </div>
-  <div class="col-xs-4 text-center">
-    Qué hacemos: Tipos de obras
-  </div>
-  <div class="col-xs-4 text-right">
-    Cómo vamos: Etapas
-  </div>
-</div>
-
-<div class="row">
-  <div class="col-md-12">
-    <div id="sankey-chart-container"></div>
-  </div>
-</div-->
-
 
 <!-- Tooltip OBRAS -->
 <div id="tooltip-home-chart">
