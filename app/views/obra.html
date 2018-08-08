@@ -58,10 +58,11 @@
             <div class="col-md-3 ficha-tecnica">
                  <h4> Ficha técnica</h4>
                  <p class="etiquetas">
-                      <span  ng-show="obra.compromiso" class="label label-primary compromiso-row">
-                         <img src="images/iconos/compromiso.svg"/>Compromiso de Gobierno</span>
-                      <span  ng-show="obra.destacada" class="label label-primary compromiso-row ">   <img src="images/iconos/archivo.svg"/>Obra Destacada</span>
-                      <span  ng-show="obra.ba_elige" class="label label-primary  compromiso-row ">   <img src="images/iconos/archivo.svg"/>BA Elige</span>
+                      {{obra.compromiso}}
+                      <a href="http://www.buenosaires.gob.ar/compromisos" target="_blank>"><span  ng-show="obra.compromiso" class="label label-primary compromiso-row compromiso">
+                         <img src="images/iconos/compromiso.svg"/>Compromiso de Gobierno</span></a>
+                      <span  ng-show="obra.destacada" class="label label-primary compromiso-row destacada">   <img src="images/iconos/archivo.svg"/>Obra Destacada</span>
+                      <a href="https://baelige.buenosaires.gob.ar/"  target="_blank>"> <span  ng-show="obra.ba_elige" class="label label-primary  compromiso-row ba-elige ">   <img src="images/iconos/archivo.svg"/>BA Elige</span></a>
                   </p>
                 <div class="etapa">
                   <div class="row">
@@ -128,6 +129,13 @@
                       <div class="col-md-10">
                         <p>  Empresa: </p>
                         <strong> {{obra.licitacion_oferta_empresa}}</strong>
+                        <p>  Tipo contratista: </p>    
+                        <strong> {{obra.contratista_tipo}}</strong>
+                        <p>  Nro contratación: </p>
+                        <strong> {{obra.nro_contratacion}}</strong>
+                        <p>  CUIT: </p>
+                        <strong> {{obra.cuit_contratista}}</strong>
+                        
                       </div>
                     </div>
                     <div class="row" ng-show="obra.plazo_meses">
@@ -187,15 +195,7 @@
                     </div>
                     <div class="row" ng-show="obra.direccion">
                      <div class="col-md-2">
-                          <img src="images/iconos/pin.svg"/>
-                     </div>
-                      <div class="col-md-10">
-                        <strong>  {{obra.direccion}} </strong> 
-                      </div>
-                    </div>
-                    <div class="row" ng-show="obra.direccion">
-                     <div class="col-md-2">
-                          <img src="images/iconos/dinero.svg"/>
+                          <img src="images/iconos/location.svg"/>
                      </div>
                       <div class="col-md-10">
                         <strong>  {{obra.direccion}} </strong> 
@@ -215,7 +215,7 @@
                           <img src="images/iconos/dinero.svg"/>
                      </div>
                       <div class="col-md-10">
-                        <p>Financiamiento:</p>
+                        <p>Financiador:</p>
                         <strong>{{obra.financiamiento}}</strong>
                       </div>
                   </div>
@@ -224,7 +224,7 @@
                           <img src="images/iconos/archivo.svg"/>
                      </div>
                       <div class="col-md-10">
-                        <p><a ng-href="{{obra.pliego_descarga}}" target="_blank">Contrato de licitación </a> </p>
+                        <p><a ng-href="{{obra.pliego_descarga}}" target="_blank">Proceso de contratación </a> </p>
                       </div>
                   </div>
                   <div class="row" ng-show="obra.estudio_ambiental_descarga">
@@ -232,7 +232,7 @@
                           <img src="images/iconos/archivo.svg"/>
                      </div>
                       <div class="col-md-10">
-                        <p><a ng-href="{{obra.estudio_ambiental_descarga}}" target="_blank">Estudio de impacto ambiental y social</a> </p>
+                        <p><a ng-href="{{obra.estudio_ambiental_descarga}}" target="_blank">Evaluación de impacto ambiental</a> </p>
                       </div>
                   </div>
             </div>

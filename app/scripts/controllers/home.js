@@ -37,15 +37,13 @@ angular
 
     $scope.selectedFilter = false;
     $scope.labels = {};
-    $scope.labels["espacio-publico"] =
-      "Esta es la descripcion de Espacio Publico";
-    $scope.labels["escuelas"] = "Esta es la descripcion de escuelas";
-    $scope.labels["arquitectura"] = "Esta es la descripcion de arquitectura";
-    $scope.labels["salud"] = "Esta es la descripcion de salud";
-    $scope.labels["vivienda"] = "Esta es la descripcion de vivienda";
-    $scope.labels["transporte"] = "Esta es la descripcion de transporte";
-    $scope.labels["hidraulica-e-infraestructura"] =
-      "Esta es la descripcion de hidraulica-e-infraestructura";
+    $scope.labels["espacio-publico"] ="Obras e intervenciones en el espacio público, tales como obras en plazas y parques, en veredas o de regeneración urbana.";
+    $scope.labels["escuelas"] = "Obras de construcción, refacción o puesta en valor de establecimientos educativos.";
+    $scope.labels["arquitectura"] = "Obras civiles de reforma, puesta en valor o construcción de edificios.";
+    $scope.labels["salud"] = "Obras de construcción, remodelación y puesta en valor en hospitales y centros de salud y atención comunitaria..";
+    $scope.labels["vivienda"] = "Construcción de viviendas nuevas y obras de mejoras en viviendas existentes.";
+    $scope.labels["transporte"] = "Obras de infraestructura destinadas al transporte público y a la construcción y mantenimiento de las vías de circulación. ";
+    $scope.labels["hidraulica-e-infraestructura"] ="Comprende obras e intervenciones relacionadas con el tratamiento de fluidos (cursos de agua o desagües pluviales), así como obras de equipamiento, redes sanitarias, de gas o electricidad, necesarias para la vida en un entorno urbano.";
 
     $scope.availableGroups = [
       { id: "mapa", name: "Mapa" },
@@ -345,7 +343,7 @@ angular
             .classed("shape", true)
             .on("click", clickedMap);
 
-          /*chart.mapGroup
+          chart.mapGroup
             .selectAll("text.map-text")
             .data(chart.mapFeatures)
             .enter()
@@ -361,7 +359,7 @@ angular
             })
             .text(function(d) {
               return d.properties.comuna;
-            });*/
+            });
 
           updateMap();
         });
