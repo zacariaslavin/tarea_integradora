@@ -37,13 +37,20 @@ angular
 
     $scope.selectedFilter = false;
     $scope.labels = {};
-    $scope.labels["espacio-publico"] ="Obras e intervenciones en el espacio público, tales como obras en plazas y parques, en veredas o de regeneración urbana.";
-    $scope.labels["escuelas"] = "Obras de construcción, refacción o puesta en valor de establecimientos educativos.";
-    $scope.labels["arquitectura"] = "Obras civiles de reforma, puesta en valor o construcción de edificios.";
-    $scope.labels["salud"] = "Obras de construcción, remodelación y puesta en valor en hospitales y centros de salud y atención comunitaria..";
-    $scope.labels["vivienda"] = "Construcción de viviendas nuevas y obras de mejoras en viviendas existentes.";
-    $scope.labels["transporte"] = "Obras de infraestructura destinadas al transporte público y a la construcción y mantenimiento de las vías de circulación. ";
-    $scope.labels["hidraulica-e-infraestructura"] ="Comprende obras e intervenciones relacionadas con el tratamiento de fluidos (cursos de agua o desagües pluviales), así como obras de equipamiento, redes sanitarias, de gas o electricidad, necesarias para la vida en un entorno urbano.";
+    $scope.labels["espacio-publico"] =
+      "Obras e intervenciones en el espacio público, tales como obras en plazas y parques, en veredas o de regeneración urbana.";
+    $scope.labels["escuelas"] =
+      "Obras de construcción, refacción o puesta en valor de establecimientos educativos.";
+    $scope.labels["arquitectura"] =
+      "Obras civiles de reforma, puesta en valor o construcción de edificios.";
+    $scope.labels["salud"] =
+      "Obras de construcción, remodelación y puesta en valor en hospitales y centros de salud y atención comunitaria..";
+    $scope.labels["vivienda"] =
+      "Construcción de viviendas nuevas y obras de mejoras en viviendas existentes.";
+    $scope.labels["transporte"] =
+      "Obras de infraestructura destinadas al transporte público y a la construcción y mantenimiento de las vías de circulación. ";
+    $scope.labels["hidraulica-e-infraestructura"] =
+      "Comprende obras e intervenciones relacionadas con el tratamiento de fluidos (cursos de agua o desagües pluviales), así como obras de equipamiento, redes sanitarias, de gas o electricidad, necesarias para la vida en un entorno urbano.";
 
     $scope.availableGroups = [
       { id: "mapa", name: "Mapa" },
@@ -244,7 +251,6 @@ angular
     };
 
     $scope.changeGroup = function(group) {
-      console.log(group);
       $scope.selectedGroup = group;
       $scope.showGroup();
     };
@@ -304,16 +310,16 @@ angular
           .attr("d", chart.mapPath)
           .style("opacity", 1);
 
-        /*chart.mapGroup
+        chart.mapGroup
           .selectAll("text.map-text")
-          .transition()
-          .duration(1000)
           .attr("x", function(d) {
             return chart.mapPath.centroid(d)[0];
           })
           .attr("y", function(d) {
             return chart.mapPath.centroid(d)[1];
-          });*/
+          })
+          .style("opacity", 1)
+          .style("display", "block");
       }
 
       if (!chart.mapGroup) {
@@ -430,6 +436,11 @@ angular
         .duration(750)
         .style("stroke-width", 1 + "px");
 
+      chart.selection
+        .transition()
+        .duration(750)
+        .attr("transform", "translate(" + translate + ")scale(" + scale + ")");
+
       bubbles.group
         .transition()
         .duration(750)
@@ -446,6 +457,11 @@ angular
       activeMap = d3.select(null);
 
       chart.mapGroup
+        .transition()
+        .duration(750)
+        .attr("transform", "");
+
+      chart.selection
         .transition()
         .duration(750)
         .attr("transform", "");
@@ -565,9 +581,7 @@ angular
 
       var filtered = $scope.obras.filter(function(d) {
         return (
-          d.comuna &&
-          d.comuna != "" &&
-          (!filterId || (filterId && d.comuna === filterId))
+          !filterId || (filterId && parseInt(d.comuna) === parseInt(filterId))
         );
       });
 
@@ -589,16 +603,15 @@ angular
 
       bubbles.nodes = filtered
         .filter(function(d) {
-          return d.comuna && (!filterId || (filterId && d.comuna === filterId));
+          return (
+            d.comuna &&
+            (!filterId ||
+              (filterId && parseInt(d.comuna) === parseInt(filterId)))
+          );
         })
         .map(function(d) {
           var i = "c" + d.comuna,
             r = filterId ? 10 : 5,
-            /*r = bubbles.scale(
-              d[$scope.selectedRadioDimension]
-                ? d[$scope.selectedRadioDimension]
-                : 0
-            ),*/
             c = { cluster: i, radius: r ? r : 10, data: d };
 
           if (!bubbles.clusters[i] || r > bubbles.clusters[i].radius) {
@@ -1160,7 +1173,7 @@ angular
 
       innerSVG.selectAll("path,rect").attr("fill", "#fff");
     }
-    var loadedBanderita = false;
+    $scope.loadedBanderita = false;
     function renderBubbles() {
       if ($scope.selectedGroup != "mapa") {
         bubbles.icons
@@ -1177,9 +1190,12 @@ angular
         .on("tick", tick)
         .start()
         .on("end", function() {
-          if (!loadedBanderita) {
-            bubbles.circles.each(function(d) {
-              if (d.data.compromiso) {
+          if (!$scope.loadedBanderita) {
+            bubbles.circles
+              .filter(function(d) {
+                return d.data.compromiso;
+              })
+              .each(function(d) {
                 var x = d.x - 9;
                 var y = d.y - 25;
                 bubbles.icons
@@ -1189,18 +1205,14 @@ angular
                     "transform",
                     "translate(" + x + "," + y + ") scale(0.25)"
                   );
-                d3.selectAll("g.banderita").append(function() {
-                  return compromisoIconSVG.cloneNode(true).documentElement;
-                });
-              }
-              loadedBanderita = true;
+              });
+            d3.selectAll("g.banderita").append(function() {
+              return compromisoIconSVG.cloneNode(true).documentElement;
             });
+            $scope.loadedBanderita = true;
           } else {
             if ($scope.selectedGroup == "mapa") {
-              bubbles.icons
-                .transition()
-                .duration(500)
-                .attr("opacity", 1);
+              bubbles.icons.attr("opacity", 1);
             }
           }
         });
@@ -1519,7 +1531,7 @@ angular
       $scope.tooltip
         .transition()
         .duration(200)
-        .style("top", "-100px")
+        .style("top", "-500px")
         .style("opacity", 0);
     };
   });

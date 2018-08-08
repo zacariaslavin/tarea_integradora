@@ -212,6 +212,7 @@ p {
   fill: white;
   font-family: "CHANEWEI", Helvetica, Arial, sans-serif;
   font-size: 40px;
+  pointer-events: none;
   /* font-weight: bold; */
 }
 
