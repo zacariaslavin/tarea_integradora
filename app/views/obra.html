@@ -58,7 +58,6 @@
             <div class="col-md-3 ficha-tecnica">
                  <h4> Ficha técnica</h4>
                  <p class="etiquetas">
-                      {{obra.compromiso}}
                       <a href="http://www.buenosaires.gob.ar/compromisos" target="_blank>"><span  ng-show="obra.compromiso" class="label label-primary compromiso-row compromiso">
                          <img src="images/iconos/compromiso.svg"/>Compromiso de Gobierno</span></a>
                       <span  ng-show="obra.destacada" class="label label-primary compromiso-row destacada">   <img src="images/iconos/archivo.svg"/>Obra Destacada</span>
@@ -129,13 +128,18 @@
                       <div class="col-md-10">
                         <p>  Empresa: </p>
                         <strong> {{obra.licitacion_oferta_empresa}}</strong>
-                        <p>  Tipo contratista: </p>    
-                        <strong> {{obra.contratista_tipo}}</strong>
+                        <div ng-show="obra.contratista_tipo">
+                          <p>  Tipo contratista: </p>    
+                          <strong> {{obra.contratista_tipo}}</strong>
+                        </div>
+                        <div ng-show="obra.nro_contratacion">
                         <p>  Nro contratación: </p>
                         <strong> {{obra.nro_contratacion}}</strong>
+                        </div>
+                        <div ng-show="obra.cuit_contratista">
                         <p>  CUIT: </p>
                         <strong> {{obra.cuit_contratista}}</strong>
-                        
+                        </div>
                       </div>
                     </div>
                     <div class="row" ng-show="obra.plazo_meses">
