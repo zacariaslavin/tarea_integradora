@@ -209,10 +209,10 @@ p {
 }
 
 #home-chart-container text.map-text {
-    fill: white;
-    font-family: "CHANEWEI", Helvetica, Arial, sans-serif;
-    font-size: 40px;
-    /* font-weight: bold; */
+  fill: white;
+  font-family: "CHANEWEI", Helvetica, Arial, sans-serif;
+  font-size: 40px;
+  /* font-weight: bold; */
 }
 
 .chart-item {
@@ -259,17 +259,14 @@ p {
 #tooltip-home-chart .compromiso-row {
   margin-bottom: 10px;
 }
-span.label.label-primary.compromiso-row.destacada{
-  background-color:#45debf;
+span.label.label-primary.compromiso-row.destacada {
+  background-color: #45debf;
 }
 
-span.label.label-primary.compromiso-row.ba-elige{
-
-    background-color: #ff5ac9;
+span.label.label-primary.compromiso-row.ba-elige {
+  background-color: #ff5ac9;
 }
 
-
-}
 #tooltip-home-chart .btn {
   pointer-events: default;
 }
