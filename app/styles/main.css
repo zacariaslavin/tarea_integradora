@@ -754,3 +754,9 @@ div.obra .ficha-tecnica .progress-bar {
 .search input {
   width: 100%;
 }
+.show-destacadas{
+    background: #efefef;
+    color: black;
+    float:right;
+    margin-bottom: 2px;
+}
