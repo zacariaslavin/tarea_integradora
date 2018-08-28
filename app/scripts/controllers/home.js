@@ -223,15 +223,19 @@ angular
     $scope.filterBubbles = function(filterSlug) {
       if ($scope.selectedFilter == filterSlug) {
         d3.selectAll("circle.obra").style("opacity", 1);
+        d3.selectAll("g.banderita").style("opacity", 1);
         filterSlug = false;
       }
       if (filterSlug == "" && $scope.textFilter == "") {
         d3.selectAll("circle.obra").style("opacity", 1);
+        d3.selectAll("g.banderita").style("opacity", 1);
       } else if ($scope.textFilter == "") {
-        d3.selectAll("circle.obra").style("opacity", 0.3);
+        d3.selectAll("circle.obra").style("opacity", 0.2);
+        d3.selectAll("g.banderita").style("opacity", 0.2);
         d3.selectAll("circle.obra." + filterSlug).style("opacity", 1);
+        d3.selectAll("g.banderita." + filterSlug).style("opacity", 1);
       } else {
-        d3.selectAll("circle.obra").style("opacity", 0.3);
+        d3.selectAll("circle.obra").style("opacity", 0.2);
         var allText = $scope.textFilter.toLowerCase().split(" ");
         for (var i = 0; i < allText.length; i++) {
           var cls = "";
@@ -240,6 +244,7 @@ angular
           }
           cls += "." + allText[i];
           d3.selectAll("circle.obra" + cls).style("opacity", 1);
+          d3.selectAll("g.banderita" + cls).style("opacity", 1);
         }
       }
 
@@ -1200,7 +1205,25 @@ angular
                 var y = d.y - 25;
                 bubbles.icons
                   .append("g")
-                  .attr("class", "banderita")
+                  .attr("class", function(dd) {
+                      var red = d.data.red_slug ? "red " + d.data.red_slug : "";
+                      var destacada = d.data.destacada ? "destacada " : "";
+                      return (
+                        "banderita " + 
+                        " "  +
+                        destacada + 
+                        " " + 
+                        d.data.tipo_slug +
+                        " " +
+                        d.data.area_slug +
+                        " " +
+                        d.data.etapa_slug +
+                        " " +
+                        red +
+                        " " +
+                        d.data.nombre.toLowerCase()
+                      );
+                    })
                   .attr(
                     "transform",
                     "translate(" + x + "," + y + ") scale(0.25)"
