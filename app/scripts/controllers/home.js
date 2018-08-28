@@ -1198,7 +1198,7 @@ angular
           if (!$scope.loadedBanderita) {
             bubbles.circles
               .filter(function(d) {
-                return d.data.compromiso;
+                return d.data.destacada;
               })
               .each(function(d) {
                 var x = d.x - 9;
