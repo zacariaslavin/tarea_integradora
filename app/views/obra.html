@@ -35,7 +35,7 @@
       <div class="row">
         <div class="col-md-8">
           <ul>
-            <flex-slider slide="s in slides track by s.url" animation="slide" control-nav="thumbnails">
+            <flex-slider slide="s in obra.slides track by s.url" animation="slide" control-nav="thumbnails">
               <li data-thumb="{{s.pic}}" ng-switch="s.mode">
                   <div ng-switch-when="video" > 
                     <ng-youtube-embed 
@@ -130,7 +130,11 @@
               <div class="col-md-10">
                 <p>  Empresa: </p>
                 <strong> {{obra.licitacion_oferta_empresa}}</strong>
-                <div ng-show="obra.contratista_tipo">
+                <div ng-show="obra.cuit_contratista">
+                  <p>  CUIT Empresa: </p>
+                  <strong> {{obra.cuit_contratista}}</strong>
+                </div>
+                <div ng-show="obra.contratacion_tipo">
                   <p>  Tipo de contratación: </p>    
                   <strong> {{obra.contratista_tipo}}</strong>
                 </div>
@@ -138,10 +142,7 @@
                   <p> N° de contratación: </p>
                   <strong> {{obra.nro_contratacion}}</strong>
                 </div>
-                <div ng-show="obra.cuit_contratista">
-                  <p>  CUIT del contratista: </p>
-                  <strong> {{obra.cuit_contratista}}</strong>
-                </div>
+              
               </div>
             </div>
 
@@ -241,7 +242,7 @@
                 <img src="images/iconos/archivo.svg"/>
               </div>
               <div class="col-md-10">
-                <p><a ng-href="{{obra.pliego_descarga}}" target="_blank">Proceso de contratación </a> </p>
+                <p><a ng-href="{{obra.pliego_descarga}}" target="_blank">Información de la contratación</a> </p>
               </div>
             </div>
 

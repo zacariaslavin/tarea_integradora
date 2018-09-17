@@ -3,7 +3,26 @@
           <h3>Obra: {{obra.nombre}}</h3>
           <div class="row">
            <div class="col-md-8">
-                <img class="img-responsive" ng-src="{{obra.fotos[0]}}">
+                <ul>
+                  <flex-slider slide="s in obra.slides track by s.url" animation="slide" control-nav="thumbnails">
+                    <li data-thumb="{{s.pic}}" ng-switch="s.mode">
+                        <div ng-switch-when="video" > 
+                          <ng-youtube-embed 
+                              url="s.url"
+                              playauto="true"
+                              color="white"
+                              disablekb="true"
+                              width="100%"
+                              rel="false"
+                              theme="light"
+                              modestbranding="1"
+                              >
+                          </ng-youtube-embed>
+                        </div>
+                        <img ng-switch-default ng-src="{{s.pic}}" />
+                    </li>
+                  </flex-slider>
+                </ul>
                 <p> {{obra.descripcion}} </p>
           </div>
           <div class="col-md-3 ficha-tecnica">
@@ -79,7 +98,11 @@
                        <div class="col-md-10">
                         <p>  Empresa: </p>
                         <strong> {{obra.licitacion_oferta_empresa}}</strong>
-                        <div ng-show="obra.contratista_tipo">
+                        <div ng-show="obra.cuit_contratista">
+                          <p>  CUIT Empresa: </p>
+                          <strong> {{obra.cuit_contratista}}</strong>
+                        </div>
+                        <div ng-show="obra.contratacion_tipo">
                           <p>  Tipo de contratación: </p>    
                           <strong> {{obra.contratista_tipo}}</strong>
                         </div>
@@ -87,10 +110,7 @@
                         <p> N° de contratación: </p>
                         <strong> {{obra.nro_contratacion}}</strong>
                         </div>
-                        <div ng-show="obra.cuit_contratista">
-                        <p>  CUIT del contratista: </p>
-                        <strong> {{obra.cuit_contratista}}</strong>
-                        </div>
+                        
                       </div>
                     </div>
                     <div class="row" ng-show="obra.plazo_meses">
@@ -181,7 +201,7 @@
                           <img src="images/iconos/archivo.svg"/>
                      </div>
                       <div class="col-md-10">
-                        <p><a ng-href="{{obra.pliego_descarga}}" target="_blank">Proceso de contratación </a> </p>
+                        <p><a ng-href="{{obra.pliego_descarga}}" target="_blank">Información de la contratación</a> </p>
                       </div>
                   </div>
                   <div class="row" ng-show="obra.estudio_ambiental_descarga">

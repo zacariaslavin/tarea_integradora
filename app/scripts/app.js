@@ -107,7 +107,8 @@ angular
         : null;
 
       reg.mano_obra = reg.mano_obra ? parseInt(reg.mano_obra) : null;
-
+      //setup slider
+     
       //numbers
       reg.id = parseInt(reg.id);
       reg.licitacion_anio = reg.licitacion_anio
@@ -149,6 +150,13 @@ angular
 
       reg.thumb = reg.fotos[0] ? reg.fotos[0] : "";
 
+      reg.slides = reg.fotos.map(function(f) {
+        return {
+          mode: f.includes("youtu") ? "video" : "photo",
+          url: f,
+          pic: f.includes("youtu") ? getYoutubePic(f) : f
+        };
+      });
       //slug
       reg.entorno_slug = reg.entorno ? Slug.slugify(reg.entorno.trim()) : null;
 
@@ -341,3 +349,19 @@ angular
     };
   })
   .run(function() {});
+
+function fetchId(link) {
+                    var p = /^(?:https?:\/\/)?(?:www\.)?(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))((\w|-){11})(?:\S+)?$/;
+                    var q = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
+                    var match = link.match(q);
+                    var id = link.match(p);
+                    if (id !== null) {
+                        var ytId = id[1];
+                        return ytId;
+                    }
+                }
+
+function getYoutubePic(f){
+  var id = fetchId(f);
+  return 'https://img.youtube.com/vi/'+ id + '/hqdefault.jpg;';
+}
