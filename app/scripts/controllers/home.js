@@ -133,6 +133,7 @@ angular
       }
     });
     $scope.filterByText = function() {
+      $scope.textFilter = $('.text-filter').val();
       if ($scope.textFilter.length > 3) {
         $scope.filterBubbles($scope.selectedFilter, $scope.textFilter);
       }
