@@ -14,27 +14,32 @@
         <stats-home obras="obras"></stats-home>
     </div>
   </div>
-
-  <selector-home list="availableGroups" selected-group="selectedGroup" update-fn="changeGroup(group)"></selector-home>
-
-  <div class="row">
+  <div class="hidden-xs">
+    <selector-home list="availableGroups" selected-group="selectedGroup" update-fn="changeGroup(group)"></selector-home>
+  </div>
+  <div class="row hidden-xs">
     <div class="col-sm-12">
         <tipo-chart labels="labels" obras="obras" selected-filter="selectedFilter" filter-fn="filterBubbles(filter)" tipo-colors="tipo_colors" finish-fn="tipoChartFinished()"></tipo-chart>
     </div>
   </div>
 
-  <div class="row">
+  <div class="row hidden-xs">
     <div class="col-sm-12">
         <area-responsable-chart obras="obras" selected-filter="selectedFilter" filter-fn="filterBubbles(filter)"></area-responsable-chart>
     </div>
   </div>
   <div class="row">
     <div class="col-sm-12">
+      <h1> Conocé las obras de tu comuna </h1>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-12 ">
         <div id="search-box" class="row chart-item">
-          <div class="col-md-2">
+          <div class="col-md-2 hidden-xs" >
             <h4> Buscar por </h4>
           </div>
-          <div class="col-md-8 search">
+          <div class="col-xs-12 col-md-8 search">
             <input ng-model="textFilter" ng-change="filterByText()" class="form-control text-filter" type="text" placeholder="Filtra por nombre o descripcion de obra">
           </div>
         </div>
@@ -90,7 +95,7 @@
       </div>
     </div>
   </div>
-
+  <div class="hidden-xs">
   <div class="row tooltip-text" ng-show="selectedObra.data.area_responsable">
       <div class="col-xs-2">
         <img src="images/iconos/ministerio.svg"/>
@@ -116,7 +121,7 @@
       </div>
 
     </div>
-  
+  </div>
   <p  class="tooltip-text" ng-show="selectedObra.data.link_interno"><a target="_parent" ng-href="{{selectedObra.data.link_interno}}" class="btn btn-link btn-xs btn-block btn-ver-mas">VER MÁS</a></p>
 
   <div class="row compromiso-row" ng-show="selectedObra.data.compromiso">
