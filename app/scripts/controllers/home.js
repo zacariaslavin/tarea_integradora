@@ -156,13 +156,14 @@ angular
 
       if ($scope.isSmallDevice) {
         chart.h = chart.w;
-        chart.margin = chart.w / 100;
+        chart.margin = chart.w / 250;
       } else {
         chart.h = chart.w;
         chart.margin = chart.w / 200;
       }
 
       if (!chart.svg) {
+
         //Create
         chart.svg = d3.select("#home-chart-container").append("svg");
         chart.mainGroup = chart.svg.append("g").classed("main-group", true);
@@ -175,7 +176,9 @@ angular
 
         bubbles.group = chart.svg.append("g").attr("id", "bubbles-group");
         bubbles.icons = chart.svg.append("g").attr("id", "bubbles-icons");
-
+        if ($scope.isSmallDevice){
+          d3.selectAll('#bubbles-group').style('display',"none");
+        }
         chart.selection = chart.svg
           .append("circle")
           .attr("class", "selection-cicle")
@@ -392,7 +395,7 @@ angular
         })
         .map(function(d) {
           var i = "i" + d.id,
-            r = 4,
+            r = $scope.isSmallDevice ? 1.25 : 4,
             c = { cluster: i, radius: r, data: d };
 
           bubbles.clusters[i] = c;
@@ -405,7 +408,7 @@ angular
           bubbles.clusterPoints[i] = {
             x: point[0],
             y: point[1],
-            radius: 4
+            radius: $scope.isSmallDevice ? 1.25 : 4
           };
 
           return c;
@@ -456,9 +459,16 @@ angular
         .transition()
         .duration(750)
         .attr("transform", "translate(" + translate + ")scale(" + scale + ")");
+      
+      if($scope.isSmallDevice){
+        d3.selectAll('#bubbles-group').style('display',"block");
+      }
     }
 
     function resetMap() {
+      if($scope.isSmallDevice){
+        d3.selectAll('#bubbles-group').style('display',"none");
+      }
       activeMap.classed("active", false);
       activeMap = d3.select(null);
 
@@ -1192,7 +1202,9 @@ angular
         .nodes(bubbles.nodes)
         .size([chart.w, chart.h])
         .gravity(0)
-        .charge(1)
+        .charge(function(){
+          return $scope.isSmallDevice ? 0 : 1; 
+        })
         .on("tick", tick)
         .start()
         .on("end", function() {
