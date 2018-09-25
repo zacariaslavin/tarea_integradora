@@ -150,13 +150,14 @@ angular
         .node()
         .getBoundingClientRect().width;
 
-      chart.w = !chart.svg || chart.w < 500 ? chart.w - 15 : chart.w;
+      chart.w = !chart.svg || chart.w < 500 ? chart.w  : chart.w;
 
       $scope.isSmallDevice = chart.w < 700 ? true : false;
 
       if ($scope.isSmallDevice) {
-        chart.h = chart.w;
-        chart.margin = chart.w / 250;
+        chart.w = 350;
+        chart.h = 350;
+        chart.margin =  0; //chart.w / 1;
       } else {
         chart.h = chart.w;
         chart.margin = chart.w / 200;
@@ -303,7 +304,7 @@ angular
         .scale(240 * chart.w);
 
       chart.mapPath = d3.geo.path().projection(chart.mapProjection);
-
+      
       function updateMap() {
         if ($scope.isSmallDevice) {
           chart.svg.attr("height", chart.w);

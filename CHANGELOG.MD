@@ -1,4 +1,8 @@
 # CHANGELOG
+* 2018-09-25 - v4.0-RC1
+  * Mejoras en vista mobile.
+  * Se agrega filtro Obras destacadas.
+
 * 2018-06-13 - v3.7-RC1
   * Nuevo filtro por etapas
   * Mejoras visuales
