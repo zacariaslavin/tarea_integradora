@@ -1282,6 +1282,10 @@ angular
             );
           })
           .on("mouseenter", function(d) {
+            var isVisible = d3.select(this).style("opacity");
+            if (isVisible == "1"){
+
+
             d.color_tipo_obra = $scope.tipo_colors(d.data.tipo);
             $scope.selectedObra = d;
             $scope.tooltipThumb = d.data.thumb;
@@ -1377,6 +1381,7 @@ angular
               .style("top", topValue + "px")
               .style("left", leftvalue + "px")
               .style("opacity", 1);
+            }
           })
           .on("mouseout", function(d) {});
       }
