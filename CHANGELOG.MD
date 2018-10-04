@@ -1,4 +1,8 @@
 # CHANGELOG
+* 2018-01-04 - v4.0-RC2
+  * Se ocultan puntos filtrados.
+  * Se mejoran en mobile las vistas.
+
 * 2018-09-25 - v4.0-RC1
   * Mejoras en vista mobile.
   * Se agrega filtro Obras destacadas.
