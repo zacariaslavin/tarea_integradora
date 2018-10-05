@@ -16,19 +16,18 @@ angular
     d3.xml("images/iconos/compromiso.svg", function(e, d) {
       compromisoIconSVG = d;
     });
-    $scope.tipo_colors = d3.scale
-      .ordinal()
-      .range([
-        "#A7C64D",
-        "#7874B2",
-        "#F1AD3C",
-        "#38A0D7",
-        "#BD3E93",
-        "#E84D00",
-        "#22B496",
-        "#CC4916"
-      ]);
+    $scope.tipo_colors = function(d){
+      var c = [];
+       c["Espacio Público"] = "#A7C64D";
+       c["Escuelas"] = "#7874B2";
+       c["Salud"] = "#F1AD3C";
+       c["Arquitectura"] = "#38A0D7";
+       c["Hidráulica e Infraestructura"] = "#BD3E93";
+       c["Transporte"] = "#E84D00";
+       c["Vivienda"] = "#22B496";
 
+      return c[d];
+    };
     $scope.selectedGroup = false;
     $scope.oldGroup = "mapa";
     $scope.selectedObra = false;

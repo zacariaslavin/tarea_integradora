@@ -166,7 +166,7 @@ angular.module("obrasMduytApp").directive("tipoChart", function() {
 								//can use plain Javascript to append content
 
 								var color = $scope.tipoColors(d.tipo);
-
+								console.log(color,d.tipo);
 								var innerSVG = imgGroup
 									.select("svg")
 									.attr("height", 50)
