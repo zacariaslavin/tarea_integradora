@@ -1,4 +1,7 @@
 # CHANGELOG
+* 2018-01-05 - v4.0-RC3
+  * Se corrige error de carga de colore
+
 * 2018-01-04 - v4.0-RC2
   * Se ocultan puntos filtrados.
   * Se mejoran en mobile las vistas.
