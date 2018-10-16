@@ -225,6 +225,7 @@ angular
     }
 
     $scope.filterBubbles = function(filterSlug) {
+        
       if ($scope.selectedFilter == filterSlug) {
         d3.selectAll("circle.obra").style("opacity", 1);
         d3.selectAll("g.banderita").style("opacity", 1);
@@ -1263,7 +1264,7 @@ angular
           .append("circle")
           .attr("class", function(d) {
             var red = d.data.red_slug ? "red " + d.data.red_slug : "";
-            var destacada = d.data.destacada ? "destacada " : "";
+            var destacada = d.data.destacada ? " destacada " : "";
             return (
               "obra " + 
               " "  +
@@ -1468,6 +1469,19 @@ angular
         .attr("id", function(d) {
           return "e" + d.data.id;
         })
+        .attr("class", function(d) {
+            var red = d.data.red_slug ? "red " + d.data.red_slug : "";
+            return (
+              "obra " +
+              d.data.tipo_slug +
+              " " +
+              d.data.area_slug +
+              " " +
+              d.data.etapa_slug +
+              " " +
+              red
+            );
+          })
         .style("fill", function(d) {
           return $scope.tipo_colors(d.data.tipo);
         });
