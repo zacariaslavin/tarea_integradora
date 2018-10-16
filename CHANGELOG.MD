@@ -1,8 +1,11 @@
 # CHANGELOG
-* 2018-01-05 - v4.0-RC3
+* 2018-10-16 - v4.0-RC4
+  * Los filtros vuelven a funcionar
+
+* 2018-10-05 - v4.0-RC3
   * Se corrige error de carga de colore
 
-* 2018-01-04 - v4.0-RC2
+* 2018-10-04 - v4.0-RC2
   * Se ocultan puntos filtrados.
   * Se mejoran en mobile las vistas.
 
