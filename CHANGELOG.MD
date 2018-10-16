@@ -1,5 +1,5 @@
 # CHANGELOG
-* 2018-10-16 - v4.0-RC4
+* 2018-10-16 - v4.0-RC5
   * Los filtros vuelven a funcionar
 
 * 2018-10-05 - v4.0-RC3
