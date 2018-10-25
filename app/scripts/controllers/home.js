@@ -1399,7 +1399,9 @@ angular
               " " +
               d.data.etapa_slug +
               " " +
-              red
+              red +
+              " " + 
+              d.data.nombre.toLowerCase()
             );
           })
           .on("click", function(d) {
@@ -1479,7 +1481,10 @@ angular
               " " +
               d.data.etapa_slug +
               " " +
-              red
+              red + 
+              " " + 
+              d.data.nombre.toLowerCase()
+
             );
           })
         .style("fill", function(d) {
