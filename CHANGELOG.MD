@@ -1,5 +1,5 @@
 # CHANGELOG
-* 2018-10-24 - v4.0-RC7
+* 2018-10-24 - v4.0-RC8
   * El buscador vuelve a funcionar.
 
 * 2018-10-16 - v4.0-RC5
