@@ -1391,8 +1391,11 @@ angular
           .append("circle")
           .attr("class", function(d) {
             var red = d.data.red_slug ? "red " + d.data.red_slug : "";
+            var destacada = d.data.destacada ? "destacada " : "";
             return (
               "obra " +
+              destacada +  
+              " " + 
               d.data.tipo_slug +
               " " +
               d.data.area_slug +
@@ -1473,8 +1476,11 @@ angular
         })
         .attr("class", function(d) {
             var red = d.data.red_slug ? "red " + d.data.red_slug : "";
+             var destacada = d.data.destacada ? "destacada " : "";
             return (
               "obra " +
+              destacada +  
+              " " + 
               d.data.tipo_slug +
               " " +
               d.data.area_slug +

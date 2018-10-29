@@ -1,4 +1,7 @@
 # CHANGELOG
+* 2018-10-24 - v4.0-RC9
+  * Obras destacadas con filtro.
+
 * 2018-10-24 - v4.0-RC8
   * El buscador vuelve a funcionar.
 
