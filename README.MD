@@ -40,8 +40,9 @@ Dirección: `http://localhost:8080`
 
 ## Para desarrolladores
 * Archivo de configuración: En /app duplicar el archivo config.js.example con el nombre config.js.
+* Instalar dependencias via `bower install` en la carpeta raiz del proyecto
 * Correr la aplicación desde /app -> Hacer los cambios en /app y con live reloading se actualizará en http://localhost:10000
-`grunt server`
+`grunt serve`
 * Compilar
 `grunt build`
 
