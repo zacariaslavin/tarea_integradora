@@ -1,5 +1,7 @@
 window.MDUYT_CONFIG = {
-  BASE_URL: 'https://compromisos-csv.buenosaires.gob.ar/',
-  HOME_CSV: 'https://goo.gl/vcb6oX',
-  MAPAS_CSV: 'https://goo.gl/YYV2E7'
+  LOAD_USING: 'GET_REQUEST',
+  JSONP_PROXY: 'https://compromisos-csv.buenosaires.gob.ar/',
+  DATA_CSV: 'https://goo.gl/vcb6oX',
+  MAPAS_CSV: 'https://goo.gl/YYV2E7',
+  FILTRAR_ETAPAS: false
 };
