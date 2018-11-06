@@ -48,7 +48,7 @@ var cleanData = function(oldReg, index, Slug) {
     ? parseInt(reg.licitacion_anio.trim())
     : null;
   reg.monto_contrato = reg.monto_contrato
-    ? parseFloat(reg.monto_contrato.trim())
+    ? parseFloat(reg.monto_contrato.replace(/[$]+/g,"").trim())
     : null;
   reg.licitacion_presupuesto_oficial = reg.licitacion_presupuesto_oficial
     ? parseFloat(reg.licitacion_presupuesto_oficial.trim())
@@ -126,7 +126,6 @@ function loadData ($sce, $q, $http, Slug) {
   var onSuccess = function (result) {
     if (window.MDUYT_CONFIG.LOAD_USING === 'GET_REQUEST') {
       data = Papa.parse(result.data, { header:true }).data;
-      console.log(data[0]);
     } else {
       data = result.data;
     }
