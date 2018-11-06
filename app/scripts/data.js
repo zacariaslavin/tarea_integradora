@@ -1,8 +1,3 @@
-var filterData = function(reg){
-  var etapas_validas = ['en-proyecto','en-licitacion','en-ejecucion','finalizada'];
-  return etapas_validas.indexOf(reg.etapa_slug) > -1;
-};
-
 var getMontoRange = function(n) {
   var cincuentaM = 50000000;
   /*
@@ -25,7 +20,7 @@ var getMontoRange = function(n) {
   return range;
 };
 
-var cleanData = function(oldReg, index) {
+var cleanData = function(oldReg, index, Slug) {
   var reg = {};
   for (var key in oldReg) {
     if (oldReg.hasOwnProperty(key)) {
@@ -76,7 +71,7 @@ var cleanData = function(oldReg, index) {
     reg.etapa === "Finalizada" ? 100 : reg.porcentaje_avance;
 
   reg.hideDates =
-    reg.etapa === "En proyecto" || reg.etapa === "En licitación";
+    reg.etapa === "En proyecto" || reg.etapa === "En licitación" || !reg.fecha_inicio || !reg.fecha_fin_inicial;
 
   reg.fotos = [];
   for (var i = 1; i <= 4; i++) {
@@ -105,11 +100,14 @@ var cleanData = function(oldReg, index) {
     ? getMontoRange(reg.monto_contrato)
     : null;
 
+  reg.hasDetail = !!(reg.etapa || reg.etapa_detalle || reg.tipo || reg.area_responsable || reg.licitacion_oferta_empresa
+    || reg.porcentaje_avance || reg.plazo_meses || reg.licitacion_anio || reg.beneficiarios || reg.mano_obra
+    || reg.monto_contrato || reg.licitacion_presupuesto_oficial || reg.pliego_descarga);
   return reg;
 };
 
 
-function loadData ($sce, $q, $http) {
+function loadData ($sce, $q, $http, Slug) {
   if(!window.MDUYT_CONFIG){
     throw 'Archivo de configuración inexistente';
   }
@@ -128,13 +126,11 @@ function loadData ($sce, $q, $http) {
   var onSuccess = function (result) {
     if (window.MDUYT_CONFIG.LOAD_USING === 'GET_REQUEST') {
       data = Papa.parse(result.data, { header:true }).data;
+      console.log(data[0]);
     } else {
       data = result.data;
     }
-    data = data.map(cleanData);
-    if (window.MDUYT_CONFIG.FILTRAR_ETAPAS) {
-      data = data.filter(filterData);
-    }
+    data = data.map(function (reg, index) { return cleanData(reg, index, Slug)});
     deferred.resolve(data);
   };
 

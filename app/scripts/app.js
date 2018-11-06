@@ -155,7 +155,7 @@ angular
 
     this.retrieveAll = function() {
       if (!data) {
-        data = loadData($sce, $q, $http);
+        data = loadData($sce, $q, $http, Slug);
       }
 
       return $q.when(data);
