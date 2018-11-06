@@ -3,6 +3,6 @@
 /.sass-cache
 /bower_components
 .DS_Store
-/app/config.js
+config.js
 .idea
 *.csv
