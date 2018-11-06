@@ -20,11 +20,11 @@
 						<span class="title">Obra:</span>
 						<span class="desc">{{o.nombre}}</span>
 					</div>
-					<div class="col-sm-3">
+					<div class="col-sm-3" ng-if="o.licitacion_oferta_empresa">
 						<span class="title">Empresa:</span>
 						<span class="desc">{{o.licitacion_oferta_empresa}}</span>
 					</div>
-					<div class="col-sm-3">
+					<div class="col-sm-3" ng-if="o.monto_contrato">
 						<span class="title">Monto inversión:</span>
 						<span class="desc">{{o.monto_contrato | currency}}</span>
 					</div>
@@ -36,19 +36,19 @@
 					</div>
 				</div>
 				<div class="row">
-					<div class="col-sm-2">
+					<div class="col-sm-2" ng-if="o.area_responsable">
 						<span class="title">Área Responsable:</span>
 						<span class="desc">{{o.area_responsable}}</span>
 					</div>
-					<div class="col-sm-2">
+					<div class="col-sm-2" ng-if="o.tipo">
 						<span class="title">Tipo:</span>
 						<span class="desc">{{o.tipo}}</span>
 					</div>
-					<div class="col-sm-2">
+					<div class="col-sm-2" ng-if="o.comuna">
 						<span class="title">Comuna:</span>
 						<span class="desc">Comuna {{o.comuna}}</span>
 					</div>
-					<div class="col-sm-2">
+					<div class="col-sm-2" ng-if="o.etapa">
 						<span class="title">Etapa:</span>
 						<span class="desc">{{o.etapa}}</span>
 					</div>

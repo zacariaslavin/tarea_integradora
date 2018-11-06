@@ -90,79 +90,105 @@ angular.module('obrasMduytApp')
           return $sce.trustAsHtml(html);
         }
 
-        $scope.cols = [
-          { 
-            field: "comuna", 
-            title: "Comuna", 
-            filter: { comuna: "select" }, 
-            filterData: selects.comunas, 
-            show: true, 
+        $scope.cols = [];
+
+        var dataHasAttribute = function (attr) {
+          return _.some(data, function(d) { return d[attr] })
+        };
+
+        if (dataHasAttribute('comuna')) {
+          $scope.cols.push({
+            field: "comuna",
+            title: "Comuna",
+            filter: { comuna: "select" },
+            filterData: selects.comunas,
+            show: true,
             /*sortable: "comuna",*/
             getValue: renderNormalValue
-          },
-          { 
-            field: "nombre",
-            title: "Nombre", 
-            filter: { nombre: "text" }, 
-            show: true,
-            class: 'lupita', 
-            /*sortable: "nombre",*/
-            getValue: renderNormalValue
-          },
-          { 
+          });
+        }
+
+        $scope.cols.push({
+          field: "nombre",
+          title: "Nombre",
+          filter: { nombre: "text" },
+          show: true,
+          class: 'lupita',
+          /*sortable: "nombre",*/
+          getValue: renderNormalValue
+        });
+
+        if (dataHasAttribute('area_responsable')) {
+          $scope.cols.push({
             field: "area_responsable",
-            title: "Área Responsable", 
+              title: "Área Responsable",
             filter: { area_responsable: "select" },
-            filterData: selects.areas, 
-            show: true, 
+            filterData: selects.areas,
+              show: true,
             /*sortable: "area_responsable",*/
             getValue: renderNormalValue
-          },
-          { 
-            field: "etapa", 
-            title: "Etapa", 
-            filter:{ etapa: "select"}, 
-            filterData: selects.etapas, 
-            show: true, 
+          });
+        }
+
+        if (dataHasAttribute('etapa')) {
+          $scope.cols.push({
+            field: "etapa",
+            title: "Etapa",
+            filter:{ etapa: "select"},
+            filterData: selects.etapas,
+            show: true,
             /*sortable: "etapa",*/
             getValue: renderNormalValue
-          },
-          { 
-            field: "tipo", 
-            title: "Tipo", 
+          });
+        }
+
+        if (dataHasAttribute("tipo")) {
+          $scope.cols.push({
+            field: "tipo",
+            title: "Tipo",
             filter: { tipo: "select" },
-            filterData: selects.tipos, 
-            show: true, 
+            filterData: selects.tipos,
+            show: true,
             /*sortable: "monto_contrato",*/
             getValue: renderNormalValue
-          },
-          { 
-            field: "monto_slug", 
-            title: "Monto Inversión", 
+          });
+        }
+
+        if (dataHasAttribute("monto_slug")) {
+          $scope.cols.push({
+            field: "monto_slug",
+            title: "Monto Inversión",
             filter: { monto_slug: "select" },
-            filterData: selects.montos, 
-            show: true, 
+            filterData: selects.montos,
+            show: true,
             /*sortable: "monto_contrato",*/
             getValue: renderNormalValue
-          },
-          { 
-            field: "link_interno", 
-            title: "", 
-            filter: false, 
-            show: true, 
+          });
+        }
+
+        if (dataHasAttribute("link_interno")) {
+          $scope.cols.push({
+            field: "link_interno",
+            title: "",
+            filter: false,
+            show: true,
             /*sortable: false,*/
             getValue: renderLinkValue
-          },
-          { 
+          });
+        }
+
+        if (dataHasAttribute("licitacion_oferta_empresa")) {
+          $scope.cols.push({
             field: "licitacion_oferta_empresa",
-            title: "Empresa", 
-            filter: { licitacion_oferta_empresa: "text" }, 
-            show: true, 
+            title: "Empresa",
+            filter: { licitacion_oferta_empresa: "text" },
+            show: true,
             class: 'lupita',
             /*sortable: "licitacion_empresa",*/
             getValue: renderNormalValue
-          }
-        ];
+          });
+        }
+
 
         /*function onPagesChanged(d){
           $scope.results = d.data;
