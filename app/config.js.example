@@ -1,7 +1,19 @@
+// First variant
+
 window.MDUYT_CONFIG = {
   LOAD_USING: 'GET_REQUEST',
   JSONP_PROXY: 'https://compromisos-csv.buenosaires.gob.ar/',
   DATA_CSV: 'https://goo.gl/vcb6oX',
   MAPAS_CSV: 'https://goo.gl/YYV2E7',
-  FILTRAR_ETAPAS: false
+  isCABA: true
 };
+
+// Second variant
+
+window.MDUYT_CONFIG = {
+  LOAD_USING: 'GET_REQUEST',
+  DATA_CSV: 'data.csv',
+  sitename: 'Vicente Lopez',
+  isCABA: false
+};
+
