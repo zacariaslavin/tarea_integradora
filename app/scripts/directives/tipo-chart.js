@@ -11,7 +11,7 @@ angular.module("obrasMduytApp").directive("tipoChart", function() {
 			tipoColors: "="
 		},
 		template:
-			"<div id='tipo-chart' class='row chart-item'><div class='col-md-2'><h4>Filtrar por tipo de obra</h4></div></div>",
+			"<div id='tipo-chart' class='row chart-item' ng-show='total_obras_by_tipo.length'><div class='col-md-2'><h4>Filtrar por tipo de obra</h4></div></div>",
 		replace: true,
 		link: function($scope, elm, attrs) {
 			var w = 0;

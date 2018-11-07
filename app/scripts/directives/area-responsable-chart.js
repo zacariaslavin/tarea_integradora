@@ -78,7 +78,7 @@ angular.module("obrasMduytApp").directive("areaResponsableChart", function() {
 
 			function renderChart() {
 				chart.w = d3
-					.select("#stats-home")
+					.select("#area-responsable-chart #mini-chart")
 					.node()
 					.getBoundingClientRect().width;
 
