@@ -4,7 +4,7 @@
   </div>
 </div>
 
-<selector-home list="availableGroups" selected-group="selectedGroup" update-fn="changeGroup(group)"></selector-home>
+<selector-home ng-if="availableGroups.length > 1" list="availableGroups" selected-group="selectedGroup" update-fn="changeGroup(group)"></selector-home>
 
 <div class="row">
   <div class="col-sm-12">
@@ -24,7 +24,7 @@
   </div>
 </div>
 
-<div class="row">
+<div class="row" ng-if="showSankey">
   <div class="col-md-12">
     <h4>Obras para una Ciudad a tu medida</h4>
     <p>En un solo vistazo, conocé qué estamos haciendo para mejorar la Ciudad.</p>
@@ -40,7 +40,7 @@
   </div>
 </div>
 
-<div class="row">
+<div class="row" ng-if="showSankey">
   <div class="col-md-12">
     <div id="sankey-chart-container"></div>
   </div>

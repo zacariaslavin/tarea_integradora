@@ -61,9 +61,7 @@ angular.module("obrasMduytApp").directive("statsHome", function($timeout) {
       }
 
       function setTotal(number, dimension) {
-        $timeout(function() {
-          $scope.total[dimension] = number;
-        }, 200);
+        $scope.total[dimension] = number;
       }
     }
   };

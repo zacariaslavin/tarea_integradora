@@ -25,16 +25,25 @@ angular
 			]);
 
 		$scope.selectedGroup = false;
-		$scope.oldGroup = "mapa";
 		$scope.selectedObra = false;
 
 		$scope.selectedFilter = false;
 
-		$scope.availableGroups = [
-			{ id: "mapa", name: "Mapa" },
-			{ id: "comunas", name: "Comunas" },
-			{ id: "montos", name: "Inversión" }
-		];
+		if (window.MDUYT_CONFIG.isCABA) {
+      $scope.oldGroup = "mapa";
+      $scope.selectedGroup = "mapa";
+      $scope.availableGroups = [
+        { id: "mapa", name: "Mapa" },
+        { id: "comunas", name: "Comunas" },
+        { id: "montos", name: "Inversión" }
+      ];
+		} else {
+      $scope.oldGroup = "montos";
+      $scope.selectedGroup = "montos";
+      $scope.availableGroups = [
+        { id: "montos", name: "Inversión" }
+      ];
+		}
 
 		$scope.selectedRadioDimension = "monto_contrato";
 
@@ -74,10 +83,16 @@ angular
 
 		DataService.getAll().then(function(data) {
 			$scope.obras = data;
-			$scope.selectedGroup = "mapa";
 
-			renderSankeyChart();
-			renderChart();
+      renderChart();
+			if (window.MDUYT_CONFIG.isCABA) {
+        $scope.showSankey = true;
+        renderSankeyChart();
+			} else {
+        $scope.showSankey = false;
+        changeGroup("montos");
+			}
+
 			window.$(window).resize(function() {
 				if (w != $(window).width()) {
 					clearTimeout($scope.timeoutId);
