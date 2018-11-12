@@ -12,7 +12,7 @@ h4 {
 }
 
 p {
-  font-family: "CHANEWEI", Helvetica, Arial, sans-serif !important;
+  font-family: "Open Sans", Helvetica, Arial, sans-serif; 
 }
 
 #stats-home {
@@ -768,12 +768,55 @@ div.obra .ficha-tecnica .progress-bar {
 }
 .obra-list p,.obra-list span{
   font-size:0.85em; 
+  font-family: "Open Sans", Helvetica, Arial, sans-serif; 
+}
+p{
+  font-family: "Open Sans", Helvetica, Arial, sans-serif; 
+}
+.obra-list h4{
+  padding-left: 0;
 }
 .obra-list .smaller{
   font-size: 0.8em;
 }
+.obra-list .detail{
+    margin-bottom: 0px;
+    margin-top: 10px;
+    padding:10px;
+    background: #efefef;
+}
+
 .obra-list h5{
   font-size: 0.95em;
+  padding-top: 0;
+  margin: 0;
+  margin-bottom: 1em;
+
+}
+.obra-list .detail .data p{
+  margin-bottom: 0;
+}
+.obra-list .grey-back{
+  margin-bottom: 0;
+  margin-top: 10px;
+  padding:10px;
+  background: #848689;
+  color:white;
+  padding-bottom: 0;
+  padding-top: 0;
+  font-size: 1.6em;
+}
+.obra-list .grey-back .row{
+  margin: 0;
+}
+.obra-list .light-grey-back{
+  margin-bottom: 0;
+  padding:10px;
+  background: #b5b9bd;
+  color:black;
+}
+.obra-list .full{
+  max-width: 100%;
 }
 .open-big{
       position: absolute;
@@ -783,4 +826,6 @@ div.obra .ficha-tecnica .progress-bar {
     overflow: scroll;
     width: 100%;
 }
+.right{
+  text-align: right;
 }
