@@ -669,12 +669,22 @@ div.obra .ficha-tecnica .progress-bar {
   display: none;
 }
 
+
+/* Medium Devices, Desktops */
+@media only screen and (min-width: 992px) {
+  #stats-home span.value{
+    font-size:2em;
+  }
+  #stats-home h5{
+    font-size:1.25em;
+  }
+}
 /* Medium Devices, Desktops */
 @media only screen and (max-width: 992px) {
   #stats-home .col-custom-1-5 {
     width: 50%;
   }
-
+  
   .chart-item h4 {
     text-align: center;
   }
@@ -682,6 +692,7 @@ div.obra .ficha-tecnica .progress-bar {
   #stats-home .col-custom-2-5 {
     width: 50%;
   }
+
 }
 
 /* Small Devices, Tablets */
@@ -701,6 +712,8 @@ div.obra .ficha-tecnica .progress-bar {
     display: block;
     height: 400px;
   }
+
+
 }
 
 /* Extra Small Devices, Phones */
