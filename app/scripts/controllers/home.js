@@ -426,7 +426,14 @@ angular
       }
       activeMap.classed("active", false);
       activeMap = d3.select(this).classed("active", true);
-
+      
+      $scope.$apply(function(){
+        $scope.showList = true; 
+        $scope.selectedComuna = d.properties.comuna;
+        $scope.filteredObras = $scope.obras.filter(function(o){
+         return o.comuna == d.properties.comuna;
+        })
+      })
       var bounds = chart.mapPath.bounds(d),
         dx = bounds[1][0] - bounds[0][0],
         dy = bounds[1][1] - bounds[0][1],
@@ -462,7 +469,7 @@ angular
         .attr("transform", "translate(" + translate + ")scale(" + scale + ")");
       
       if($scope.isSmallDevice){
-        d3.selectAll('#bubbles-group').style('display',"block");
+        // d3.selectAll('#bubbles-group').style('display',"block");
       }
     }
 
@@ -1604,4 +1611,12 @@ angular
         .style("top", "-500px")
         .style("opacity", 0);
     };
+
+
+    $scope.closeList = function(){
+      $scope.showList = false;
+      $scope.filteredObras = [];
+      $scope.selectedComuna = "";
+
+    }
   });

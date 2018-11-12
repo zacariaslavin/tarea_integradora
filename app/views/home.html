@@ -131,3 +131,37 @@
   </div>
 
 </div>
+<div ng-show="showList" class="row obra-list open-big">
+  <div class="">
+    <h4> Obras Comuna {{selectedComuna}}<a href="" ng-click="closeList()"> (x)</a> </h4>
+    <h5><span>Filtrar: <input ng-model="obrasListFilter" type="text" placeholder="Palabra Clave"></h5>
+  </div>
+  <div ng-repeat="o in filteredObras | filter:obrasListFilter">
+    <div class="row">
+      <div class="col-xs-4">
+        <img class="obra-pic img-responsive" ng-src="{{o.thumb}}" />
+      </div>
+      <div class="col-xs-8">
+        <div class="row">
+           <h5> {{o.nombre}} </h5>
+           <span> {{o.descripcion}}</span>
+           <div class="row">
+            <div class="col-xs-6 smaller">
+               <div class="row">
+                <div class="col-xs-6">Monto:</div>
+                <div class="col-xs-6"> {{o.monto_contrato | currency}}</div>
+               </div>
+               <div class="row">
+                <div class="col-xs-6">Etapa:</div>
+                <div class="col-xs-6">{{o.etapa}}</div>
+               </div>
+             </div>
+             <div class="col-xs-6">
+              <p  class="tooltip-text" ng-show="o.link_interno"><a target="_parent" ng-href="{{o.link_interno}}" class="btn btn-link btn-xs btn-block btn-ver-mas">VER MÁS</a></p>
+             </div>
+        </div>
+      </div>
+    </div>
+   
+  </div>
+</div>

@@ -1,46 +1,54 @@
-<div id='stats-home' class='row' ng-show='obras'>
-  <div class='col-custom-2-5 col-sm-6'>
+<div>
+<div class="row" ng-show='obras'>
+  <div class="col-xs-12">
+    <h4> Observatorio de Obras de La Ciudad </h4>
+  </div>
+</div>
+  <div id='stats-home' class='row' ng-show='obras'>
+
+  <div class='col-xs-6'>
     <div class="row">
-      <div class='col-xs-4 icon-container'>
+      <div class='col-xs-3 col-md-4 icon-container'>
         <img class="" src="images/indicadores/inversion.svg"/>
       </div>
-      <div class='col-xs-8 value-container'>
+      <div class='col-xs-9 col-md-8 value-container'>
         <h5>Total de inversión:</h5>
         <span class="value">{{totalRender.inversion | currency:$ :0}}</span>
       </div>
     </div>
   </div>
-  <div class='col-custom-1-5 col-sm-6'>
+  <div class='col-xs-6'>
     <div class="row">
-      <div class='col-xs-4 icon-container'>
+      <div class='col-xs-3 col-md-4 icon-container'>
         <img class="" src="images/indicadores/obras.svg"/>
       </div>
-      <div class='col-xs-8 value-container'>
+      <div class='col-xs-9 col-md-8 value-container'>
         <h5>Total de obras:</h5>
         <span class="value">{{totalRender.obras | number:0}}</span>
       </div>
     </div>
   </div>
-  <div class='col-custom-1-5 col-sm-6'>
+  <div class='col-xs-6'>
     <div class="row">
-      <div class='col-xs-4 icon-container'>
+      <div class='col-xs-3 col-md-4 icon-container'>
         <img class="" src="images/indicadores/finalizadas.svg"/>
       </div>
-      <div class='col-xs-8 value-container'>
+      <div class='col-xs-9 col-md-8 value-container'>
         <h5>Finalizadas:</h5>
         <span class="value">{{totalRender.porcentaje_finalizadas | number:0}}%</span>
       </div>
     </div>
   </div>
-  <div class="hidden-xs col-custom-1-5  col-md-6">
+  <div class="col-xs-6">
     <div class="row">
-      <div class='col-xs-4 icon-container'>
+      <div class='col-xs-3 col-md-8 icon-container'>
         <img class="" src="images/indicadores/personas.svg"/>
       </div>
-      <div class='col-xs-8 value-container'>
+      <div class='col-xs-9 col-md-8 value-container'>
         <h5>Empleados:</h5>
         <span class="value">{{totalRender.mano_obra | number:0}}</span>
       </div>
     </div>
   </div>
+</div>
 </div>
