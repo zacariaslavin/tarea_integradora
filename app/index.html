@@ -10,25 +10,29 @@
     <!-- bower:css -->
     <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
     <link rel="stylesheet" href="bower_components/BAstrap/bastrap.css" />
+    <link rel="stylesheet" href="bower_components/leaflet/dist/leaflet.css" />
+    <link rel="stylesheet" href="bower_components/flexslider/flexslider.css" />
     <!-- endbower -->
     <!-- endbuild -->
+
     <!-- build:css(.tmp) styles/main.css -->
+    <link rel="stylesheet" href="styles/ng-table.min.css">
     <link rel="stylesheet" href="styles/main.css">
     <!-- endbuild -->
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
     <style type="text/css">
-
         textarea{resize: none;}
         .row-preview{background-color: #dadada;}
         #iframeModal .modal-content{background-color: #dadada;}
-
     </style>
   </head>
   <body ng-app="obrasMduytDemo">
 
     <!-- CONTENIDO -->
     <div class="container" ng-controller="DemoCtrl" ng-cloak>
-        <h1 id="loading" ng-show="loading" class="text-center">Cargando...</h1>
+        <div ng-show="loading">  
+          <h1 id="loading" class="text-center">Cargando</h1>
+          <p class="text-center"><img src="images/loader.gif"/></p>
+        </div>
         <div class="row row-selectores" ng-hide="loading">
           <div class="col-md-12">
               <h1>Explorador de obras de {{ sitename || "Gobierno de la Ciudad de Buenos Aires" }}</h1>
@@ -36,7 +40,7 @@
           </div>
           <div class="col-md-6">
               <br>
-              <a class="btn btn-primary btn-block btn-lg" ng-click="loadModal('home')">Home</a>
+              <a class="btn btn-primary btn-block btn-lg" target="_blank" href="demo-home.html">Home <i class="glyphicon glyphicon-new-window"></i></a>
               <br>
           </div>
           <div class="col-md-6">
@@ -71,7 +75,7 @@
                 <h4 class="modal-title" id="myModalLabel">Demo iframe: </h4>
               </div>
               <div class="modal-body">
-                <div id="pym-container"></div>
+                <div id="pym-container" style="min-height: 100px"></div>
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-primary" data-dismiss="modal">Cerrar</button>

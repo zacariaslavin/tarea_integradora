@@ -1,4 +1,29 @@
 # CHANGELOG
+* 2018-10-24 - v4.0-RC9
+  * Obras destacadas con filtro.
+
+* 2018-10-24 - v4.0-RC8
+  * El buscador vuelve a funcionar.
+
+* 2018-10-16 - v4.0-RC5
+  * Los filtros vuelven a funcionar
+
+* 2018-10-05 - v4.0-RC3
+  * Se corrige error de carga de colores.
+
+* 2018-10-04 - v4.0-RC2
+  * Se ocultan puntos filtrados.
+  * Se mejoran en mobile las vistas.
+
+* 2018-09-25 - v4.0-RC1
+  * Mejoras en vista mobile.
+  * Se agrega filtro Obras destacadas.
+
+* 2018-06-13 - v3.7-RC1
+  * Nuevo filtro por etapas
+  * Mejoras visuales
+  * Nuevo diseño tooltip
+  * Mapa de USIG en tooltip
 
 * 2018-03-28 - v3.6
   * Limpieza de código

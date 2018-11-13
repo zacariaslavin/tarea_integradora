@@ -249,8 +249,45 @@ module.exports = function(grunt) {
       }
     },
 
+    useminPrepareSecondTarget: {
+      html: "<%= yeoman.app %>/demo-home.html",
+      options: {
+        dest: "<%= yeoman.dist %>",
+        flow: {
+          html: {
+            steps: {
+              js: ["concat", "uglifyjs"],
+              css: ["cssmin"]
+            },
+            post: {}
+          }
+        }
+      }
+    },
+
     // Performs rewrites based on filerev and the useminPrepare configuration
     usemin: {
+      html: ["<%= yeoman.dist %>/{,*/}*.html"],
+      css: ["<%= yeoman.dist %>/styles/{,*/}*.css"],
+      js: ["<%= yeoman.dist %>/scripts/{,*/}*.js"],
+      options: {
+        assetsDirs: [
+          "<%= yeoman.dist %>",
+          "<%= yeoman.dist %>/images",
+          "<%= yeoman.dist %>/styles"
+        ],
+        patterns: {
+          js: [
+            [
+              /(images\/[^''""]*\.(png|jpg|jpeg|gif|webp|svg))/g,
+              "Replacing references to images"
+            ]
+          ]
+        }
+      }
+    },
+
+    useminSecondTarget: {
       html: ["<%= yeoman.dist %>/{,*/}*.html"],
       css: ["<%= yeoman.dist %>/styles/{,*/}*.css"],
       js: ["<%= yeoman.dist %>/scripts/{,*/}*.js"],
@@ -510,6 +547,20 @@ module.exports = function(grunt) {
     }
   });
 
+  grunt.registerTask("useminPrepareSecondTarget", function() {
+    var useminPrepareSecondTargetConfig = grunt.config(
+      "useminPrepareSecondTarget"
+    );
+    grunt.config.set("useminPrepare", useminPrepareSecondTargetConfig);
+    grunt.task.run("useminPrepare");
+  });
+
+  grunt.registerTask("useminSecondTarget", function() {
+    var useminSecondTargetConfig = grunt.config("useminSecondTarget");
+    grunt.config.set("usemin", useminSecondTargetConfig);
+    grunt.task.run("usemin");
+  });
+
   grunt.registerTask(
     "serve",
     "Compile then start a connect web server",
@@ -543,6 +594,7 @@ module.exports = function(grunt) {
     "clean:dist",
     "wiredep",
     "useminPrepare",
+    "useminPrepareSecondTarget",
     "concurrent:dist",
     "postcss",
     "ngtemplates",
@@ -554,6 +606,7 @@ module.exports = function(grunt) {
     "uglify",
     "filerev",
     "usemin",
+    "useminSecondTarget",
     "htmlmin"
   ]);
 
