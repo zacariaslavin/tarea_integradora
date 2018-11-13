@@ -66,14 +66,14 @@
           </p>
           <div class="etapa">
 
-            <div class="row">
+            <div class="row" ng-show="obra.etapa">
               <div class="col-md-2">
                 <img src="images/iconos/calendario.svg"/>
               </div>
               <div class="col-md-10">
                 <p>Etapa:</p>
                 <p><strong>{{obra.etapa}}</strong> </p>
-                <div class="progress">
+                <div class="progress" ng-show="obra.porcentaje_avance">
                   <div class="progress-bar bg-color-{{obra.slug}}" role="progressbar" ng-style="{ 'width': obra.porcentaje_avance + '%' }">
                     <div class="progressbar-w" ng-show="!obra.porcentaje_avance">
                       <p></p>
@@ -103,7 +103,7 @@
               </div>
             </div>
 
-            <div class="row">
+            <div class="row" ng-show="obra.tipo">
               <div class="col-md-2">
                 <img src="images/iconos/estilo.svg"/>
               </div>
@@ -113,7 +113,7 @@
               </div>
             </div>
 
-            <div class="row">
+            <div class="row" ng-show="obra.area_responsable">
               <div class="col-md-2">
                 <img src="images/iconos/ministerio.svg"/>
               </div>
