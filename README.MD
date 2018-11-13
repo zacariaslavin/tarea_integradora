@@ -1,136 +1,108 @@
-# Obras
+# [BA Obras](https://obras.buenosaires.gob.ar/)
 
-## URL
-[https://obras.buenosaires.gob.ar/](https://obras.buenosaires.gob.ar/)
+Proyecto de visualización y análisis de la información de las obras del Gobierno de la Ciudad de Buenos Aires.
 
-## Observatorio de obras 
+- [Instrucciones para desarrolladores](./docs/es/DEVELOP.md)
+- [Actualizaciones](./docs/es/UPDATES.md) 
+- [Changelog](./docs/es/CHANGELOG.md)
 
-Proyecto de visualización y análisis de la información de las obras del Gobierno de la Ciudad.
 
-El proyecto es exclusivamente frontend. Toma la información de unos CSV estáticos y los representa. 
+## Acerca de BA Obras 
 
-Se trata de una aplicación enteramente de frontend (todos archivos estáticos), con diferentes vistas. Los datos se toman desde los archivos almacenados en el Portal de Datos a través de la API [csv-to api](http://git-asi.buenosaires.gob.ar/usuarioQA/ssdeciudadinteligentedggedi-15-compromisos-csv-to-api)
+BA Obras es un sitio web que busca informar a la ciudadanía acerca del avance de todas las obras de la jurisdicción.
+El sistema es una aplicación frontend que toma información de un csv y crea visualizaciones de datos sobre el 
+cumplimiento de las obras. Se genera una vista para cada obra y una vista general donde pueden verse todas. 
+La misma tiene la capacidad de ser embebida dentro otras páginas correspondientes a organismos relacionados.
 
+El proyecto original puede verse en [obras.buenosaires.gob.ar](https://obras.buenosaires.gob.ar/)
+
+Se trata de una aplicación enteramente de frontend (todos archivos estáticos), con diferentes vistas. 
+El proyecto es exclusivamente frontend. Todos los datos son obtenidos desde un unico CSV estáticos y los representa. 
 No tiene formularios, submits a backend con información ni acceso a base de datos.
-
-Las páginas y los charts que aquí se generan, serán embebidos en un iframe dentro de BuenosAires.gob.ar.
-
-Tomar como referencia ante dudas, la configuración de: [Compromisos de gobierno](https://compromisos-site.buenosaires.gob.ar/) dado que la aplicación presenta iguales características.
-
 Está construído como Single Page Application basado en Angular JS.
 
-## Documentación
+## Requisitos de datos
 
-* Deploy: ver INSTALL.MD y UPGRADE.MD
-* Changelog: ver CHANGELOG.MD 
+La fuente de datos del sitio consta de un archivo csv que puede estar alojado en un servicio externo o puede ser 
+un archivo que forme parte del proyecto. Para conocer detalles sobre la conexion entre el sitio y el csv, ver 
+la sección relativa al archivo de configuración.
 
-=======
+### Esquema de datos
 
-## Probar el proyecto de manera standalone para desarrollo
-* Clonar el proyecto
-* Archivo de configuración: En /dist duplicar el archivo config.js.example con el nombre config.js.
-* Instalar NodeJS: [Node Js Oficial](http://nodejs.org)
-* Instalar http-server
-`npm install http-server -g`
-* Ir a Directorio /dist y ejecutar servidor
-`cd dist`
-`http-server ./`
-* Abrir navegador 
-Dirección: `http://localhost:8080`
-
-## Para desarrolladores
-* Archivo de configuración: En /app duplicar el archivo config.js.example con el nombre config.js.
-* Instalar dependencias via `bower install` en la carpeta raiz del proyecto
-* Correr la aplicación desde /app -> Hacer los cambios en /app y con live reloading se actualizará en http://localhost:10000
-`grunt serve`
-* Compilar
-`grunt build`
-
-## Probar los compilados. 
-* Levanta la aplicación en http://localhost:10000 desde /dist
-`grunt server:dist`
-
-## Instalar en producción
-* Hacer clone y/o pull del proyecto 
-* Apuntar la configuración del web server a la carpera /dist
-* En /dist duplicar el archivo config.js.example con el nombre config.js.
-* Navegar hacia la url
-
-This project is generated with [yo angular generator](https://github.com/yeoman/generator-angular)
-version 0.15.1.
-
-## Build & development
-
-Run `grunt` for building and `grunt serve` for preview.
-
-## Testing
-
-Running `grunt test` will run the unit tests with karma.
-
-=======
-
-## Notas sobre documentación de USIG
-
-[Documentación de USIG-JS](http://servicios.usig.buenosaires.gob.ar/usig-js/3.1/doc/)
-
-[Tenes demos acá](http://servicios.usig.buenosaires.gob.ar/usig-js/3.1/demos/)
-
-[Y Ejemplos acá:](http://servicios.usig.buenosaires.gob.ar/usig-js/3.1/ejemplos/)
-
-Es bastante importante que incluyan los componentes desde servicios.usig.buenosaires.gob.ar en lugar de copiarlos porque de lo contrario los bug-fixes no van a impactar en forma automática.
-Si querés usar Leaflet acá te paso un ejemplo de cómo cargarías la cartografía de USIG:
-
-```javascript
-usig.Layers = {
-    'amba_con_transporte': {
-        url: '//tiles1.usig.buenosaires.gob.ar/mapcache/tms/1.0.0/amba_con_transporte_3857@GoogleMapsCompatible/{z}/{x}/{y}.png',
-        format: 'tms',
-        builder: 'tms',
-        baseLayer: true,
-        options: {
-            maxZoom: 18,
-            minZoom: 9,
-            attribution:'USIG (<a href="http://www.buenosaires.gob.ar" target="_blank">GCBA</a>), © <a href="http://www.openstreetmap.org/copyright/en" target="_blank">OpenStreetMap</a> (ODbL)',
-            tms: true
-        },
-    },
-}
-
-    var map = L.map('map', {
-        center: L.latLng(-34.607497, -58.443832),
-        zoom: 11,
-        attributionControl: false
-    });
-
-    L.tileLayer(usig.Layers.amba_con_transporte.url, usig.Layers.amba_con_transporte.options).addTo(map);
-    var lezama = L.marker([-34.628913, -58.369937]).addTo(map);
-    lezama.bindPopup("<h3>Palacio Lezama</h3>");
-    
-    $.ajax ({
-        type:'GET',
-        dataType:'json',
-        url: URL_DEL_SERVICIO_QUE_DEVUELVE_GEOJSON,
-        error: function() {
-            alert('No se pudieron cargar los datos');
-        },
-        success: function(data) {
-            L.geoJson(data, {
-                onEachFeature: popup /* Funcion a definir */,
-                pointToLayer: styleMarker /* Estilo (opcional) */
-            }).addTo(map);
-        }
-    });  
-
-```  
-
-=======
-
-Bienvenido al Repositorio de Entregas de los proyectos a la ASI, denominado GIT.
-La definición de como se entrega y que documentos deben entregar se encuentra en la carpeta denominada "Instructivos-Documentos ASI" donde encontrarán un instructivo del GIT que explica el proceso y donde subir cada archivo. 
-Adicionalmente se encuentran los templates de guía para completar la documentación del proyecto para avanzar con las tareas y actividades de la ASI como Documento de Arquitectura, Manual de instalación, Documento de Alcance y funcionamiento, etc.
-
-Es obligatorio que contemplen que  el sistema operativo que deben utilizar es **RedHat 6.5**. Puede descargar la versión gratuita del mismo (Centos 6.5) desde el siguiente enlace [Descargar](https://github.com/2creatives/vagrant-centos/releases/download/v6.5.1/centos65-x86_64-20131205.box)
-
-Recuerden que **ninguno** de los ambientes productivos cuentan con acceso a internet. Si para el correcto funcionamiento de la aplicación es necesario comunicarse con servidores externos los mismos debe enumerarse en el manual de instalación indicando dominio/puerto que debe estar habilitado justificando su uso en cada caso. 
+| Nombre de la columna  | Columna obligatoria / opcional | Tipo de dato | Detalle                                    |
+| --------------------- |------------------------------- | ------------ | ------------------------------------------ |
+| `nombre`              | Obligatoria                    | Texto        | Nombre con el cual se identifica a la obra |
 
 
+## Instrucciones para desarrolladores
+
+Para realizar modificaciones al sitio actual, realizar los siguientes pasos
+
+* Clonar el proyecto usando git
+* Instalar NodeJS. Recomendamos usar [nvm](https://github.com/creationix/nvm). Una vez instalado `nvm` ejecutar 
+`nvm use` en la carpeta raiz del proyecto para asegurarse de usar la misma version de node.
+* Instalar las dependencias de npm via `npm install` en la carpeta raiz del proyecto 
+* Instalar las dependencias de bower via `bower install` en la carpeta raiz del proyecto
+* Archivo de configuración: En /app duplicar el archivo config.js.example con el nombre config.js y configurar 
+acorde a la [seccion correspondiente al archivo de configuración](./CONFIG.md)
+* Levantar el servidor de desarrollo via `grunt serve` en la carpeta raiz del proyecto
+* Hacer los cambios en /app y con live reloading se actualizará en http://localhost:10000
+* Una vez que se cuenta con los cambios deseados, compilar assets via `grunt build` en la carpeta raiz del proyecto
+
+
+## Levantar el proyecto en un ambiente productivo
+
+### Requerimientos
+
+Sólo requiere un servidor web que pueda servir los contenidos. 
+La aplicación contiene su código y las librerías que necesita, ya compiladas en la carpeta `/dist`.
+
+* Apache o NGINX
+* Varnish u otro caché de estáticos (opcional, ideal para mejorar la performance)
+* No se requiere hacer build de ningún tipo.
+* No se requiere salida a internet desde el servidor.
+* No se requieren instalación de dependencias.
+* Todo lo necesario está compilado y minificado en estáticos (html, css, js e imágenes), dentro de la carpeta `/dist`.
+
+### Configuración
+
+* La única configuración requerida es la creación del ARCHIVO de configuración y al archivo `csv` de datos 
+(en caso de no cargarlo via un servicio externo)
+* No requiere parámetros de ambiente del servidor, ni de proceso. Es todo web y js client – side.
+
+### Instalación por primera vez
+
+1. Crear un subdominio o definir la url donde vivirá la aplicación, podría ser: 
+`https://obras-site.buenosaires.gob.ar/`.
+2. Definir un servidor con nginx o apache y clonar el proyecto usando 
+`git clone https://github.com/datosgcba/ba_obras.git`.
+3. Apuntar las configuraciones del web server y subdominio a la carpeta `dist`, donde se encuentran los archivos 
+finales y compilados.
+
+### Actualizaciones
+
+En caso de querer actualizar a un tag especifico, ubicarse en la carpeta raíz del proyecto, dentro del servidor y 
+ejecutar el pull al tag de la versión indicada via `git fetch --tags` y luego `git checkout TAG-DE-VERSION`.
+
+En caso de querer actualizar a la ultima version disponible, ubicarse en la carpeta raiz del proyecto y ejecutar
+`git pull`.
+
+En ambos casos, la carpeta `dist` quedara con sus archivos actualizados. Si se han realizados cambios al proyecto
+utilizando versionado via git, mergearlos a la correspondiente nueva version.
+
+
+## Archivo de Configuración
+
+El archivo de configuración `config.js` deberá configurarse acordemente para poder levantar el sitio en modo de
+desarrollo o producción. Existen dos ejemplos del archivo de configuración `config.js.example` en las carpetas `app`
+y `dist` para servir de base al archivo de configuración de desarrollo `app/config.js` y al archivo de configuración
+de producción `dist/config.js`
+
+| Config                | Valor               | Descripción                                                          |
+| --------------------- |-------------------- | -------------------------------------------------------------------- |
+| `LOAD_USING_JSONP`    | `true\|false`        | Indica si el archivo de datos deberá ser cargado utilizando un request via jsonp o si deberá ser cargado localmente. |
+
+
+3. Modificar este nuevo archivo con los datos correspondientes:
+  3. BASE_URL: será la url del conector de la API ( utilizar `https://compromisos-csv.buenosaires.gob.ar/` ).
+  3. HOME_CSV: url absoluta del archivo csv que alimenta la home, el buscador y las internas. (Si no se tiene aún, dejar los de ejemplo o utilizar la disponible para producción `https://recursos-data.buenosaires.gob.ar/ckan2/observatorio-obras-publicas/observatorio-obras_original.csv` 
