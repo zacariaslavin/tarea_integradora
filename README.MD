@@ -2,6 +2,21 @@
 
 Proyecto de visualización y análisis de la información de las obras del Gobierno de la Ciudad de Buenos Aires.
 
+  - [Acerca de BA Obras](#acerca-de-ba-obras)
+  - [Requisitos de datos](#requisitos-de-datos)
+    - [Esquema de datos](#esquema-de-datos)
+  - [Archivos necesarios para el correcto funcionamiento del sitio](#archivos-necesarios-para-el-correcto-funcionamiento-del-sitio)
+    - [Archivos geoespaciales](#archivos-geoespaciales)
+    - [Iconos e imagenes](#iconos-e-imagenes)
+  - [Instrucciones para desarrolladores](#instrucciones-para-desarrolladores)
+    - [Adaptación estetica](#adaptaci%C3%B3n-estetica)
+  - [Levantar el proyecto en un ambiente productivo](#levantar-el-proyecto-en-un-ambiente-productivo)
+    - [Requerimientos](#requerimientos)
+    - [Configuración](#configuraci%C3%B3n)
+    - [Instalación por primera vez](#instalaci%C3%B3n-por-primera-vez)
+    - [Actualizaciones](#actualizaciones)
+  - [Archivo de Configuración](#archivo-de-configuraci%C3%B3n)
+
 ## Acerca de BA Obras 
 
 BA Obras es un sitio web que busca informar a la ciudadanía acerca del avance de todas las obras de la jurisdicción.
@@ -60,6 +75,17 @@ la sección relativa al archivo de configuración.
 | `link_interno`                | Opcional                       | Url               | Link para mas información sobre la obra              |
 | `pliego_descarga`             | Opcional                       | Url               | Link absoluto al pliego de la obra                   |
 
+
+## Archivos necesarios para el correcto funcionamiento del sitio
+
+### Archivos geoespaciales
+
+TODO: hablar del geojson necesario y su estructura
+
+### Iconos e imagenes
+
+TODO: hablar de las imagenes de los filtros y su nomenclatura. Favicon
+
 ## Instrucciones para desarrolladores
 
 Para realizar modificaciones al sitio actual, realizar los siguientes pasos
@@ -74,6 +100,10 @@ acorde a la [seccion correspondiente al archivo de configuración](./CONFIG.md)
 * Levantar el servidor de desarrollo via `grunt serve` en la carpeta raiz del proyecto
 * Hacer los cambios en /app y con live reloading se actualizará en http://localhost:10000
 * Una vez que se cuenta con los cambios deseados, compilar assets via `grunt build` en la carpeta raiz del proyecto
+
+### Adaptación estetica
+
+TODO: contar cómo agregar css al proyecto para poder cambiarle el look and feel
 
 
 ## Levantar el proyecto en un ambiente productivo
