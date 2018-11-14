@@ -2,11 +2,6 @@
 
 Proyecto de visualización y análisis de la información de las obras del Gobierno de la Ciudad de Buenos Aires.
 
-- [Instrucciones para desarrolladores](./docs/es/DEVELOP.md)
-- [Actualizaciones](./docs/es/UPDATES.md) 
-- [Changelog](./docs/es/CHANGELOG.md)
-
-
 ## Acerca de BA Obras 
 
 BA Obras es un sitio web que busca informar a la ciudadanía acerca del avance de todas las obras de la jurisdicción.
@@ -29,10 +24,41 @@ la sección relativa al archivo de configuración.
 
 ### Esquema de datos
 
-| Nombre de la columna  | Columna obligatoria / opcional | Tipo de dato | Detalle                                    |
-| --------------------- |------------------------------- | ------------ | ------------------------------------------ |
-| `nombre`              | Obligatoria                    | Texto        | Nombre con el cual se identifica a la obra |
-
+| Nombre de la columna          | Columna obligatoria / opcional | Tipo de dato      | Detalle                                              |
+| ----------------------------- |------------------------------- | ----------------- | ---------------------------------------------------- |
+| `nombre`                      | Obligatoria                    | Texto             | Nombre con el cual se identifica a la obra           |
+| `lat`                         | Obligatoria                    | Numerico          | Latittud de la ubicación de la obra                  |
+| `lng`                         | Obligatoria                    | Numerico          | Longitud de la ubicación de la obra                  |
+| `imagen_1`                    | Obligatoria                    | Url               | Url de una imagen representando la obra              |
+| `descripcion`                 | Obligatoria                    | Texto             | Descripción la obra                                  |
+| `entorno`                     | Obligatoria                    | Categoria (Texto) | Clasificación territorial de la obra                 |
+| `monto_contrato`              | Obligatoria                    | Numerico          | Monto presupuestado para la obra                     |
+| `etapa`                       | Obligatoria                    | Categoria (Texto) | Etapa de la obra                                     |
+| `tipo`                        | Obligatoria                    | Categoria (Texto) | Tipo de la obra                                      |
+| `mano_obra`                   | Opcional                       | Numerico          | Cantidad de obreros trabajando en la obra            |
+| `porcentaje_avance`           | Opcional                       | Numerico          | Porcentaje de avance entre 0 y 1                     |
+| `id`                          | Opcional                       | Numerico          | Identificador de la obra                             |
+| `etapa_detalle`               | Opcional                       | Texto             | Información extra de la etapa                        |
+| `area_responsable`            | Opcional                       | Categoria (Texto) | Ministerio o área responsable                        |
+| `comuna`                      | Opcional                       | Numerico          | Número de la comuna                                  |
+| `barrio`                      | Opcional                       | Texto             | Nombre del barrio                                    |
+| `calle_1`                     | Opcional                       | Texto             | Calle                                                |
+| `seccion`                     | Opcional                       | Numerico          | Número de sección                                    |
+| `manzana`                     | Opcional                       | Numerico          | Número de manzana                                    |
+| `parcela`                     | Opcional                       | Numerico          | Número de parcela                                    |
+| `direccion`                   | Opcional                       | Texto             | Dirección y número                                   |
+| `fecha_inicio`                | Opcional                       | Fecha             | Fecha de inicio de la obra                           |
+| `fecha_fin_inicial`           | Opcional                       | Fecha             | Fecha de fin de la obra                              |
+| `plazo_meses`                 | Opcional                       | Numerico          | Cantidad de meses                                    |
+| `imagen_2`                    | Opcional                       | Url               | Url de una imagen secundaria representando la obra   |
+| `imagen_3`                    | Opcional                       | Url               | Url de una imagen secundaria representando la obra   |
+| `imagen_4`                    | Opcional                       | Url               | Url de una imagen secundaria representando la obra   |
+| `licitacion_oferta_empresa`   | Opcional                       | Texto             | Nombre de la empresa                                 |
+| `licitacion_anio`             | Opcional                       | Numerico          | Año de la licitación                                 |
+| `benficiarios`                | Opcional                       | Numerico          | Cantidad de beneficiarios                            |
+| `compromiso`                  | Opcional                       | Texto             | Nombre del compromiso                                |
+| `link_interno`                | Opcional                       | Url               | Link para mas información sobre la obra              |
+| `pliego_descarga`             | Opcional                       | Url               | Link absoluto al pliego de la obra                   |
 
 ## Instrucciones para desarrolladores
 
