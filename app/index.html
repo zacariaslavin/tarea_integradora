@@ -36,8 +36,8 @@
         </div>
         <div class="row row-selectores" ng-hide="loading">
           <div class="col-md-12">
-              <h1>Explorador de obras de {{ sitename || "Gobierno de la Ciudad de Buenos Aires" }}</h1>
-              <p>Esta es la página de prueba para visualizar las obras del GCBA. Click para ver página.</p>
+              <h1>Explorador de obras de {{ sitename }}</h1>
+              <p>Esta es la página de prueba para visualizar las obras de {{ sitename }}. Click para ver página.</p>
           </div>
           <div class="col-md-6">
               <br>
@@ -142,7 +142,7 @@
 
             $scope.url = 'pala';
 
-            $scope.sitename = window.MDUYT_CONFIG.CITY_NAME;
+            $scope.sitename = window.MDUYT_CONFIG.CITY_NAME || "Gobierno de la Ciudad de Buenos Aires";
 
             DataService.retrieveAll()
             .then(function(data){
