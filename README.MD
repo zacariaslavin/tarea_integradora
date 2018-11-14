@@ -124,11 +124,9 @@ desarrollo o producción. Existen dos ejemplos del archivo de configuración `co
 y `dist` para servir de base al archivo de configuración de desarrollo `app/config.js` y al archivo de configuración
 de producción `dist/config.js`
 
-| Config                | Valor               | Descripción                                                          |
-| --------------------- |-------------------- | -------------------------------------------------------------------- |
-| `LOAD_USING_JSONP`    | `true\|false`        | Indica si el archivo de datos deberá ser cargado utilizando un request via jsonp o si deberá ser cargado localmente. |
-
-
-3. Modificar este nuevo archivo con los datos correspondientes:
-  3. BASE_URL: será la url del conector de la API ( utilizar `https://compromisos-csv.buenosaires.gob.ar/` ).
-  3. HOME_CSV: url absoluta del archivo csv que alimenta la home, el buscador y las internas. (Si no se tiene aún, dejar los de ejemplo o utilizar la disponible para producción `https://recursos-data.buenosaires.gob.ar/ckan2/observatorio-obras-publicas/observatorio-obras_original.csv` 
+| Config                | Valor                 | Descripción                                                                                                           |
+| --------------------- |---------------------- | --------------------------------------------------------------------------------------------------------------------- |
+| `LOAD_USING_JSONP`    | `true\|false`         | Indica si el archivo de datos deberá ser cargado utilizando un request via jsonp o si deberá ser cargado localmente.  |
+| `DATA_PATH`           | String                | Url o nombre de archivo                                                                                               |
+| `USE_USIG_MAP_TILES`  | `true\|false`         | Indica si los mapas deberan usar tilemaps de USIG (soporte unicamente para Buenos Aires)                              |
+| `CITY_NAME`           | String                | Nombre de la jurisdicción correspondiente al sitio                                                                    |

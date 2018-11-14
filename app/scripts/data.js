@@ -112,22 +112,17 @@ function loadData ($sce, $q, $http, Slug) {
     throw 'Archivo de configuración inexistente';
   }
 
-  var url;
-  if (window.MDUYT_CONFIG.LOAD_USING === 'GET_REQUEST') {
-    url = window.MDUYT_CONFIG.DATA_CSV;
-  } else if (window.MDUYT_CONFIG.LOAD_USING === 'JSONP_PROXY') {
-    url = window.MDUYT_CONFIG.JSONP_PROXY + '?source_format=csv&source=' + window.MDUYT_CONFIG.DATA_CSV;
-  }
+  var url = window.MDUYT_CONFIG.DATA_PATH;
   var trustedUrl = $sce.trustAsResourceUrl(url);
 
   var deferred = $q.defer();
   var data;
 
   var onSuccess = function (result) {
-    if (window.MDUYT_CONFIG.LOAD_USING === 'GET_REQUEST') {
-      data = Papa.parse(result.data, { header:true }).data;
-    } else {
+    if (window.MDUYT_CONFIG.LOAD_USING_JSONP) {
       data = result.data;
+    } else {
+      data = Papa.parse(result.data, { header:true }).data;
     }
     data = data.map(function (reg, index) { return cleanData(reg, index, Slug)});
     deferred.resolve(data);
@@ -138,15 +133,11 @@ function loadData ($sce, $q, $http, Slug) {
     deferred.reject(error);
   };
 
-  if (window.MDUYT_CONFIG.LOAD_USING === 'GET_REQUEST') {
-    $http.get(trustedUrl).then(onSuccess, onError);
-  } else if (window.MDUYT_CONFIG.LOAD_USING === 'JSONP_PROXY') {
+  if (window.MDUYT_CONFIG.LOAD_USING_JSONP) {
     $http.jsonp(trustedUrl).then(onSuccess, onError);
+  } else {
+    $http.get(trustedUrl).then(onSuccess, onError);
   }
 
   return deferred.promise;
-}
-
-function loadMapsData () {
-
 }

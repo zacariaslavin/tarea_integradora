@@ -202,16 +202,6 @@ angular
       return cond1;
     };
 
-    var verifyConfig = function() {
-      if (!window.MDUYT_CONFIG) {
-        if (window.location.href.indexOf("dist") > -1) {
-          L.Icon.Default.imagePath = "/dist/images";
-        } else {
-          L.Icon.Default.imagePath = "images";
-        }
-      }
-    };
-
     var getUrlMapas = function() {
       if(!window.MDUYT_CONFIG){
         throw 'Archivo de configuración inexistente';

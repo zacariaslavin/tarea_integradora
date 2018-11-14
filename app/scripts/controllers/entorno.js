@@ -14,7 +14,7 @@ angular
     $scope.pymChild.sendHeight();
 
     var tilesUSIG;
-    if (window.MDUYT_CONFIG.isCABA) {
+    if (window.MDUYT_CONFIG.USE_USIG_MAP_TILES) {
       tilesUSIG = {
         url: "//tiles1.usig.buenosaires.gob.ar/mapcache/tms/1.0.0/amba_con_transporte_3857@GoogleMapsCompatible/{z}/{x}/{y}.png",
         format: "tms",
