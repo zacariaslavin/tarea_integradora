@@ -7,7 +7,7 @@ Proyecto de visualización y análisis de la información de las obras del Gobie
     - [Esquema de datos](#esquema-de-datos)
   - [Archivos necesarios para el correcto funcionamiento del sitio](#archivos-necesarios-para-el-correcto-funcionamiento-del-sitio)
     - [Archivos geoespaciales](#archivos-geoespaciales)
-    - [Iconos e imagenes](#iconos-e-imagenes)
+    - [Favicon](#favicon)
   - [Instrucciones para desarrolladores](#instrucciones-para-desarrolladores)
     - [Adaptación estetica](#adaptaci%C3%B3n-estetica)
   - [Levantar el proyecto en un ambiente productivo](#levantar-el-proyecto-en-un-ambiente-productivo)
@@ -42,41 +42,49 @@ la sección relativa al archivo de configuración.
 | Nombre de la columna          | Columna obligatoria / opcional | Tipo de dato      | Detalle                                              |
 | ----------------------------- |------------------------------- | ----------------- | ---------------------------------------------------- |
 | `nombre`                      | Obligatoria                    | Texto             | Nombre con el cual se identifica a la obra           |
-| `lat`                         | Obligatoria                    | Numerico          | Latittud de la ubicación de la obra                  |
-| `lng`                         | Obligatoria                    | Numerico          | Longitud de la ubicación de la obra                  |
+| `lat`                         | Obligatoria                    | Numerico¹         | Latittud de la ubicación de la obra                  |
+| `lng`                         | Obligatoria                    | Numerico¹         | Longitud de la ubicación de la obra                  |
 | `imagen_1`                    | Obligatoria                    | Url               | Url de una imagen representando la obra              |
 | `descripcion`                 | Obligatoria                    | Texto             | Descripción la obra                                  |
 | `entorno`                     | Obligatoria                    | Categoria (Texto) | Clasificación territorial de la obra                 |
-| `monto_contrato`              | Obligatoria                    | Numerico          | Monto presupuestado para la obra                     |
-| `etapa`                       | Obligatoria                    | Categoria (Texto) | Etapa de la obra                                     |
-| `tipo`                        | Obligatoria                    | Categoria (Texto) | Tipo de la obra                                      |
-| `mano_obra`                   | Opcional                       | Numerico          | Cantidad de obreros trabajando en la obra            |
-| `porcentaje_avance`           | Opcional                       | Numerico          | Porcentaje de avance entre 0 y 100                   |
-| `id`                          | Opcional                       | Numerico          | Identificador de la obra                             |
+| `monto_contrato`              | Obligatoria                    | Numerico¹         | Monto presupuestado para la obra                     |
+| `etapa`                       | Obligatoria                    | Categoria (Texto). Uno de los siguientes valores: `En proyecto`, `En licitacion`, `En ejecucion`, `Finalizada` | Etapa de la obra |
+| `tipo`                        | Obligatoria                    | Categoria (Texto) | Tipo de la obra. Los valores deben coincidir con la nomenclatura actual o, en caso contrario, deben cargarse nuevos iconos al proyecto² |
+| `mano_obra`                   | Opcional                       | Numerico¹         | Cantidad de obreros trabajando en la obra            |
+| `porcentaje_avance`           | Opcional                       | Numerico¹         | Porcentaje de avance entre 0 y 100                   |
+| `id`                          | Opcional                       | Numerico¹         | Identificador de la obra                             |
 | `etapa_detalle`               | Opcional                       | Texto             | Información extra de la etapa                        |
 | `area_responsable`            | Opcional                       | Categoria (Texto) | Ministerio o área responsable                        |
-| `comuna`                      | Opcional                       | Numerico          | Número de la comuna                                  |
+| `comuna`                      | Opcional                       | Numerico¹         | Número de la comuna                                  |
 | `barrio`                      | Opcional                       | Texto             | Nombre del barrio                                    |
 | `calle_1`                     | Opcional                       | Texto             | Calle                                                |
-| `seccion`                     | Opcional                       | Numerico          | Número de sección                                    |
-| `manzana`                     | Opcional                       | Numerico          | Número de manzana                                    |
-| `parcela`                     | Opcional                       | Numerico          | Número de parcela                                    |
+| `seccion`                     | Opcional                       | Numerico¹         | Número de sección                                    |
+| `manzana`                     | Opcional                       | Numerico¹         | Número de manzana                                    |
+| `parcela`                     | Opcional                       | Numerico¹         | Número de parcela                                    |
 | `direccion`                   | Opcional                       | Texto             | Dirección y número                                   |
 | `fecha_inicio`                | Opcional                       | Fecha             | Fecha de inicio de la obra                           |
 | `fecha_fin_inicial`           | Opcional                       | Fecha             | Fecha de fin de la obra                              |
-| `plazo_meses`                 | Opcional                       | Numerico          | Cantidad de meses                                    |
+| `plazo_meses`                 | Opcional                       | Numerico¹         | Cantidad de meses                                    |
 | `imagen_2`                    | Opcional                       | Url               | Url de una imagen secundaria representando la obra   |
 | `imagen_3`                    | Opcional                       | Url               | Url de una imagen secundaria representando la obra   |
 | `imagen_4`                    | Opcional                       | Url               | Url de una imagen secundaria representando la obra   |
 | `licitacion_oferta_empresa`   | Opcional                       | Texto             | Nombre de la empresa                                 |
-| `licitacion_anio`             | Opcional                       | Numerico          | Año de la licitación                                 |
-| `benficiarios`                | Opcional                       | Numerico          | Cantidad de beneficiarios                            |
+| `licitacion_anio`             | Opcional                       | Numerico¹         | Año de la licitación                                 |
+| `benficiarios`                | Opcional                       | Numerico¹         | Cantidad de beneficiarios                            |
 | `compromiso`                  | Opcional                       | Texto             | Nombre del compromiso                                |
 | `link_interno`                | Opcional                       | Url               | Link para mas información sobre la obra              |
 | `pliego_descarga`             | Opcional                       | Url               | Link absoluto al pliego de la obra                   |
 
-Tener en cuenta que es importante formatear los numeros de forma tal que el separador decimal sea `.` y no deben 
+¹ Tener en cuenta que es importante formatear los numeros de forma tal que el separador decimal sea `.` y no deben 
 contar con separadores de miles, comillas, caracter de moneda, ni otros caracteres especiales. 
+
+² Los tipos de obras que actualmente cuentan con iconos son: `Arquitectura`, `Escuelas`, `Espacio publico`, 
+`Hidraulica e infraestructura`, `Hidraulica`, `Salud`, `Transporte` y `Vivienda`. En caso de contar con tipos de obras
+que no se encuentren entre las anteriores, es necesario agregar los iconos correspondientes a la carpeta 
+`app/images/iconos`. Los nombres de archivo deben estar en formato `svg` y su nombre debe estar en minuscula y 
+reemplazando los espacios por guiones `-`, por ej: el icono correspondiente a `Espacio publico` tiene nombre de 
+archivo `espacio-publico.svg`. Luego de agregar los iconos, es necesario buildear el proyecto (ver instrucciones para
+desarrolladores en este mismo documento).
 
 ## Archivos necesarios para el correcto funcionamiento del sitio
 
@@ -84,13 +92,10 @@ contar con separadores de miles, comillas, caracter de moneda, ni otros caracter
 
 TODO: hablar del geojson necesario y su estructura
 
-### Iconos e imagenes
-
-TODO: iconos y svg
+### Favicon
 
 Para modificar el favicon del sitio, pisar el archivo `app/favicon.ico` con el favicon que se quiera utilizar.
-
-Es necesario buildear el proyecto luego de los cambios de imagenes. Ver la siguiente seccion.
+Es necesario buildear el proyecto luego de este cambio. Ver la siguiente seccion.
 
 ## Instrucciones para desarrolladores
 
