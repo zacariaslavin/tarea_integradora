@@ -103,7 +103,11 @@ acorde a la [seccion correspondiente al archivo de configuración](./CONFIG.md)
 
 ### Adaptación estetica
 
-TODO: contar cómo agregar css al proyecto para poder cambiarle el look and feel
+En caso de necesitar agregar cambios al css del sitio, ubicarlos en el archivo `app/styles/custom.css`. Este archivo
+tiene precedencia por sobre los estilos base del sitio. 
+
+Una vez modificado este archivo, ejecutar el comando `grunt build` para empaquetar los cambios y disponibilizarlos
+en la carpeta `dist` con el resto de los assets productivos.
 
 
 ## Levantar el proyecto en un ambiente productivo
