@@ -335,7 +335,7 @@ angular
       if (!chart.mapGroup) {
         chart.mapGroup = chart.svg.select("#map-group");
 
-        d3.json("geo/comunas.simple.geojson", function(data) {
+        d3.json("geo/geometry.geojson", function(data) {
           chart.mapCentroids = {};
 
           chart.mapFeatures = data.features;

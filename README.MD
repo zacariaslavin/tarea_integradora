@@ -75,6 +75,8 @@ la sección relativa al archivo de configuración.
 | `link_interno`                | Opcional                       | Url               | Link para mas información sobre la obra              |
 | `pliego_descarga`             | Opcional                       | Url               | Link absoluto al pliego de la obra                   |
 
+Tener en cuenta que es importante formatear los numeros de forma tal que el separador decimal sea `.` y no deben 
+contar con separadores de miles, comillas, caracter de moneda, ni otros caracteres especiales. 
 
 ## Archivos necesarios para el correcto funcionamiento del sitio
 
@@ -84,7 +86,11 @@ TODO: hablar del geojson necesario y su estructura
 
 ### Iconos e imagenes
 
-TODO: hablar de las imagenes de los filtros y su nomenclatura. Favicon
+TODO: iconos y svg
+
+Para modificar el favicon del sitio, pisar el archivo `app/favicon.ico` con el favicon que se quiera utilizar.
+
+Es necesario buildear el proyecto luego de los cambios de imagenes. Ver la siguiente seccion.
 
 ## Instrucciones para desarrolladores
 
@@ -103,7 +109,11 @@ acorde a la [seccion correspondiente al archivo de configuración](./CONFIG.md)
 
 ### Adaptación estetica
 
-TODO: contar cómo agregar css al proyecto para poder cambiarle el look and feel
+En caso de necesitar agregar cambios al css del sitio, ubicarlos en el archivo `app/styles/custom.css`. Este archivo
+tiene precedencia por sobre los estilos base del sitio. 
+
+Una vez modificado este archivo, ejecutar el comando `grunt build` para empaquetar los cambios y disponibilizarlos
+en la carpeta `dist` con el resto de los assets productivos.
 
 
 ## Levantar el proyecto en un ambiente productivo
