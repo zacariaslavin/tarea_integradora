@@ -36,7 +36,7 @@ la sección relativa al archivo de configuración.
 | `etapa`                       | Obligatoria                    | Categoria (Texto) | Etapa de la obra                                     |
 | `tipo`                        | Obligatoria                    | Categoria (Texto) | Tipo de la obra                                      |
 | `mano_obra`                   | Opcional                       | Numerico          | Cantidad de obreros trabajando en la obra            |
-| `porcentaje_avance`           | Opcional                       | Numerico          | Porcentaje de avance entre 0 y 1                     |
+| `porcentaje_avance`           | Opcional                       | Numerico          | Porcentaje de avance entre 0 y 100                   |
 | `id`                          | Opcional                       | Numerico          | Identificador de la obra                             |
 | `etapa_detalle`               | Opcional                       | Texto             | Información extra de la etapa                        |
 | `area_responsable`            | Opcional                       | Categoria (Texto) | Ministerio o área responsable                        |
