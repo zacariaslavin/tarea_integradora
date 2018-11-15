@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>Explorador de obras del Ministerio de Desarrollo Urbano y Transporte</title>
+    <title>Explorador de obras</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width">
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
@@ -10,33 +10,38 @@
     <!-- bower:css -->
     <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
     <link rel="stylesheet" href="bower_components/BAstrap/bastrap.css" />
+    <link rel="stylesheet" href="bower_components/leaflet/dist/leaflet.css" />
+    <link rel="stylesheet" href="bower_components/flexslider/flexslider.css" />
     <!-- endbower -->
     <!-- endbuild -->
-    <!-- build:css(.tmp) styles/main.css -->
-    <link rel="stylesheet" href="styles/main.css">
-    <!-- endbuild -->
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
-    <style type="text/css">
 
+    <!-- build:css(.tmp) styles/main.css -->
+    <link rel="stylesheet" href="styles/ng-table.min.css">
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/custom.css">
+    <!-- endbuild -->
+    <style type="text/css">
         textarea{resize: none;}
         .row-preview{background-color: #dadada;}
         #iframeModal .modal-content{background-color: #dadada;}
-
     </style>
   </head>
   <body ng-app="obrasMduytDemo">
 
     <!-- CONTENIDO -->
     <div class="container" ng-controller="DemoCtrl" ng-cloak>
-        <h1 id="loading" ng-show="loading" class="text-center">Cargando...</h1>
+        <div ng-show="loading">  
+          <h1 id="loading" class="text-center">Cargando</h1>
+          <p class="text-center"><img src="images/loader.gif"/></p>
+        </div>
         <div class="row row-selectores" ng-hide="loading">
           <div class="col-md-12">
-              <h1>Explorador de obras del Gobierno de la Ciudad de Buenos Aires</h1>
-              <p>Esta es la página de prueba para visualizar las obras del GCBA. Click para ver página.</p>
+              <h1>Explorador de obras de {{ sitename }}</h1>
+              <p>Esta es la página de prueba para visualizar las obras de {{ sitename }}. Click para ver página.</p>
           </div>
           <div class="col-md-6">
               <br>
-              <a class="btn btn-primary btn-block btn-lg" ng-click="loadModal('home')">Home</a>
+              <a class="btn btn-primary btn-block btn-lg" target="_blank" href="demo-home.html">Home <i class="glyphicon glyphicon-new-window"></i></a>
               <br>
           </div>
           <div class="col-md-6">
@@ -71,7 +76,7 @@
                 <h4 class="modal-title" id="myModalLabel">Demo iframe: </h4>
               </div>
               <div class="modal-body">
-                <div id="pym-container"></div>
+                <div id="pym-container" style="min-height: 100px"></div>
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-primary" data-dismiss="modal">Cerrar</button>
@@ -101,6 +106,11 @@
     <!-- endbower -->
     <!-- endbuild -->
 
+    <!-- build:js({.tmp,app}) scripts/scripts.js -->
+    <script src="scripts/libs/papaparse.min.js"></script>
+    <script src="scripts/data.js"></script>
+    <!-- endbuild -->
+
     <script src="config.js"></script>
 
     <script>
@@ -113,64 +123,10 @@
 
           var data = undefined;
 
-          var cleanData = function(oldReg){
-            var reg = {};
-            for (var key in oldReg) {
-              if (oldReg.hasOwnProperty(key)) { 
-                reg[key.toLowerCase()] = oldReg[key];
-              }
-            }
-            //lowercase
-
-
-            //slug
-            reg.entorno_slug = (reg.entorno)?Slug.slugify(reg.entorno):null;
-            reg.etapa_slug = (reg.etapa)?Slug.slugify(reg.etapa):null;
-            reg.entorno = (reg.entorno)?reg.entorno:null;
-
-            //numbers
-            reg.id = parseInt(reg.id);
-            return reg;
-          };
-
-          var etapas_validas = ['en-proyecto','en-licitacion','en-ejecucion','finalizada'];
-
-          var filterData = function(reg){
-            var cond1 = (etapas_validas.indexOf(reg.etapa_slug)>-1);
-            return cond1;
-          };
-
-          var getUrl = function(){
-            if(!window.MDUYT_CONFIG){
-              console.error('Archivo de configuración inexistente, utilizando configuración default de desarrollo.');
-              window.MDUYT_CONFIG = {
-                BASE_URL: 'http://csv-to-api-compromisos.herokuapp.com/',
-                HOME_CSV: 'https://goo.gl/vcb6oX'
-              };
-
-            }
-
-            var url = window.MDUYT_CONFIG.BASE_URL + '?source_format=csv&source='+window.MDUYT_CONFIG.HOME_CSV;
-              return  $sce.trustAsResourceUrl(url);
-          };
-
           this.retrieveAll = function() {
-
             if (!data) {
-
-              var deferred = $q.defer();
-              $http.jsonp(getUrl())
-              .then(function(result) {
-                data = result.data.map(cleanData).filter(filterData);
-                deferred.resolve(data);
-              }, function(error) {
-                data = error;
-                deferred.reject(error);
-              });
-
-              data = deferred.promise;
+              data = loadData($sce, $q, $http, Slug);
             }
-
             return $q.when(data);
           };
 
@@ -185,6 +141,8 @@
             $scope.sluger = Slug.slugify;
 
             $scope.url = 'pala';
+
+            $scope.sitename = window.MDUYT_CONFIG.CITY_NAME || "Gobierno de la Ciudad de Buenos Aires";
 
             DataService.retrieveAll()
             .then(function(data){

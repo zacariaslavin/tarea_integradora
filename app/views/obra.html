@@ -1,85 +1,272 @@
-<div class="row obra">
-  	<div class="col-md-12">
-          <h3>{{obra.nombre}}</h3>
-          <div class="row">
-           <div class="col-md-8">
-           <flex-slider slide="s in slides" animation="slide" control-nav="thumbnails">
-              <li data-thumb="{{s}}">
-                <img ng-src="{{s}}">
-              </li>
-            </flex-slider>
-             <p> {{obra.descripcion}} </p>
-          </div>
-          <div class="col-md-3 ficha-tecnica">
-               <h4> Ficha técnica</h4>
-              <div class="etapa">
-                <div class="row">
-                   <div class="col-md-2">
-                    <p>Etapa:</p>
-                   </div>
-                    <div class="col-md-10">
-                      <p><strong>{{obra.etapa}}</strong> </p>
-                    </div>
-                  </div>
-                <div class="row">
-                   <div class="col-md-2">
-                    <p>  </p>
-                   </div>
-                    <div class="col-md-10">
-                      <p> <small> {{obra.etapa_detalle}}</small> </p>
-                    </div>
-                  </div>
-                </div>
-              <div>
-              <p> Tipo de obra:
-                <strong>{{obra.tipo}}</strong>
-              </p>
-            </div>
-              <p> Área responsable: <strong> {{obra.area_responsable}}</strong></p>
-              <p ng-show="obra.licitacion_oferta_empresa"> Empresa: <strong> {{obra.licitacion_oferta_empresa}}</strong></p>
-
-              <p> Estado: </p>
-              <div class="progress">
-                <div class="progress-bar bg-color-{{obra.slug}}"
-                  role="progressbar"
-                    ng-style="{ 'width': obra.porcentaje_avance + '%' }">
-                  <div class="progressbar-w" ng-show="!obra.porcentaje_avance"><p></p> </div>
-                  <span class="progressbar-w" ng-hide="obra.porcentaje_avance<22 || !obra.porcentaje_avance">
-                  </span>
-                </div>
-                <div class="progress-w" ng-show="obra.porcentaje_avance<22" ng-style="{ 'width': (100 - obra.porcentaje_avance) + '%' }"></div>
-              </div>
-              <div ng-if="!obra.hideDates" class="row fechas" ng-show="obra.fecha_inicio">
-                <div class="col-md-12">
-                 <progress-line callback="mainCallback">
-                  </progress-line>
-                </div>
-
-              </div>
-              <p ng-if="obra.plazo_meses"> Plazo total: <strong> {{obra.plazo_meses}} meses </strong> </p>
-
-              <p ng-if="obra.hideDates && obra.licitacion_anio">
-                Año de licitación: <strong> {{obra.licitacion_anio}} </strong> </p>
-              </p>
-
-              <p ng-if="obra.beneficiarios"> Cantidad de Beneficiaros: <strong> {{obra.benficiarios}}<small> personas</small>  </strong></p>
-              <colored-icons scale="'beneficiarios'" callback="drawFirstColored"></colored-icons>
-
-              <p ng-if="obra.mano_obra"> Mano de Obra: <strong> {{obra.mano_obra}} <small>personas</small> </strong> </p>
-              <colored-icons scale="'manoDeObra'" callback="drawSecondColored"></colored-icons>
-
-              <p ng-if="obra.monto_contrato"> Monto Contrato: <strong> {{obra.monto_contrato | currency}} </strong> </p>
-              <p ng-if="obra.licitacion_presupuesto_oficial"> Monto Actualizado: <strong>  {{obra.licitacion_presupuesto_oficial | currency}} </strong> </p>
-              <p ng-if="obra.pliego_descarga"> <a ng-href="{{obra.pliego_descarga}}"><i class="detalle-frame-icon glyphicon glyphicon glyphicon-download-alt">
-                        </i> Ver Pliego </a> </p>
-          </div>
-      </div>
-	</div>
-</div>
-<div class="row">
-  <div class="col-md-12">
-    <h4> Ubicación de obra </h4>
-    <leaflet center="center" tiles="tiles" markers="markers" defaults="defaults" width="100%" height="350px"></leaflet>
-
+<div ng-show="loading" class="row">
+  <div class="col-sm-12">
+    <h1 id="loading" class="text-center">Cargando obra</h1>
+    <p class="text-center"><img src="images/loader.gif"/></p>
+    <hr/>
   </div>
 </div>
+
+
+<div ng-if="!loading">
+  <div class="row obra">
+
+    <div class="col-xs-12">
+
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="tooltip-title">
+            <div class="row">
+              <div class="col-xs-1">
+                <div class="inner">
+                  <div id="tooltip-logo-container" class=" icon pull-left" ng-style="{'background-color': tipo_colors(obra.tipo)}">
+                    <img ng-src="images/iconos/{{obra.tipo_slug}}.svg">
+                  </div>
+                </div>
+              </div>
+              <div class="col-xs-10">
+                <p class="type" ng-style="{color: tipo_colors(obra.tipo)}">{{obra.tipo}}</p>
+                <h3 class="title">{{obra.nombre}}</h3>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-8">
+          <ul>
+            <flex-slider slide="s in obra.slides track by s.url" animation="slide" control-nav="thumbnails">
+              <li data-thumb="{{s.pic}}" ng-switch="s.mode">
+                  <div ng-switch-when="video" >
+                    <ng-youtube-embed
+                        url="s.url"
+                        playauto="true"
+                        color="white"
+                        disablekb="true"
+                        width="100%"
+                        rel="false"
+                        theme="light"
+                        modestbranding="1"
+                        >
+                    </ng-youtube-embed>
+                  </div>
+                  <img ng-switch-default ng-src="{{s.pic}}" />
+              </li>
+            </flex-slider>
+          </ul>
+          <p> {{c.descripcion}} </p>
+        </div>
+        <div class="col-md-3 ficha-tecnica">
+          <h4> Ficha técnica</h4>
+          <p class="etiquetas">
+            <a href="http://www.buenosaires.gob.ar/compromisos" target="_blank>"><span  ng-show="obra.compromiso" class="label label-primary compromiso-row compromiso">
+            <img src="images/iconos/compromiso.svg"/>Compromiso de Gobierno</span></a>
+            <span  ng-show="obra.destacada" class="label label-primary compromiso-row destacada">   <img src="images/iconos/archivo.svg"/>Obra Destacada</span>
+            <a href="https://baelige.buenosaires.gob.ar/"  target="_blank>"> <span  ng-show="obra.ba_elige" class="label label-primary  compromiso-row ba-elige ">   <img src="images/iconos/archivo.svg"/>BA Elige</span></a>
+          </p>
+          <div class="etapa">
+
+            <div class="row" ng-show="obra.etapa">
+              <div class="col-md-2">
+                <img src="images/iconos/calendario.svg"/>
+              </div>
+              <div class="col-md-10">
+                <p>Etapa:</p>
+                <p><strong>{{obra.etapa}}</strong> </p>
+                <div class="progress" ng-show="obra.porcentaje_avance">
+                  <div class="progress-bar bg-color-{{obra.slug}}" role="progressbar" ng-style="{ 'width': obra.porcentaje_avance + '%' }">
+                    <div class="progressbar-w" ng-show="!obra.porcentaje_avance">
+                      <p></p>
+                    </div>
+                    <span class="progressbar-w" ng-hide="obra.porcentaje_avance<22 || !obra.porcentaje_avance"></span>
+                  </div>
+                  <div class="progress-w" ng-show="obra.porcentaje_avance<22" ng-style="{ 'width': (100 - obra.porcentaje_avance) + '%' }">
+                  </div>
+                </div>
+                <div ng-if="!obra.hideDates" class="row fechas"  ng-show="obra.fecha_inicio">
+                  <div class="col-md-6"  ng-show="obra.fecha_inicio">
+                   <p> Inicio: <strong>{{obra.fecha_inicio}}</strong></p>
+                  </div>
+                  <div class="col-md-6"  ng-show="obra.fecha_fin">
+                   <p> Fin: <strong>{{obra.fecha_fin}}</strong> </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-2">
+                <p>  </p>
+              </div>
+              <div class="col-md-10">
+                <p> <small> {{obra.etapa_detalle}}</small> </p>
+              </div>
+            </div>
+
+            <div class="row" ng-show="obra.tipo">
+              <div class="col-md-2">
+                <img src="images/iconos/estilo.svg"/>
+              </div>
+              <div class="col-md-10">
+                <p> Tipo de obra: </p>
+                <strong>{{obra.tipo}}</strong>
+              </div>
+            </div>
+
+            <div class="row" ng-show="obra.area_responsable">
+              <div class="col-md-2">
+                <img src="images/iconos/ministerio.svg"/>
+              </div>
+              <div class="col-md-10">
+                <p> Área responsable: </p>
+                <strong> {{obra.area_responsable}}</strong>
+              </div>
+            </div>
+
+            <div class="row" ng-show="obra.licitacion_oferta_empresa">
+              <div class="col-md-2">
+                <img src="images/iconos/trabajador.svg"/>
+              </div>
+              <div class="col-md-10">
+                <p>  Empresa: </p>
+                <strong> {{obra.licitacion_oferta_empresa}}</strong>
+                <div ng-show="obra.cuit_contratista">
+                  <p>  CUIT Empresa: </p>
+                  <strong> {{obra.cuit_contratista}}</strong>
+                </div>
+                <div ng-show="obra.contratacion_tipo">
+                  <p>  Tipo de contratación: </p>
+                  <strong> {{obra.contratista_tipo}}</strong>
+                </div>
+                <div ng-show="obra.nro_contratacion">
+                  <p> N° de contratación: </p>
+                  <strong> {{obra.nro_contratacion}}</strong>
+                </div>
+
+              </div>
+            </div>
+
+            <div class="row" ng-show="obra.plazo_meses">
+              <div class="col-md-2">
+                <img src="images/iconos/relojarena.svg"/>
+              </div>
+              <div class="col-md-10">
+                <p> Plazo total: </p>
+                <strong> {{obra.plazo_meses}} meses </strong>
+              </div>
+            </div>
+
+            <div class="row" ng-show="obra.hideDates && obra.licitacion_anio">
+              <div class="col-md-2">
+                <img src="images/iconos/calendario.svg"/>
+              </div>
+              <div class="col-md-10">
+                <p>    Año de licitación: </p>
+                <strong> {{obra.licitacion_anio}}</strong>
+              </div>
+            </div>
+
+            <div class="row" ng-show="obra.beneficiarios">
+              <div class="col-md-2">
+                <img src="images/iconos/ministerio.svg"/>
+              </div>
+              <div class="col-md-10">
+                <p>    Cantidad de Beneficiaros:</p>
+                <strong> {{obra.benficiarios}}<small> personas</small>  </strong>
+              </div>
+            </div>
+
+            <div class="row" ng-show="obra.beneficiarios">
+              <div class="col-md-2">
+                <img src="images/iconos/ministerio.svg"/>
+              </div>
+              <div class="col-md-10">
+                <p>     Mano de Obra: </p>
+                <strong> {{obra.mano_obra}} <small>personas</small> </strong>
+              </div>
+            </div>
+
+            <div class="row" ng-show="obra.beneficiarios">
+              <div class="col-md-2">
+                <img src="images/iconos/trabajador.svg"/>
+              </div>
+              <div class="col-md-10">
+                <p>     Mano de Obra: </p>
+                <strong> {{obra.mano_obra}} <small>personas</small> </strong>
+                <colored-icons scale="'manoDeObra'" callback="drawSecondColored"></colored-icons>
+              </div>
+            </div>
+
+            <div class="row" ng-show="obra.monto_contrato">
+              <div class="col-md-2">
+                <img src="images/iconos/dinero.svg"/>
+              </div>
+              <div class="col-md-10">
+                <p>     Monto Contrato:  </p>
+                <strong>  {{obra.monto_contrato | currency}} </strong>
+              </div>
+            </div>
+
+            <div class="row" ng-show="obra.direccion">
+              <div class="col-md-2">
+                <img src="images/iconos/location.svg"/>
+              </div>
+              <div class="col-md-10">
+                <p>     Dirección: </p>
+                <strong>  {{obra.direccion}} </strong>
+              </div>
+            </div>
+
+            <div class="row" ng-show="obra.licitacion_presupuesto_oficial">
+              <div class="col-md-2">
+                <img src="images/iconos/dinero.svg"/>
+              </div>
+              <div class="col-md-10">
+                <p>    Monto Actualizado: </p>
+                <strong>   {{obra.licitacion_presupuesto_oficial | currency}} </strong>
+              </div>
+            </div>
+
+            <div class="row" ng-show="obra.financiamiento">
+              <div class="col-md-2">
+                <img src="images/iconos/dinero.svg"/>
+              </div>
+              <div class="col-md-10">
+                <p>Financiador:</p>
+                <strong>{{obra.financiamiento}}</strong>
+              </div>
+            </div>
+
+            <div class="row" ng-show="obra.pliego_descarga">
+              <div class="col-md-2">
+                <img src="images/iconos/archivo.svg"/>
+              </div>
+              <div class="col-md-10">
+                <p><a ng-href="{{obra.pliego_descarga}}" target="_blank">Información de la contratación</a> </p>
+              </div>
+            </div>
+
+            <div class="row" ng-show="obra.estudio_ambiental_descarga">
+              <div class="col-md-2">
+                <img src="images/iconos/archivo.svg"/>
+              </div>
+              <div class="col-md-10">
+                <p><a ng-href="{{obra.estudio_ambiental_descarga}}" target="_blank">Evaluación de impacto ambiental</a> </p>
+              </div>
+            </div>
+
+          </div> <!-- etapa -->
+        </div> <!-- ficha técnica -->
+      </div> <!-- row -->
+
+      <div class="row">
+        <div class="col-md-12">
+          <h4> Ubicación de obra </h4>
+          <leaflet center="center" tiles="tiles" markers="markers" defaults="defaults" width="100%" height="350px"></leaflet>
+
+        </div>
+      </div>
+
+    </div><!-- col md 12 -->
+  </div><!-- row obra -->
+</div><!-- if loading -->

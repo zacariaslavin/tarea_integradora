@@ -7,6 +7,7 @@ angular
     "slugifier",
     "angular-flexslider",
     "leaflet-directive",
+    "ngYoutubeEmbed",
     "ngTable"
   ])
   .config(function(
@@ -14,7 +15,8 @@ angular
     $logProvider,
     $httpProvider,
     $locationProvider,
-    $provide
+    $provide,
+    $sceDelegateProvider
   ) {
     $routeProvider
       .when("/home", {
@@ -51,6 +53,11 @@ angular
         return $delegate;
       }
     ]);
+
+    $sceDelegateProvider.resourceUrlWhitelist([
+      "self", // trust all resources from the same origin
+      "*://ws.usig.buenosaires.gob.ar/**" // trust all resources from `ws.usig.buenosaires.gob.ar`
+    ]);
   })
   .service("DataService", function($http, $q, Slug, $sce) {
     var data, dataMapas;
@@ -86,6 +93,8 @@ angular
       }
 
       reg.compromiso = reg.compromiso == "SI" ? true : false;
+      reg.destacada = reg.destacada == "SI" ? true : false;
+      reg.ba_elige = reg.ba_elige == "SI" ? true : false;
 
       //arrays
       //reg.tipo = (reg.tipo)?reg.tipo.split('|'):[];
@@ -98,6 +107,7 @@ angular
         : null;
 
       reg.mano_obra = reg.mano_obra ? parseInt(reg.mano_obra) : null;
+      //setup slider
 
       //numbers
       reg.id = parseInt(reg.id);
@@ -138,6 +148,15 @@ angular
         }
       }
 
+      reg.thumb = reg.fotos[0] ? reg.fotos[0] : "";
+
+      reg.slides = reg.fotos.map(function(f) {
+        return {
+          mode: f.includes("youtu") ? "video" : "photo",
+          url: f,
+          pic: f.includes("youtu") ? getYoutubePic(f) : f
+        };
+      });
       //slug
       reg.entorno_slug = reg.entorno ? Slug.slugify(reg.entorno.trim()) : null;
 
@@ -155,6 +174,19 @@ angular
         ? getMontoRange(reg.monto_contrato)
         : null;
 
+      reg.map =
+        reg.lat && reg.lng
+          ? "https://maps.googleapis.com/maps/api/staticmap?center=" +
+            reg.lat +
+            "," +
+            reg.lng +
+            "&zoom=18&size=300x100&maptype=roadmap&markers=color:blue%7Clabel:%7C" +
+            reg.lat +
+            "," +
+            reg.lng +
+            "&key=AIzaSyBNzIaO8-waiNE1fjdDOAI4TN00ALkOa4o"
+          : "";
+
       return reg;
     };
 
@@ -170,42 +202,16 @@ angular
       return cond1;
     };
 
-    var verifyConfig = function() {
-      if (!window.MDUYT_CONFIG) {
-        console.warn(
-          "Archivo de configuración inexistente, utilizando configuración default de desarrollo."
-        );
-        window.MDUYT_CONFIG = {
-          BASE_URL: "http://csv-to-api-compromisos.herokuapp.com/",
-          HOME_CSV: "https://goo.gl/vcb6oX",
-          MAPAS_CSV: "https://goo.gl/YYV2E7"
-        };
-        if (window.location.href.indexOf("dist") > -1) {
-          L.Icon.Default.imagePath = "/dist/images";
-        } else {
-          L.Icon.Default.imagePath = "images";
-        }
-      } else {
-      }
-    };
-
-    var getUrl = function() {
-      verifyConfig();
-      var url =
-        window.MDUYT_CONFIG.BASE_URL +
-        "?source_format=csv&source=" +
-        window.MDUYT_CONFIG.HOME_CSV;
-      return $sce.trustAsResourceUrl(url);
-    };
-
     var getUrlMapas = function() {
-      verifyConfig();
-      var url = "";
-      if (window.MDUYT_CONFIG.MAPAS_CSV) {
-        url =
-          window.MDUYT_CONFIG.BASE_URL +
-          "?source_format=csv&source=" +
-          window.MDUYT_CONFIG.MAPAS_CSV;
+      if(!window.MDUYT_CONFIG){
+        throw 'Archivo de configuración inexistente';
+      }
+
+      var url;
+      if (window.MDUYT_CONFIG.LOAD_USING === 'GET_REQUEST') {
+        url = window.MDUYT_CONFIG.MAPAS_CSV;
+      } else if (window.MDUYT_CONFIG.LOAD_USING === 'JSONP_PROXY') {
+        url = window.MDUYT_CONFIG.JSON_PROXY + '?source_format=csv&source=' + window.MDUYT_CONFIG.MAPAS_CSV;
       }
       return $sce.trustAsResourceUrl(url);
     };
@@ -286,19 +292,7 @@ angular
 
     this.retrieveAll = function() {
       if (!data) {
-        var deferred = $q.defer();
-        $http.jsonp(getUrl()).then(
-          function(result) {
-            data = result.data.map(cleanData).filter(filterData);
-            deferred.resolve(data);
-          },
-          function(error) {
-            data = error;
-            deferred.reject(error);
-          }
-        );
-
-        data = deferred.promise;
+        data = loadData($sce, $q, $http, Slug);
       }
 
       return $q.when(data);
@@ -317,3 +311,19 @@ angular
     };
   })
   .run(function() {});
+
+function fetchId(link) {
+                    var p = /^(?:https?:\/\/)?(?:www\.)?(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))((\w|-){11})(?:\S+)?$/;
+                    var q = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
+                    var match = link.match(q);
+                    var id = link.match(p);
+                    if (id !== null) {
+                        var ytId = id[1];
+                        return ytId;
+                    }
+                }
+
+function getYoutubePic(f){
+  var id = fetchId(f);
+  return 'https://img.youtube.com/vi/'+ id + '/hqdefault.jpg;';
+}

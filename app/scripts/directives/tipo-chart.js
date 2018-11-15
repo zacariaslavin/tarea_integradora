@@ -4,6 +4,7 @@ angular.module("obrasMduytApp").directive("tipoChart", function() {
 	return {
 		restrict: "E",
 		scope: {
+			labels:"=",
 			obras: "=",
 			filterFn: "&",
 			finishFn: "&",
@@ -11,9 +12,11 @@ angular.module("obrasMduytApp").directive("tipoChart", function() {
 			tipoColors: "="
 		},
 		template:
-			"<div id='tipo-chart' class='row chart-item'><div class='col-md-2'><h4>Filtrar por tipo de obra</h4></div></div>",
+			"<div class='row chart-item'><div id='tipo-chart' ng-show='total_obras_by_tipo.length'><div class='col-md-2'><h4>Filtrar por tipo de obra</h4></div></div><div class='col-md-2'><p></p></div><div class='col-md-10 label-slug'><h3></h3></div></div>",
 		replace: true,
 		link: function($scope, elm, attrs) {
+			var isOpen = false;
+			var currentSlide = '';
 			var w = 0;
 
 			$(window).load(function() {
@@ -114,6 +117,20 @@ angular.module("obrasMduytApp").directive("tipoChart", function() {
 								.classed("tipo-container", true)
 								.on("click", function(d) {
 									$scope.filterFn({ filter: d.slug });
+									if (!isOpen){
+										$('.label-slug h3').html($scope.labels[d.slug]);
+										currentSlide = d.slug;
+										isOpen = true;
+									}
+									else if(isOpen && currentSlide != d.slug){
+										$('.label-slug h3').html($scope.labels[d.slug]);
+										currentSlide = d.slug;
+									}
+									else if(isOpen && currentSlide == d.slug){
+										$('.label-slug h3').html('');
+										isOpen = false;
+									}
+									
 								});
 
 							var imgGroup = container
@@ -149,7 +166,7 @@ angular.module("obrasMduytApp").directive("tipoChart", function() {
 								//can use plain Javascript to append content
 
 								var color = $scope.tipoColors(d.tipo);
-
+								console.log(color,d.tipo);
 								var innerSVG = imgGroup
 									.select("svg")
 									.attr("height", 50)

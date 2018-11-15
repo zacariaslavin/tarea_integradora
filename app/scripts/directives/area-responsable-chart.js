@@ -8,18 +8,8 @@ angular.module("obrasMduytApp").directive("areaResponsableChart", function() {
 			filterFn: "&",
 			selectedFilter: "="
 		},
-		template:
-			"<div id='area-responsable-chart' class='row chart-item'>" +
-			"<div class='col-md-2'><h4>Filtrar por área de gobierno</h4></div>" +
-			"<div class='col-md-5'>" +
-			"<select ng-show='total_obras_by_area' id='areas' class='form-control' ng-model='selected'>" +
-			"<option value=''>TODAS</option>" +
-			"<option ng-repeat='option in total_obras_by_area' value='{{option.slug}}'>{{option.area}}</option>" +
-			"</select>" +
-			"</div>" +
-			"<div class='col-md-5'><div id='mini-chart'></div><p ng-show='selectedCantidad'>{{selectedCantidad}} obras <span ng-show='selectedCantidad!=total'>({{selectedCantidad*100/total | number:0}}% del total)</span> </p></div>" +
-			"</div>",
-		replace: true,
+    templateUrl: "views/includes/home-area.html",
+    replace: true,
 		link: function($scope, elm, attrs) {
 			var w = 0;
 

@@ -22,6 +22,11 @@
     "bootstrap": {
       "main": ["dist/css/bootstrap.css", "dist/js/bootstrap.js"]
     },
+    "ng-youtube-embed": {
+      "main": [
+        "build/ng-youtube-embed.min.js"
+      ]
+    },
     "BAstrap": {
       "main": ["bastrap.css"]
     }
