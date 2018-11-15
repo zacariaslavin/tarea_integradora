@@ -96,7 +96,7 @@ columnas esté presente.
 
 La vista de las obras distribuidas espacialmente sobre el mapa la jurisdiccion requiere de un archivo geojson con 
 información geografica de la geometria de la jurisdicción. Este archivo geojson debe tener la siguiente estructura
-```json
+```
 {
   "type": "FeatureCollection",
   "features": [
