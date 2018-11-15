@@ -51,13 +51,6 @@ angular
     $scope.labels["hidraulica-e-infraestructura"] =
       "Comprende obras e intervenciones relacionadas con el tratamiento de fluidos (cursos de agua o desagües pluviales), así como obras de equipamiento, redes sanitarias, de gas o electricidad, necesarias para la vida en un entorno urbano.";
 
-    $scope.availableGroups = [
-      { id: "mapa", name: "Mapa" },
-      { id: "comunas", name: "Comunas" },
-      { id: "montos", name: "Inversión" },
-      { id: "etapas", name: "Etapas" }
-    ];
-
     $scope.selectedRadioDimension = "monto_contrato";
 
     $scope.tooltip = d3.select("#tooltip-home-chart");
@@ -103,6 +96,20 @@ angular
     DataService.getAll().then(function(data) {
       $scope.obras = data;
       $scope.selectedGroup = "mapa";
+
+      $scope.useComunas = true;
+      for (var l=0; l<$scope.obras.length; l++) {
+        if ($scope.obras[l].comuna_from_jurisdiccion) {
+          $scope.useComunas = false
+        }
+      }
+
+      $scope.availableGroups = [
+        { id: "mapa", name: "Mapa" },
+        { id: "comunas", name: $scope.useComunas ? "Comunas" : "Jurisdicciones" },
+        { id: "montos", name: "Inversión" },
+        { id: "etapas", name: "Etapas" }
+      ];
 
       $scope.loading = false;
 
@@ -502,7 +509,26 @@ angular
     /** COMUNAS Functions ====================================================== **/
 
     function renderComunasGroup(clear) {
-      var comunas = d3.range(1, 16);
+      var comunas = [];
+      var names = [];
+      if ($scope.useComunas) {
+        comunas = d3.range(1, 16);
+        for (var i=0; i<comunas.length; i++) {
+          names[comunas[i]] = "Comuna " + comunas[i];
+        }
+      } else {
+        for (var j=0; j<$scope.obras.length; j++) {
+          if ($scope.obras[j].jurisdiccion && names.indexOf($scope.obras[j].jurisdiccion) === -1) {
+            names[$scope.obras[j].comuna] = $scope.obras[j].jurisdiccion;
+            comunas.push($scope.obras[j].jurisdiccion_id)
+          }
+        }
+        comunas.sort(function(a, b) {
+          if (names[a] > names[b]) return 1;
+          if (names[a] < names[b]) return -1;
+          return 0;
+        })
+      }
 
       var itemH, itemW;
       if ($scope.isSmallDevice) {
@@ -511,7 +537,7 @@ angular
         chart.svg.attr("height", comunas.length * chart.w);
         chart.mainGroup.select("rect").attr("height", comunas.length * chart.w);
       } else {
-        itemH = chart.h / 3;
+        itemH = chart.h / Math.ceil((comunas.length / 5));
         itemW = chart.w / 5;
       }
 
@@ -551,7 +577,7 @@ angular
               .classed("comunas-item-text", true)
               .attr("fill", "#000")
               .text(function(d) {
-                return "Comuna " + d;
+                return names[d];
               });
           });
       }
