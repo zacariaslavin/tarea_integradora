@@ -7,7 +7,7 @@ Proyecto de visualización y análisis de la información de las obras del Gobie
     - [Esquema de datos](#esquema-de-datos)
   - [Archivos necesarios para el correcto funcionamiento del sitio](#archivos-necesarios-para-el-correcto-funcionamiento-del-sitio)
     - [Archivos geoespaciales](#archivos-geoespaciales)
-    - [Favicon](#favicon)
+    - [Imagenes](#imagenes)
   - [Instrucciones para desarrolladores](#instrucciones-para-desarrolladores)
     - [Adaptación estetica](#adaptaci%C3%B3n-estetica)
   - [Levantar el proyecto en un ambiente productivo](#levantar-el-proyecto-en-un-ambiente-productivo)
@@ -94,12 +94,61 @@ columnas esté presente.
 
 ### Archivos geoespaciales
 
-TODO: hablar del geojson necesario y su estructura
+La vista de las obras distribuidas espacialmente sobre el mapa la jurisdiccion requiere de un archivo geojson con 
+información geografica de la geometria de la jurisdicción. Este archivo geojson debe tener la siguiente estructura
+```json
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [lat, long],
+            ...
+            [lat, long]
+          ]
+        ]
+      }
+    },
+    ...
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [lat, long],
+            ...
+            [lat, long]
+          ]
+        ]
+      }
+    }
+    
+  ],
+  "properties": {
+    "center": [0, 0],
+    "zoomLevel": 100
+  }
+}
+``` 
 
-### Favicon
+Cada feature corresponde a una subdivisión del area geografica. Debe haber por lo menos un feature con un poligono.
+
+La propiedad `properties.center` es un par de `[lat, long]` que debe ser definido como el punto central del 
+mapa, y la propiedad `properties.zoomLevel` es el nivel de zoom al cual debe estar el mapa.
+
+### Imagenes
+
+El selector de la seccion de "Mapa" usa una imagen en formato svg. La imagen default del proyecto es la del mapa de la
+ciudad de Buenos Aires. Para reemplazar esta imagen, pisar el archivo ubicado en `app/images/selectores/mapa.svg`. 
 
 Para modificar el favicon del sitio, pisar el archivo `app/favicon.ico` con el favicon que se quiera utilizar.
-Es necesario buildear el proyecto luego de este cambio. Ver la siguiente seccion.
+
+Es necesario buildear el proyecto luego de modificar estas imagenes. Ver la siguiente seccion.
 
 ## Instrucciones para desarrolladores
 

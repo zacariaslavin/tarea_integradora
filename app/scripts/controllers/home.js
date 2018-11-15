@@ -304,53 +304,56 @@ angular
     /** MAPA Functions ====================================================== **/
 
     function renderMapGroup() {
-      chart.mapProjection = d3.geo
-        .mercator()
-        .center([-58.43992, -34.618])
-        .translate([chart.w / 2, chart.h / 2])
-        .scale(240 * chart.w);
 
-      chart.mapPath = d3.geo.path().projection(chart.mapProjection);
+      d3.json("geo/geometry.geojson", function (data) {
+        var center = data && data.properties && data.properties.center ? data.properties.center : [-58.43992, -34.618];
+        var scale = data && data.properties && data.properties.zoomLevel ? data.properties.zoomLevel : 240;
+        chart.mapProjection = d3.geo
+          .mercator()
+          .center(center)
+          .translate([chart.w / 2, chart.h / 2])
+          .scale(scale * chart.w);
 
-      function updateMap() {
-        if ($scope.isSmallDevice) {
-          chart.svg.attr("height", chart.w);
+        chart.mapPath = d3.geo.path().projection(chart.mapProjection);
+
+        function updateMap() {
+          if ($scope.isSmallDevice) {
+            chart.svg.attr("height", chart.w);
+          }
+
+          chart.mapGroup
+            .selectAll("path.map-item")
+            .style("display", "block")
+            .style("stroke-width", 0)
+            .transition()
+            .duration(1000)
+            .style("stroke-width", 3)
+            .attr("d", chart.mapPath)
+            .style("opacity", 1);
+
+          chart.mapGroup
+            .selectAll("text.map-text")
+            .attr("x", function(d) {
+              return chart.mapPath.centroid(d)[0];
+            })
+            .attr("y", function(d) {
+              return chart.mapPath.centroid(d)[1];
+            })
+            .style("opacity", 1)
+            .style("display", "block");
         }
 
-        chart.mapGroup
-          .selectAll("path.map-item")
-          .style("display", "block")
-          .style("stroke-width", 0)
-          .transition()
-          .duration(1000)
-          .style("stroke-width", 3)
-          .attr("d", chart.mapPath)
-          .style("opacity", 1);
+        if (!chart.mapGroup) {
+          chart.mapGroup = chart.svg.select("#map-group");
 
-        chart.mapGroup
-          .selectAll("text.map-text")
-          .attr("x", function(d) {
-            return chart.mapPath.centroid(d)[0];
-          })
-          .attr("y", function(d) {
-            return chart.mapPath.centroid(d)[1];
-          })
-          .style("opacity", 1)
-          .style("display", "block");
-      }
-
-      if (!chart.mapGroup) {
-        chart.mapGroup = chart.svg.select("#map-group");
-
-        d3.json("geo/geometry.geojson", function(data) {
           chart.mapCentroids = {};
 
           chart.mapFeatures = data.features;
 
-          _.each(chart.mapFeatures, function(f) {
+          _.each(chart.mapFeatures, function(f, i) {
             chart.mapCentroids[
-              "mapa-comuna-" + f.properties.comuna
-            ] = chart.mapPath.centroid(f);
+            "mapa-comuna-" + (f.properties && f.properties.comuna ? f.properties.comuna : i)
+              ] = chart.mapPath.centroid(f);
           });
 
           chart.mapGroup
@@ -360,8 +363,8 @@ angular
             .append("path")
             .classed("child", true)
             .classed("map-item", true)
-            .attr("id", function(d) {
-              return "mapa-comuna-" + d.properties.comuna;
+            .attr("id", function(d, i) {
+              return "mapa-comuna-" + (d.properties && d.properties.comuna ? d.properties.comuna : i);
             })
             .classed("shape", true)
             .on("click", clickedMap);
@@ -380,15 +383,16 @@ angular
             .attr("y", function(d) {
               return chart.mapPath.centroid(d)[1];
             })
-            .text(function(d) {
-              return d.properties.comuna;
+            .text(function(d, i) {
+              return d.properties && d.properties.comuna ? d.properties.comuna : '';
             });
 
           updateMap();
-        });
-      } else {
-        updateMap();
-      }
+        } else {
+          updateMap();
+        }
+      });
+
     }
 
     function prepareNodesMapGroup() {
