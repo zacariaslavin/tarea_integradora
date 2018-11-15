@@ -50,12 +50,13 @@ la sección relativa al archivo de configuración.
 | `monto_contrato`              | Obligatoria                    | Numerico¹         | Monto presupuestado para la obra                     |
 | `etapa`                       | Obligatoria                    | Categoria (Texto). Uno de los siguientes valores: `En proyecto`, `En licitacion`, `En ejecucion`, `Finalizada` | Etapa de la obra |
 | `tipo`                        | Obligatoria                    | Categoria (Texto) | Tipo de la obra. Los valores deben coincidir con la nomenclatura actual o, en caso contrario, deben cargarse nuevos iconos al proyecto² |
+| `comuna`                      | Opcional³                      | Numerico¹         | Número de la comuna                                  |
+| `jurisdiccion`                | Opcional³                      | Categoria (Texto) | Jurisdicción a la cual pertenece la obra             |
 | `mano_obra`                   | Opcional                       | Numerico¹         | Cantidad de obreros trabajando en la obra            |
 | `porcentaje_avance`           | Opcional                       | Numerico¹         | Porcentaje de avance entre 0 y 100                   |
 | `id`                          | Opcional                       | Numerico¹         | Identificador de la obra                             |
 | `etapa_detalle`               | Opcional                       | Texto             | Información extra de la etapa                        |
 | `area_responsable`            | Opcional                       | Categoria (Texto) | Ministerio o área responsable                        |
-| `comuna`                      | Opcional                       | Numerico¹         | Número de la comuna                                  |
 | `barrio`                      | Opcional                       | Texto             | Nombre del barrio                                    |
 | `calle_1`                     | Opcional                       | Texto             | Calle                                                |
 | `seccion`                     | Opcional                       | Numerico¹         | Número de sección                                    |
@@ -85,6 +86,9 @@ que no se encuentren entre las anteriores, es necesario agregar los iconos corre
 reemplazando los espacios por guiones `-`, por ej: el icono correspondiente a `Espacio publico` tiene nombre de 
 archivo `espacio-publico.svg`. Luego de agregar los iconos, es necesario buildear el proyecto (ver instrucciones para
 desarrolladores en este mismo documento).
+
+³ Si bien las columnas de `comuna` y `jurisdiccion` se presentan como opcionales, es requisito que una de las dos
+columnas esté presente.
 
 ## Archivos necesarios para el correcto funcionamiento del sitio
 

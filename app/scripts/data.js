@@ -20,6 +20,9 @@ var getMontoRange = function(n) {
   return range;
 };
 
+var jurisdiccionesIds = {};
+var jurisdiccionesCounter = 1;
+
 var cleanData = function(oldReg, index, Slug) {
   var reg = {};
   for (var key in oldReg) {
@@ -30,11 +33,23 @@ var cleanData = function(oldReg, index, Slug) {
 
   reg.compromiso = reg.compromiso == "SI" ? true : false;
 
+  if (reg.jurisdiccion && reg.jurisdiccion.trim().length) {
+    if (!jurisdiccionesIds[reg.jurisdiccion]) {
+      jurisdiccionesIds[reg.jurisdiccion] = jurisdiccionesCounter;
+      jurisdiccionesCounter += 1;
+    }
+    reg.jurisdiccion_id = jurisdiccionesIds[reg.jurisdiccion];
+  }
+
   //arrays
   //reg.tipo = (reg.tipo)?reg.tipo.split('|'):[];
   var comunas = reg.comuna ? reg.comuna.split("|") : [null];
   reg.comuna = comunas[0];
   reg.comuna = reg.comuna ? parseInt(reg.comuna.trim()) : reg.comuna;
+  if (!reg.comuna) {
+    reg.comuna_from_jurisdiccion = true;
+    reg.comuna = reg.jurisdiccion_id;
+  }
   reg.barrio = reg.barrio ? reg.barrio.split("|") : [];
   reg.licitacion_oferta_empresa = reg.licitacion_oferta_empresa
     ? reg.licitacion_oferta_empresa
