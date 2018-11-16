@@ -160,7 +160,8 @@ Para realizar modificaciones al sitio actual, realizar los siguientes pasos
 * Instalar las dependencias de npm via `npm install` en la carpeta raiz del proyecto 
 * Instalar las dependencias de bower via `bower install` en la carpeta raiz del proyecto
 * Archivo de configuración: En /app duplicar el archivo config.js.example con el nombre config.js y configurar 
-acorde a la [seccion correspondiente al archivo de configuración](./CONFIG.md)
+acorde a la [seccion correspondiente al archivo de configuración](#archivo-de-configuraci%C3%B3n)
+* En caso de que el archivo de datos del sitio sea parte del sitio, ubicarlo dentro de la carpeta `app`
 * Levantar el servidor de desarrollo via `grunt serve` en la carpeta raiz del proyecto
 * Hacer los cambios en /app y con live reloading se actualizará en http://localhost:10000
 * Una vez que se cuenta con los cambios deseados, compilar assets via `grunt build` en la carpeta raiz del proyecto
@@ -200,7 +201,9 @@ La aplicación contiene su código y las librerías que necesita, ya compiladas 
 `https://obras-site.buenosaires.gob.ar/`.
 2. Definir un servidor con nginx o apache y clonar el proyecto usando 
 `git clone https://github.com/datosgcba/ba_obras.git`.
-3. Apuntar las configuraciones del web server y subdominio a la carpeta `dist`, donde se encuentran los archivos 
+3. Crear el [archivo de configuración](#archivo-de-configuraci%C3%B3n)
+4. En caso de que el archivo de datos del sitio sea parte del sitio, ubicarlo dentro de la carpeta `dist`
+5. Apuntar las configuraciones del web server y subdominio a la carpeta `dist`, donde se encuentran los archivos 
 finales y compilados.
 
 ### Actualizaciones
@@ -220,7 +223,13 @@ utilizando versionado via git, mergearlos a la correspondiente nueva version.
 El archivo de configuración `config.js` deberá configurarse acordemente para poder levantar el sitio en modo de
 desarrollo o producción. Existen dos ejemplos del archivo de configuración `config.js.example` en las carpetas `app`
 y `dist` para servir de base al archivo de configuración de desarrollo `app/config.js` y al archivo de configuración
-de producción `dist/config.js`
+de producción `dist/config.js`.
+
+Hay dos formas a traves de las cuales puede cargarse el archivo de datos para el sitio: mediante un request `get` a un
+archivo dentro del sitio o mediante un request `jsonp` a una url externa. En caso de que el archivo sea parte del sitio
+es necesario setear `DATA_PATH` como el nombre de archivo. Por ej, si el archivo de datos se llama `data.csv` y está 
+ubicado en `app/data.csv` (para desarrollo) y `dist/data.csv` (para produccion) entonces `DATA_PATH` deberá tener
+valor `data.csv`.
 
 | Config                | Valor                 | Descripción                                                                                                           |
 | --------------------- |---------------------- | --------------------------------------------------------------------------------------------------------------------- |
