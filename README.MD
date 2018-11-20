@@ -18,6 +18,7 @@ Proyecto de visualización y análisis de la información de las obras del Gobie
     - [Instalación por primera vez](#instalaci%C3%B3n-por-primera-vez)
     - [Actualizaciones](#actualizaciones)
   - [Archivo de Configuración](#archivo-de-configuraci%C3%B3n)
+    - [i18n](#i18n)
 
 ## Acerca de BA Obras 
 

@@ -18,6 +18,7 @@ Visualization and analysis project of the planned construction works of the Buen
     - [First time setup](#first-time-setup)
     - [Updates](#updates)
   - [Configuration file](#configuration-file)
+    - [i18n](#i18n)
 
 ## About BA Obras 
 
