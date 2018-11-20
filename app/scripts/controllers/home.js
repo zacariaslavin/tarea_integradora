@@ -3,6 +3,8 @@
 angular
   .module("obrasMduytApp")
   .controller("HomeCtrl", function($scope, DataService, $filter, $http, $sce) {
+    $scope.i18n = window._i18n;
+
     var d3 = window.d3;
 
     $scope.loading = true;
@@ -753,10 +755,10 @@ angular
         "monto_mas_50"
       ];
       var montos_string = {
-        monto_0_50: "Hasta 50 millones",
-        monto_50_100: "50  a 100 millones",
-        monto_100_150: "100 a 150 millones",
-        monto_mas_50: "Más de 150 millones"
+        monto_0_50: $scope.i18n.upTo50Millions,
+        monto_50_100: $scope.i18n.from50To100Millions,
+        monto_100_150: $scope.i18n.from100To150Millions,
+        monto_mas_50: $scope.i18n.moreThan150Millions
       };
 
       var itemH, itemW;

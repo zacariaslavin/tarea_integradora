@@ -3,6 +3,8 @@
 angular
   .module("obrasMduytApp")
   .controller("ObraCtrl", function($scope, DataService, $routeParams) {
+    $scope.i18n = window._i18n;
+
     $scope.loading = true;
 
     $scope.pymChild = new window.pym.Child({ polling: 1000 });

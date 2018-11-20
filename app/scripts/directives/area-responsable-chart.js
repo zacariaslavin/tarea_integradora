@@ -11,6 +11,8 @@ angular.module("obrasMduytApp").directive("areaResponsableChart", function() {
     templateUrl: "views/includes/home-area.html",
     replace: true,
 		link: function($scope, elm, attrs) {
+			$scope.i18n = window._i18n;
+
 			var w = 0;
 
 			$(window).load(function() {

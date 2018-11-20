@@ -1,6 +1,6 @@
 <div class="row obra">
     <div class="col-md-12">
-          <h3>Obra: {{obra.nombre}}</h3>
+          <h3>{{ i18n.plannedWork }}: {{obra.nombre}}</h3>
           <div class="row">
            <div class="col-md-8">
                 <ul>
@@ -26,11 +26,11 @@
                 <p> {{obra.descripcion}} </p>
           </div>
           <div class="col-md-3 ficha-tecnica" ng-if="obra.hasDetail">
-                 <h4> Ficha técnica</h4>
+                 <h4>{{ i18n.technicalInformation }}</h4>
                  <p class="etiquetas">
                       <a href="http://www.buenosaires.gob.ar/compromisos" target="_blank>"><span  ng-show="obra.compromiso" class="label label-primary compromiso-row compromiso">
-                         <img src="images/iconos/compromiso.svg"/>Compromiso de Gobierno</span></a>
-                      <span  ng-show="obra.destacada" class="label label-primary compromiso-row destacada">   <img src="images/iconos/archivo.svg"/>Obra Destacada</span>
+                         <img src="images/iconos/compromiso.svg"/>{{ i18n.governmentCommitment }}</span></a>
+                      <span  ng-show="obra.destacada" class="label label-primary compromiso-row destacada">   <img src="images/iconos/archivo.svg"/>{{ i18n.featuredWork }}</span>
                       <a href="https://baelige.buenosaires.gob.ar/"  target="_blank>"> <span  ng-show="obra.ba_elige" class="label label-primary  compromiso-row ba-elige ">   <img src="images/iconos/archivo.svg"/>BA Elige</span></a>
                   </p>
                 <div class="etapa" ng-if="obra.etapa">
@@ -39,7 +39,7 @@
                           <img src="images/iconos/calendario.svg"/>
                      </div>
                       <div class="col-md-10">
-                        <p>Etapa:</p>
+                        <p>{{ i18n.stage }}:</p>
                         <p><strong>{{obra.etapa}}</strong> </p>
                         <div class="progress" ng-if="obra.porcentaje_avance">
                             <div class="progress-bar bg-color-{{obra.slug}}"
@@ -53,10 +53,10 @@
                           </div>
                           <div ng-if="!obra.hideDates" class="row fechas"  ng-show="obra.fecha_inicio">
                             <div class="col-md-6"  ng-show="obra.fecha_inicio">
-                             <p> Inicio: <strong>{{obra.fecha_inicio}}</strong></p>
+                             <p> {{ i18n.start }}: <strong>{{obra.fecha_inicio}}</strong></p>
                             </div>
                             <div class="col-md-6"  ng-show="obra.fecha_fin">
-                             <p> Fin: <strong>{{obra.fecha_fin}}</strong> </p>
+                             <p> {{ i18n.end }}: <strong>{{obra.fecha_fin}}</strong> </p>
                             </div>
 
                           </div>
@@ -77,7 +77,7 @@
                           <img src="images/iconos/estilo.svg"/>
                      </div>
                       <div class="col-md-10">
-                        <p> Tipo de obra: </p>
+                        <p>{{ i18n.workType }}: </p>
                         <strong>{{obra.tipo}}</strong>
                       </div>
                     </div>
@@ -86,7 +86,7 @@
                           <img src="images/iconos/ministerio.svg"/>
                      </div>
                       <div class="col-md-10" ng-if="obra.area_responsable">
-                        <p> Área responsable: </p>
+                        <p> {{ i18n.responsableArea }}: </p>
 
                         <strong> {{obra.area_responsable}}</strong>
                       </div>
@@ -96,18 +96,18 @@
                           <img src="images/iconos/trabajador.svg"/>
                      </div>
                        <div class="col-md-10">
-                        <p>  Empresa: </p>
+                        <p>  {{ i18n.company }}: </p>
                         <strong> {{obra.licitacion_oferta_empresa}}</strong>
                         <div ng-show="obra.cuit_contratista">
                           <p>  CUIT Empresa: </p>
                           <strong> {{obra.cuit_contratista}}</strong>
                         </div>
                         <div ng-show="obra.contratacion_tipo">
-                          <p>  Tipo de contratación: </p>
+                          <p> {{ i18n.contractType }}: </p>
                           <strong> {{obra.contratista_tipo}}</strong>
                         </div>
                         <div ng-show="obra.nro_contratacion">
-                        <p> N° de contratación: </p>
+                        <p> {{ i18n.contractNumber }}: </p>
                         <strong> {{obra.nro_contratacion}}</strong>
                         </div>
 
@@ -118,8 +118,8 @@
                           <img src="images/iconos/relojarena.svg"/>
                      </div>
                       <div class="col-md-10">
-                        <p> Plazo total: </p>
-                        <strong> {{obra.plazo_meses}} meses </strong>
+                        <p> {{ i18n.termDuration }}: </p>
+                        <strong> {{obra.plazo_meses}} {{ i18n.months }} </strong>
                       </div>
                     </div>
                     <div class="row" ng-show="obra.hideDates && obra.licitacion_anio">
@@ -127,7 +127,7 @@
                           <img src="images/iconos/calendario.svg"/>
                      </div>
                       <div class="col-md-10">
-                        <p>    Año de licitación: </p>
+                        <p>{{ i18n.yearOfTender }}: </p>
                         <strong> {{obra.licitacion_anio}}</strong>
                       </div>
                     </div>
@@ -136,45 +136,38 @@
                           <img src="images/iconos/ministerio.svg"/>
                      </div>
                       <div class="col-md-10">
-                        <p>    Cantidad de Beneficiaros:</p>
-                        <strong> {{obra.benficiarios}}<small> personas</small>  </strong>
+                        <p>{{ i18n.numberOfBeneficiaries }}:</p>
+                        <strong> {{obra.benficiarios}}<small> {{ i18n.people }}</small>  </strong>
                       </div>
                     </div>
-                    <div class="row" ng-show="obra.beneficiarios">
-                     <div class="col-md-2">
-                          <img src="images/iconos/ministerio.svg"/>
-                     </div>
-                      <div class="col-md-10" ng-if="obra.mano_obra">
-                        <p>     Mano de Obra: </p>
-                        <strong> {{obra.mano_obra}} <small>personas</small> </strong>
-                      </div>
-                    </div>
-                    <div class="row" ng-show="obra.beneficiarios">
-                     <div class="col-md-2">
-                          <img src="images/iconos/trabajador.svg"/>
-                     </div>
 
-                      <div class="col-md-10">
-                        <p>     Mano de Obra: </p>
-                        <strong> {{obra.mano_obra}} <small>personas</small> </strong>
-                      </div>
+                     <div class="row" ng-show="obra.mano_obra" ng-if="obra.mano_obra">
+                          <div class="col-md-2">
+                              <img src="images/iconos/trabajador.svg"/>
+                          </div>
+                          <div class="col-md-10">
+                              <p>{{ i18n.workforce }}: </p>
+                              <strong> {{obra.mano_obra}} <small>{{ i18n.people }}</small> </strong>
+                              <colored-icons scale="'manoDeObra'" callback="drawSecondColored"></colored-icons>
+                          </div>
                     </div>
-                    <div class="row" ng-show="obra.monto_contrato">
+
+                    <div class="row" ng-show="obra.monto_contrato" ng-if="obra.monto_contrato">
                      <div class="col-md-2">
                           <img src="images/iconos/dinero.svg"/>
                      </div>
 
                       <div class="col-md-10">
-                        <p>Monto Contrato:  </p>
+                        <p>{{ i18n.contractAmount }}:  </p>
                         <strong>  {{obra.monto_contrato | currency}} </strong>
                       </div>
                     </div>
-                    <div class="row" ng-show="obra.direccion">
+                    <div class="row" ng-show="obra.direccion" ng-if="obra.direccion">
                      <div class="col-md-2">
                           <img src="images/iconos/location.svg"/>
                      </div>
                       <div class="col-md-10">
-                        <p>     Dirección: </p>
+                        <p> {{ i18n.address }}: </p>
                         <strong>  {{obra.direccion}} </strong>
                       </div>
                     </div>
@@ -183,7 +176,7 @@
                           <img src="images/iconos/dinero.svg"/>
                      </div>
                       <div class="col-md-10">
-                        <p>    Monto Actualizado: </p>
+                        <p>{{ i18n.updatedAmount }}: </p>
                         <strong>   {{obra.licitacion_presupuesto_oficial | currency}} </strong>
                       </div>
                   </div>
@@ -192,7 +185,7 @@
                           <img src="images/iconos/dinero.svg"/>
                      </div>
                       <div class="col-md-10">
-                        <p>Financiador:</p>
+                        <p>{{ i18n.financer }}:</p>
                         <strong>{{obra.financiamiento}}</strong>
                       </div>
                   </div>
@@ -201,7 +194,7 @@
                           <img src="images/iconos/archivo.svg"/>
                      </div>
                       <div class="col-md-10">
-                        <p><a ng-href="{{obra.pliego_descarga}}" target="_blank">Información de la contratación</a> </p>
+                        <p><a ng-href="{{obra.pliego_descarga}}" target="_blank">{{ i18n.contractInformation }}</a> </p>
                       </div>
                   </div>
                   <div class="row" ng-show="obra.estudio_ambiental_descarga">
@@ -209,7 +202,7 @@
                           <img src="images/iconos/archivo.svg"/>
                      </div>
                       <div class="col-md-10">
-                        <p><a ng-href="{{obra.estudio_ambiental_descarga}}" target="_blank">Evaluación de impacto ambiental</a> </p>
+                        <p><a ng-href="{{obra.estudio_ambiental_descarga}}" target="_blank">{{ i18n.environmentalImpact }}</a> </p>
                       </div>
                   </div>
             </div>

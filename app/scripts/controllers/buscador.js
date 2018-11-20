@@ -11,16 +11,18 @@ angular
     $sce,
     ngTableEventsChannel
   ) {
+    $scope.i18n = window._i18n;
+
     $scope.loading = true;
 
     $scope.pymChild = new window.pym.Child({ polling: 1000 });
     $scope.pymChild.sendHeight();
 
     $scope.montos_string = {
-      monto_0_50: "Hasta 50 millones",
-      monto_50_100: "50  a 100 millones",
-      monto_100_150: "100 a 150 millones",
-      monto_mas_50: "Más de 150 millones"
+      monto_0_50: $scope.i18n.upTo50Millions,
+      monto_50_100: $scope.i18n.from50To100Millions,
+      monto_100_150: $scope.i18n.from100To150Millions,
+      monto_mas_50: $scope.i18n.moreThan150Millions
     };
 
     DataService.getAll().then(function(data) {
@@ -102,11 +104,11 @@ angular
           })
       };
 
-      selects.comunas.unshift({ id: "", title: "TODAS" });
-      selects.etapas.unshift({ id: "", title: "TODAS" });
-      selects.areas.unshift({ id: "", title: "TODAS" });
-      selects.tipos.unshift({ id: "", title: "TODOS" });
-      selects.montos.unshift({ id: "", title: "TODOS" });
+      selects.comunas.unshift({ id: "", title: $scope.i18n.all });
+      selects.etapas.unshift({ id: "", title: $scope.i18n.all });
+      selects.areas.unshift({ id: "", title: $scope.i18n.all });
+      selects.tipos.unshift({ id: "", title: $scope.i18n.all });
+      selects.montos.unshift({ id: "", title: $scope.i18n.all });
 
       function renderNormalValue($scope, row) {
         return row[this.field];

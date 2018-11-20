@@ -1,6 +1,6 @@
 <div ng-show="loading" class="row">
   <div class="col-sm-12">
-    <h1 id="loading" class="text-center">Cargando obras</h1>
+    <h1 id="loading" class="text-center">{{ i18n.loading }}</h1>
     <p class="text-center"><img src="images/loader.gif"/></p>
     <hr/>
   </div>
@@ -30,14 +30,14 @@
   </div>
   <div class="row">
     <div class="col-sm-12">
-      <h1> Conocé las obras de tu {{ useComunas ? "comuna" : "jurisdicción" }}</h1>
+      <h1>{{ useComunas ? "Conocé las obras de tu comuna" : i18n.mapTitle }}</h1>
     </div>
   </div>
   <div class="row">
     <div class="col-sm-12 ">
         <div id="search-box" class="row chart-item">
           <div class="col-md-2 hidden-xs" >
-            <h4> Buscar por </h4>
+            <h4>{{ i18n.searchBy }}</h4>
           </div>
           <div class="col-xs-12 col-md-8 search">
             <input ng-model="textFilter" ng-change="filterByText()" class="form-control text-filter" type="text" placeholder="Filtra por nombre o descripcion de obra">
@@ -47,7 +47,7 @@
   </div>
   <div id="main-chart-container" class="row">
     <div class="col-sm-12 ">
-        <a  ng-click="filterBubbles('destacada')" class="btn btn btn-secondary btn-sm show-destacadas"><i class="glyphicon glyphicon-flag"></i> Ver Obras Destacadas</a>
+        <a  ng-click="filterBubbles('destacada')" class="btn btn btn-secondary btn-sm show-destacadas"><i class="glyphicon glyphicon-flag"></i>{{ i18n.featuredWorks }}</a>
         <p> </p>
         <p> </p>
       </div>
@@ -106,7 +106,7 @@
     </div>
 
   <p class="tooltip-text tooltip-map">
-    <span class="tooltip-map-loading" ng-show="!selectedObra.map"><small>Cargando mapa</small></span>
+    <span class="tooltip-map-loading" ng-show="!selectedObra.map"><small>{{ i18n.loading }}</small></span>
     <span class="tooltip-map-placeholder">
       <img class="obra-pic img-responsive" ng-show="selectedObra.map" ng-src="{{selectedObra.map}}"/>
     </span>
@@ -122,11 +122,11 @@
 
     </div>
   </div>
-  <p  class="tooltip-text" ng-show="selectedObra.data.link_interno"><a target="_parent" ng-href="{{selectedObra.data.link_interno}}" class="btn btn-link btn-xs btn-block btn-ver-mas">VER MÁS</a></p>
+  <p  class="tooltip-text" ng-show="selectedObra.data.link_interno"><a target="_parent" ng-href="{{selectedObra.data.link_interno}}" class="btn btn-link btn-xs btn-block btn-ver-mas">{{ i18n.seeMore }}</a></p>
 
   <div class="row compromiso-row" ng-show="selectedObra.data.compromiso">
     <div class="col-xs-12">
-      <span class="label label-primary">Compromiso de Gobierno</span>
+      <span class="label label-primary">{{ i18n.governmentCommitment }}</span>
     </div>
   </div>
 

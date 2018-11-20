@@ -11,6 +11,8 @@ angular
       templateUrl: "views/includes/stats-home.html",
       replace: true,
       link: function($scope, elm, attrs) {
+        $scope.i18n = window._i18n;
+
         $scope.total = {
           inversion: 0,
           obras: 0,

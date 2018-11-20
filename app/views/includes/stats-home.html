@@ -5,7 +5,7 @@
         <img class="" src="images/indicadores/inversion.svg"/>
       </div>
       <div class='col-xs-8 value-container'>
-        <h5>Total de inversión:</h5>
+        <h5>{{ i18n.investmentAmount }}:</h5>
         <span class="value">{{totalRender.inversion | currency:$ :0}}</span>
       </div>
     </div>
@@ -16,7 +16,7 @@
         <img class="" src="images/indicadores/obras.svg"/>
       </div>
       <div class='col-xs-8 value-container'>
-        <h5>Total de obras:</h5>
+        <h5>{{ i18n.totalWorks }}:</h5>
         <span class="value">{{totalRender.obras | number:0}}</span>
       </div>
     </div>
@@ -27,7 +27,7 @@
         <img class="" src="images/indicadores/finalizadas.svg"/>
       </div>
       <div class='col-xs-8 value-container'>
-        <h5>Finalizadas:</h5>
+        <h5>{{ i18n.ended }}:</h5>
         <span class="value">{{totalRender.porcentaje_finalizadas | number:0}}%</span>
       </div>
     </div>
@@ -38,7 +38,7 @@
         <img class="" src="images/indicadores/personas.svg"/>
       </div>
       <div class='col-xs-8 value-container'>
-        <h5>Empleados:</h5>
+        <h5>{{ i18n.employees }}:</h5>
         <span class="value">{{totalRender.mano_obra | number:0}}</span>
       </div>
     </div>
