@@ -239,3 +239,12 @@ valor `data.csv`.
 | `DATA_PATH`           | String                | Url o nombre de archivo                                                                                               |
 | `USE_USIG_MAP_TILES`  | `true\|false`         | Indica si los mapas deberan usar tilemaps de USIG (soporte unicamente para Buenos Aires)                              |
 | `CITY_NAME`           | String                | Nombre de la jurisdicción correspondiente al sitio                                                                    |
+
+### i18n
+
+Se encuentra disponible un archivo con la traduccion de todos los textos presentados al usuario. Este archivo está 
+pensado para ser modificado en caso de querer levantar el sitio en un idioma distinto al español o en caso de tener
+que modificar la nomenclatura actual del sitio.
+
+El archivo se encuentra en `app/scripts/i18n.js`. En caso de modificar las traducciones, es necesario re-buildear el
+sitio (ver seccion de instrucciones para desarrolladores).   

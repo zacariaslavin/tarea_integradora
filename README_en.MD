@@ -243,3 +243,11 @@ the data file. For ex, if the data file is named `data.csv` and is placed in `ap
 | `DATA_PATH`           | String                | Url or filename                                                                                                       |
 | `USE_USIG_MAP_TILES`  | `true\|false`         | Flag to determine if the tilemaps must be loaded from USIG (Buenos Aires only)                                        |
 | `CITY_NAME`           | String                | Name of the jurisdiction of the site                                                                                  |
+
+### i18n
+
+A file with all the string translations that the site shows to the user is available. This file serves the purpose of
+offering the possibility of translating the whole site to another language or to modify the current spanish translation.
+
+The file is placed at `app/scripts/i18n.js`. If the translations are modified, is necessary to re-build the project 
+(see the development instructions section).
