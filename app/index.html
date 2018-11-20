@@ -31,34 +31,34 @@
     <!-- CONTENIDO -->
     <div class="container" ng-controller="DemoCtrl" ng-cloak>
         <div ng-show="loading">  
-          <h1 id="loading" class="text-center">Cargando</h1>
+          <h1 id="loading" class="text-center">{{ i18n.loading }}</h1>
           <p class="text-center"><img src="images/loader.gif"/></p>
         </div>
         <div class="row row-selectores" ng-hide="loading">
           <div class="col-md-12">
-              <h1>Explorador de obras de {{ sitename }}</h1>
-              <p>Esta es la página de prueba para visualizar las obras de {{ sitename }}. Click para ver página.</p>
+              <h1>{{ i18n.title.replace('SITE_NAME', sitename) }}</h1>
+              <p>{{ i18n.subtitle.replace('SITE_NAME', sitename) }}</p>
           </div>
           <div class="col-md-6">
               <br>
-              <a class="btn btn-primary btn-block btn-lg" target="_blank" href="demo-home.html">Home <i class="glyphicon glyphicon-new-window"></i></a>
+              <a class="btn btn-primary btn-block btn-lg" target="_blank" href="demo-home.html">{{ i18n.homeButton }} <i class="glyphicon glyphicon-new-window"></i></a>
               <br>
           </div>
           <div class="col-md-6">
               <br>
-              <a class="btn btn-primary btn-block btn-lg" ng-click="loadModal('buscador')">Buscador</a>
+              <a class="btn btn-primary btn-block btn-lg" ng-click="loadModal('buscador')">{{ i18n.searchButton }}</a>
               <br>
           </div>
           <div class="col-md-6" ng-repeat="(nombre, obras) in entornos">
               <div class="well">
-                <h3>Entorno: {{nombre}} ({{obras.length}}) <a class="btn btn-primary btn-md" ng-click="loadModal('entorno/'+sluger(nombre))">Ver Entorno</a> </h3>
+                <h3>{{ i18n.jurisdictionName }}: {{nombre}} ({{obras.length}}) <a class="btn btn-primary btn-md" ng-click="loadModal('entorno/'+sluger(nombre))">{{ i18n.seeJurisdictionButton }}</a> </h3>
                 <a class="btn btn-primary btn-sm" ng-repeat="o in obras" ng-click="loadModal('obra/'+o.id)"><strong>{{o.id}}.</strong> {{o.nombre}}</a>
               </div>
           </div>
           <hr>
           <div class="col-md-12">
             <div class="well">
-              <h3>Obras sin entorno ({{individuales.length}})</h3>
+              <h3>{{ i18n.worksWithoutJurisdictionTitle }} ({{individuales.length}})</h3>
               <a class="btn btn-primary btn-sm" ng-repeat="o in individuales" href="#obra/{{o.id}}" ng-click="loadModal('obra/'+o.id)"><strong>{{o.id}}.</strong> {{o.nombre}}</a>
             </div>
             <br>
@@ -73,13 +73,13 @@
             <div class="modal-content">
               <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title" id="myModalLabel">Demo iframe: </h4>
+                <h4 class="modal-title" id="myModalLabel">{{ i18n.homeIframeTitle }}</h4>
               </div>
               <div class="modal-body">
                 <div id="pym-container" style="min-height: 100px"></div>
               </div>
               <div class="modal-footer">
-                <button type="button" class="btn btn-primary" data-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal">{{ closeButton }}</button>
               </div>
             </div>
           </div>
@@ -108,6 +108,7 @@
 
     <!-- build:js({.tmp,app}) scripts/scripts.js -->
     <script src="scripts/libs/papaparse.min.js"></script>
+    <script src="scripts/i18n.js"></script>
     <script src="scripts/data.js"></script>
     <!-- endbuild -->
 
@@ -135,6 +136,8 @@
 
         })
         .controller('DemoCtrl',function($scope,DataService,Slug){
+
+            $scope.i18n = window._i18n;
 
             $scope.loading = true;
 
