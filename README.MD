@@ -1,5 +1,7 @@
 # [BA Obras](https://obras.buenosaires.gob.ar/)
 
+[English documentation](./README_en.MD)
+
 Proyecto de visualización y análisis de la información de las obras del Gobierno de la Ciudad de Buenos Aires.
 
   - [Acerca de BA Obras](#acerca-de-ba-obras)
@@ -94,7 +96,7 @@ columnas esté presente.
 
 ### Archivos geoespaciales
 
-La vista de las obras distribuidas espacialmente sobre el mapa la jurisdiccion requiere de un archivo geojson con 
+La vista de las obras distribuidas espacialmente sobre el mapa de la jurisdiccion requiere de un archivo geojson con 
 información geografica de la geometria de la jurisdicción. Este archivo geojson debe tener la siguiente estructura
 ```
 {
