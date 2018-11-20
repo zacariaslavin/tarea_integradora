@@ -1325,7 +1325,7 @@ angular
 
             var logoContainer = d3.select("#tooltip-logo-container");
 
-            if (!$scope.selectedObra.map) {
+            if (!$scope.selectedObra.map && window.MDUYT_CONFIG.USE_USIG_MAP_TILES) {
               var url = $sce.getTrustedResourceUrl(
                 "https://ws.usig.buenosaires.gob.ar/geocoder/2.2/reversegeocoding?x=" +
                   d.data.lng +
@@ -1343,6 +1343,8 @@ angular
                     "&h=100&w=300&punto=1&r=50";
                 });
             }
+
+            $scope.showObraImg = $scope.selectedObra.map || window.MDUYT_CONFIG.USE_USIG_MAP_TILES;
 
             if (!logoTipoCache[d.data.tipo_slug]) {
               d3.xml("images/iconos/" + d.data.tipo_slug + ".svg", function(

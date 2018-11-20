@@ -105,7 +105,7 @@
       </div>
     </div>
 
-  <p class="tooltip-text tooltip-map">
+  <p class="tooltip-text tooltip-map" ng-show="showObraImg">
     <span class="tooltip-map-loading" ng-show="!selectedObra.map"><small>{{ i18n.loading }}</small></span>
     <span class="tooltip-map-placeholder">
       <img class="obra-pic img-responsive" ng-show="selectedObra.map" ng-src="{{selectedObra.map}}"/>
