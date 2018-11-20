@@ -45,7 +45,6 @@ about the data source connection in the [configuration file section](#configurat
 | `nombre`                    | Required                   | Text            | Name of the planned construction work                |
 | `lat`                       | Required                   | Numeric¹        | Latitude                                             |
 | `lng`                       | Required                   | Numeric¹        | Longitude                                            |
-| `imagen_1`                  | Required                   | Url             | Url of an image from the work                        |
 | `descripcion`               | Required                   | Text            | Description of the work                              |
 | `entorno`                   | Required                   | Category (Text) | Territorial classification of the work               |
 | `monto_contrato`            | Required                   | Numeric¹        | Budgeted cost of the work                            |
@@ -67,6 +66,7 @@ about the data source connection in the [configuration file section](#configurat
 | `fecha_inicio`              | Optional                   | Date            | Starting date of the work                            |
 | `fecha_fin_inicial`         | Optional                   | Date            | Ending date of the work                              |
 | `plazo_meses`               | Optional                   | Numeric¹        | Month amount that the work needs / took place        |
+| `imagen_1`                  | Optional                   | Url             | Url of an image from the work                        |
 | `imagen_2`                  | Optional                   | Url             | Url of a secondary image                             |
 | `imagen_3`                  | Optional                   | Url             | Url of a secondary image                             |
 | `imagen_4`                  | Optional                   | Url             | Url of a secondary image                             |

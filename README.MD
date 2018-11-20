@@ -47,7 +47,6 @@ la sección relativa al archivo de configuración.
 | `nombre`                      | Obligatoria                    | Texto             | Nombre con el cual se identifica a la obra           |
 | `lat`                         | Obligatoria                    | Numerico¹         | Latittud de la ubicación de la obra                  |
 | `lng`                         | Obligatoria                    | Numerico¹         | Longitud de la ubicación de la obra                  |
-| `imagen_1`                    | Obligatoria                    | Url               | Url de una imagen representando la obra              |
 | `descripcion`                 | Obligatoria                    | Texto             | Descripción la obra                                  |
 | `entorno`                     | Obligatoria                    | Categoria (Texto) | Clasificación territorial de la obra                 |
 | `monto_contrato`              | Obligatoria                    | Numerico¹         | Monto presupuestado para la obra                     |
@@ -69,6 +68,7 @@ la sección relativa al archivo de configuración.
 | `fecha_inicio`                | Opcional                       | Fecha             | Fecha de inicio de la obra                           |
 | `fecha_fin_inicial`           | Opcional                       | Fecha             | Fecha de fin de la obra                              |
 | `plazo_meses`                 | Opcional                       | Numerico¹         | Cantidad de meses                                    |
+| `imagen_1`                    | Opcional                       | Url               | Url de una imagen representando la obra              |
 | `imagen_2`                    | Opcional                       | Url               | Url de una imagen secundaria representando la obra   |
 | `imagen_3`                    | Opcional                       | Url               | Url de una imagen secundaria representando la obra   |
 | `imagen_4`                    | Opcional                       | Url               | Url de una imagen secundaria representando la obra   |
