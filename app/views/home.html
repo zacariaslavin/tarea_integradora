@@ -138,9 +138,25 @@
     </div>
   </div>
   <div class="light-grey-back col-xs-12">
-    <p>Filtrar: <input ng-model="obrasListFilter" type="text" placeholder="Palabra Clave"></p>
+    <div class="row">
+      <div class="col-xs-2">
+        <p>Filtrar:</p>
+        </div> 
+      <div class="col-xs-8">
+        <select class="input" ng-options="item as item.label for item in selectTypes track by item.slug" ng-model="obrasTypeFilter"></select>
+        
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-2">
+        <p></p>
+        </div> 
+      <div class="col-xs-8">
+        <input ng-model="obrasListFilter" type="text" placeholder="Palabra Clave"></p>
+      </div>
+    </div>
   </div>
-  <div class="detail col-xs-12" ng-repeat="o in filteredObras | filter:obrasListFilter">
+  <div class="detail col-xs-12" ng-repeat="o in filteredObras | filter:obrasListFilter || obrasTypeFilter.slug">
     <div class="row full">
       <div class="col-xs-4">
         <img class="obra-pic img-responsive" ng-src="{{o.thumb}}" />

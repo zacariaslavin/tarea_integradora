@@ -36,6 +36,46 @@ angular
 
     $scope.selectedFilter = false;
     $scope.labels = {};
+    $scope.selectTypes = [];
+    
+    var mainSelect = {
+      label: "-Todas las Obras",
+      slug: "",
+    }
+    $scope.obrasTypeFilter = mainSelect;
+    $scope.selectTypes.push(mainSelect)
+    $scope.selectTypes.push({
+      label: "Espacio Público",
+      slug: "espacio-publico"
+    })
+    $scope.selectTypes.push({
+      label: "Escuelas",
+      slug: "escuelas"
+    })
+     $scope.selectTypes.push({
+      label: "Salud",
+      slug: "salud"
+    })
+    $scope.selectTypes.push({
+      label: "Arquitectura",
+      slug: "arquitectura"
+    })
+    $scope.selectTypes.push({
+      label: "Vivienda",
+      slug: "vivienda"
+    })
+      $scope.selectTypes.push({
+      label: "Transporte",
+      slug: "transporte"
+    })
+
+  $scope.selectTypes.push({
+      label: "Hidráulica e Infraestructura",
+      slug: "hidraulica-e-infraestructura"
+    })
+
+
+
     $scope.labels["espacio-publico"] =
       "Obras e intervenciones en el espacio público, tales como obras en plazas y parques, en veredas o de regeneración urbana.";
     $scope.labels["escuelas"] =
