@@ -718,6 +718,12 @@ div.obra .ficha-tecnica .progress-bar {
 
 /* Extra Small Devices, Phones */
 @media only screen and (max-width: 480px) {
+  .col-sm-12.home-chart-main{
+    padding: 0;
+    margin: 0;
+    max-width: 100%;
+    width: 100%;
+  }
 }
 
 #tooltip-logo-container.icon {

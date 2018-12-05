@@ -154,9 +154,8 @@ angular
       $scope.isSmallDevice = chart.w < 700 ? true : false;
 
       if ($scope.isSmallDevice) {
-        chart.w = 350;
-        chart.h = 350;
-        chart.margin =  0; //chart.w / 1;
+        chart.w = $(window).width();
+        chart.h = $(window).width();
       } else {
         chart.h = chart.w;
         chart.margin = chart.w / 200;
@@ -334,7 +333,7 @@ angular
 
       if (!chart.mapGroup) {
         chart.mapGroup = chart.svg.select("#map-group");
-
+        chart.mapGroup.attr("transform", "translate(" + '-10' + ")scale(" + 1 + ")");
         d3.json("geo/comunas.simple.geojson", function(data) {
           chart.mapCentroids = {};
 
