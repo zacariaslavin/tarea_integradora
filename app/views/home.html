@@ -30,7 +30,9 @@
   </div>
   <div class="row">
     <div class="col-sm-12">
-      <h1> <strong> Conocé las obras de tu comuna </strong></h1>
+      <h1 class="hidden-xs"> <strong> Conocé las obras de tu comuna </strong></h1>
+      <h1 class="hidden-md hidden-xl"> <strong> Tocá una comuna para conocer las obras </strong></h1>
+      
     </div>
   </div>
   <div class="row hidden-xs">
@@ -46,8 +48,8 @@
       </div>
   </div>
   <div id="main-chart-container" class="row">
-    <div class="col-sm-12 ">
-        <a  ng-click="filterBubbles('destacada')" class="btn btn btn-secondary btn-sm show-destacadas"><i class="glyphicon glyphicon-flag"></i> Ver Obras Destacadas</a>
+    <div class="hidden-xs col-sm-12 ">
+        <a ng-click="filterBubbles('destacada')" class="btn btn btn-secondary btn-sm show-destacadas"><i class="glyphicon glyphicon-flag"></i> Ver Obras Destacadas</a>
         <p> </p>
         <p> </p>
       </div>
