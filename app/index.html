@@ -38,14 +38,19 @@
               <h1>Explorador de obras del Gobierno de la Ciudad de Buenos Aires</h1>
               <p>Esta es la página de prueba para visualizar las obras del GCBA. Click para ver página.</p>
           </div>
-          <div class="col-md-6">
+          <div class="col-md-4">
               <br>
               <a class="btn btn-primary btn-block btn-lg" target="_blank" href="demo-home.html">Home <i class="glyphicon glyphicon-new-window"></i></a>
               <br>
           </div>
-          <div class="col-md-6">
+          <div class="col-md-4">
               <br>
               <a class="btn btn-primary btn-block btn-lg" ng-click="loadModal('buscador')">Buscador</a>
+              <br>
+          </div>
+          <div class="col-md-4">
+              <br>
+              <a class="btn btn-primary btn-block btn-lg" ng-click="loadModal('obras-bajo-tierra')">Obras bajo tierra</a>
               <br>
           </div>
           <div class="col-md-6" ng-repeat="(nombre, obras) in entornos">
