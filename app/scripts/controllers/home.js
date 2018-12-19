@@ -4,7 +4,7 @@ angular
   .module("obrasMduytApp")
   .controller("HomeCtrl", function($scope, DataService, $filter, $http, $sce) {
     var d3 = window.d3;
-
+    
     $scope.loading = true;
     $scope.pymChild = new window.pym.Child({
       polling: 1000
@@ -1656,6 +1656,7 @@ angular
 
 
     $scope.closeList = function(){
+
       $scope.showList = false;
       $scope.filteredObras = [];
       $scope.selectedComuna = "";

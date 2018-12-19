@@ -795,6 +795,10 @@ p{
 .obra-list h4{
   padding-left: 0;
 }
+.obra-list h4 > a {
+  min-height: 25px;
+  display: block;
+}
 .obra-list .smaller{
   font-size: 0.8em;
 }
