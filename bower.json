@@ -7,8 +7,7 @@
     "bootstrap": "^3.2.0",
     "angular-route": "1.6.1",
     "angular-sanitize": "1.6.1",
-    "BAstrap":
-      "https://github.com/gcba/BAstrap.git#aee93cf71a4bbc6c731eed606f6cf620703f2579",
+    "BAstrap": "https://github.com/gcba/BAstrap.git#aee93cf71a4bbc6c731eed606f6cf620703f2579",
     "lodash": "^4.16.3",
     "d3": "3",
     "pym.js": "^1.1.1",
@@ -20,7 +19,10 @@
   "moduleName": "obrasMduytApp",
   "overrides": {
     "bootstrap": {
-      "main": ["dist/css/bootstrap.css", "dist/js/bootstrap.js"]
+      "main": [
+        "dist/css/bootstrap.css",
+        "dist/js/bootstrap.js"
+      ]
     },
     "ng-youtube-embed": {
       "main": [
@@ -28,7 +30,12 @@
       ]
     },
     "BAstrap": {
-      "main": ["bastrap.css"]
+      "main": [
+        "bastrap.css"
+      ]
     }
+  },
+  "resolutions": {
+    "angular": "1.6.1"
   }
 }
