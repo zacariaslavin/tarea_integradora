@@ -1,5 +1,7 @@
 # [BA Obras](https://obras.buenosaires.gob.ar/)
 
+[![Build Status](https://travis-ci.com/datosgcba/ba_obras.svg?branch=master)](https://travis-ci.com/datosgcba/ba_obras)
+
 [English documentation](./README_en.MD)
 
 Proyecto de visualización y análisis de la información de las obras del Gobierno de la Ciudad de Buenos Aires.
