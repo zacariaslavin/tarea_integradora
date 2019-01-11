@@ -3,7 +3,7 @@
 angular
   .module("obrasMduytApp")
   .component('obraContent', {
-    templateUrl: '/views/obra-content.html',
+    templateUrl: 'views/obra-content.html',
     controller: function($scope, $element, $attrs) {
       this.$onInit = function() {
         $scope.obra = this.obra;
@@ -14,7 +14,7 @@ angular
     }
   })
   .component('obrasSlider', {
-    templateUrl: '/views/obras-slider.html',
+    templateUrl: 'views/obras-slider.html',
     controller: function($scope, $element, $attrs) {
       $scope.currentSlide = 0;
       this.$onInit = function() {
