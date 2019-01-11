@@ -78,9 +78,6 @@ angular
           $scope.obrasHidraulicas.obras.push(item);
         }
       });
-      /*console.log($scope.obrasSubte);
-      console.log($scope.obrasBajoNivel);
-      console.log($scope.obrasHidraulicas);*/
       $scope.loading = false;
     });
   });

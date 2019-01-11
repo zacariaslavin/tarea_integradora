@@ -4,7 +4,8 @@
 }
 
 #obras-bajo-tierra .cortex {
-  height: 100vh;
+  min-height: 850px;
+  height: auto;
   width: 100vw;
   display: flex;
   align-items: center;
@@ -21,8 +22,8 @@
 
 /** layers **/
 #obras-bajo-tierra .layer {
-  height: 100vh;
-  width: 100vw;
+  min-height: 850px;
+  width: 100%;
   top: 0;
   left: 0;
   position: absolute;
@@ -50,7 +51,6 @@
  * ----------------------------------------
  */
 #obras-bajo-tierra .layer.man {
-  position: absolute;
   width: 352px;
   height: 741px;
   bottom: 0;
@@ -58,27 +58,15 @@
   background: url('/images/bajo-tierra/man.svg') no-repeat;
 }
 #obras-bajo-tierra .layer.girl {
-  position: absolute;
-  width: 100vw;
-  height: 100vh;
   background: url('/images/bajo-tierra/girl.svg') 90% 90% no-repeat;
 }
 #obras-bajo-tierra .layer.car {
-  position: absolute;
-  width: 100vw;
-  height: 100vh;
   background: url('/images/bajo-tierra/car.svg') -100px 85% no-repeat;
 }
 #obras-bajo-tierra .layer.train {
-  position: absolute;
-  width: 100vw;
-  height: 100vh;
   background: url('/images/bajo-tierra/train.svg') 120% 85% no-repeat;
 }
 #obras-bajo-tierra .layer.faucet {
-  position: absolute;
-  width: 100vw;
-  height: 100vh;
   background: url('/images/bajo-tierra/faucet.svg') 130% 50% no-repeat;
 }
 /**
@@ -91,7 +79,8 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 100vh;
+  min-height: 750px;
+  height: auto;
   width: 100%;
 }
 #obras-bajo-tierra .obras-slider .obras-slider-wrapper {
@@ -253,7 +242,8 @@
  */
 #obras-bajo-tierra .cortex .welcome {
   width: 100vw;
-  height: 100vh;
+  min-height: 750px;
+  height: auto;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -356,7 +346,8 @@ and (orientation : portrait) {
     margin: 0;
   }
   #obras-bajo-tierra .obras-slider .obras-slider-wrapper {
-    height: 100vh;
+    min-height: 750px;
+  height: auto;
     display: flex;
     flex-direction: column;
     justify-content: start;
