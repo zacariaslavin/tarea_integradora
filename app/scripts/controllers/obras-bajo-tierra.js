@@ -44,16 +44,19 @@ angular
     $scope.obrasBajoNivel = {
       title: 'Túneles y pasos bajo nivel',
       intro: 'Desde 2015 a 2018, invertimos más de 15 mil millones de pesos para reemplazar barreras y mejorar el tránsito y la seguridad de los peatones a través de 7 nuevos pasos bajo nivel, 2 viaductos y túneles.',
+      icon: '/images/bajo-tierra/icon-underground.svg',
       obras: []
     };
     $scope.obrasSubte = {
       title: 'Más estaciones de subte, vecinos más conectados',
       intro: 'Desde 2015 hasta 2018, invertimos más de 3.300 millones de pesos en la creación y la extensión de las líneas H y E de subterráneos. Las obras empezaron en 2009 y su finalización se proyecta hacia enero de 2019.',
+      icon: '/images/bajo-tierra/icon-train.svg',
       obras: []
     };
     $scope.obrasHidraulicas = {
       title: 'El agua que corre bajo tierra',
       intro: 'Más de 10 cuencas hidrográficas atraviesan la Ciudad. Por eso, durante los últimos cuatro años, invertimos más de 2.400 millones de pesos en infraestructura de obras hidráulicas, redes pluviales y sistemas de bombeo.',
+      icon: '/images/bajo-tierra/icon-faucet.svg',
       obras: []
     };
 
