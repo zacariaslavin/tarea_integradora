@@ -67,7 +67,7 @@ angular
     };
     DataService.getAll().then(function(data) {
 
-      data.forEach( item => {
+      data.forEach( function(item) {
         if(item.bajo_tierra == 'Subte') {
           $scope.obrasSubte.obras.push(item);
         }
