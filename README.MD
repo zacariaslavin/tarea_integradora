@@ -11,7 +11,8 @@ Proyecto de visualización y análisis de la información de las obras del Gobie
     - [Esquema de datos](#esquema-de-datos)
   - [Archivos necesarios para el correcto funcionamiento del sitio](#archivos-necesarios-para-el-correcto-funcionamiento-del-sitio)
     - [Archivos geoespaciales](#archivos-geoespaciales)
-    - [Imagenes](#imagenes)
+    - [Imagenes del sitio](#imagenes-del-sitio)
+    - [Imagenes de obras](#imagenes-de-obras)
   - [Instrucciones para desarrolladores](#instrucciones-para-desarrolladores)
     - [Adaptación estetica](#adaptaci%C3%B3n-estetica)
   - [Levantar el proyecto en un ambiente productivo](#levantar-el-proyecto-en-un-ambiente-productivo)
@@ -70,10 +71,10 @@ la sección relativa al archivo de configuración.
 | `fecha_inicio`                | Opcional                       | Fecha             | Fecha de inicio de la obra                           |
 | `fecha_fin_inicial`           | Opcional                       | Fecha             | Fecha de fin de la obra                              |
 | `plazo_meses`                 | Opcional                       | Numerico¹         | Cantidad de meses                                    |
-| `imagen_1`                    | Opcional                       | Url               | Url de una imagen representando la obra              |
-| `imagen_2`                    | Opcional                       | Url               | Url de una imagen secundaria representando la obra   |
-| `imagen_3`                    | Opcional                       | Url               | Url de una imagen secundaria representando la obra   |
-| `imagen_4`                    | Opcional                       | Url               | Url de una imagen secundaria representando la obra   |
+| `imagen_1`                    | Opcional                       | Url⁴              | Url de una imagen representando la obra              |
+| `imagen_2`                    | Opcional                       | Url⁴              | Url de una imagen secundaria representando la obra   |
+| `imagen_3`                    | Opcional                       | Url⁴              | Url de una imagen secundaria representando la obra   |
+| `imagen_4`                    | Opcional                       | Url⁴              | Url de una imagen secundaria representando la obra   |
 | `licitacion_oferta_empresa`   | Opcional                       | Texto             | Nombre de la empresa                                 |
 | `licitacion_anio`             | Opcional                       | Numerico¹         | Año de la licitación                                 |
 | `benficiarios`                | Opcional                       | Numerico¹         | Cantidad de beneficiarios                            |
@@ -94,6 +95,9 @@ desarrolladores en este mismo documento).
 
 ³ Si bien las columnas de `comuna` y `jurisdiccion` se presentan como opcionales, es requisito que una de las dos
 columnas esté presente.
+
+⁴ En caso de no contar con urls para las imagenes, es posible incorporarlas cómo parte del sitio y servirlas junto
+al resto del contenido del sitio. Ver sección de [Imagenes de obras](#imagenes-de-obras)
 
 ## Archivos necesarios para el correcto funcionamiento del sitio
 
@@ -146,7 +150,7 @@ Cada feature corresponde a una subdivisión del area geografica. Debe haber por 
 La propiedad `properties.center` es un par de `[lat, long]` que debe ser definido como el punto central del 
 mapa, y la propiedad `properties.zoomLevel` es el nivel de zoom al cual debe estar el mapa.
 
-### Imagenes
+### Imagenes del sitio
 
 El selector de la seccion de "Mapa" usa una imagen en formato svg. La imagen default del proyecto es la del mapa de la
 ciudad de Buenos Aires. Para reemplazar esta imagen, pisar el archivo ubicado en `app/images/selectores/mapa.svg`. 
@@ -154,6 +158,24 @@ ciudad de Buenos Aires. Para reemplazar esta imagen, pisar el archivo ubicado en
 Para modificar el favicon del sitio, pisar el archivo `app/favicon.ico` con el favicon que se quiera utilizar.
 
 Es necesario buildear el proyecto luego de modificar estas imagenes. Ver la siguiente seccion.
+
+### Imagenes de obras
+
+En caso de contar con imagenes de obras con urls accesibles publicamente, se pueden agregar al csv cómo celdas en las
+columnas correspondientes (ver sección de [esquema de datos](#esquema-de-datos)). 
+
+En caso de contar con imagenes cómo archivos que no tienen una url pública, es posible agregarlos a los archivos del 
+sitio para que sean servidos de la misma forma que el resto de los archivos estáticos (html, js, css, etc).
+
+Como se especifica en la sección de [Instalación por primera vez](#instalaci%C3%B3n-por-primera-vez), la carpeta 
+`dist` se utiliza como root del servidor, con lo cual todos los archivos contenidos dentro serán servidos con un path
+relativo a esta carpeta. Si posicionan archivos de imagenes en la carpeta `dist/images` entonces estarán 
+disponibles públicamente de la misma forma que el resto de las imagenes dentro de dicha carpeta. 
+Por ej, si la url base del sitio es `http://sitio-de-obras.com` y se posiciona una imagen `obra.jpg` en `dist/images`
+entonces la url final de la imagen será `http://sitio-de-obras.com/images/obra.jpg`. 
+Tambien es posible crear carpetas para organizar las imagenes. En caso de ubicar `obra.jpg` en una carpeta 
+`obras-imagenes` dentro de `dist/images`, entonces la url final será 
+`http://sitio-de-obras.com/images/obras-imagenes/obra.jpg`
 
 ## Instrucciones para desarrolladores
 
