@@ -11,7 +11,8 @@ Visualization and analysis project of the planned construction works of the Buen
     - [Data scheme](#data-scheme)
   - [Required files to run the site](#required-files-to-run-the-site)
     - [Geospacial file](#geospacial-file)
-    - [Images](#images)
+    - [Site images](#site-images)
+    - [Construction works images](#construction-works-images)
   - [Development instructions](#development-instructions)
     - [Visual adaptations and changes](#visual-adaptations-and-changes)
   - [Running the site in a production environment](#running-the-site-in-a-production-environment)
@@ -68,10 +69,10 @@ about the data source connection in the [configuration file section](#configurat
 | `fecha_inicio`              | Optional                   | Date            | Starting date of the work                            |
 | `fecha_fin_inicial`         | Optional                   | Date            | Ending date of the work                              |
 | `plazo_meses`               | Optional                   | Numeric¹        | Month amount that the work needs / took place        |
-| `imagen_1`                  | Optional                   | Url             | Url of an image from the work                        |
-| `imagen_2`                  | Optional                   | Url             | Url of a secondary image                             |
-| `imagen_3`                  | Optional                   | Url             | Url of a secondary image                             |
-| `imagen_4`                  | Optional                   | Url             | Url of a secondary image                             |
+| `imagen_1`                  | Optional                   | Url⁴            | Url of an image from the work                        |
+| `imagen_2`                  | Optional                   | Url⁴            | Url of a secondary image                             |
+| `imagen_3`                  | Optional                   | Url⁴            | Url of a secondary image                             |
+| `imagen_4`                  | Optional                   | Url⁴            | Url of a secondary image                             |
 | `licitacion_oferta_empresa` | Optional                   | Text            | Company name                                         |
 | `licitacion_anio`           | Optional                   | Numeric¹        | Bidding year                                         |
 | `benficiarios`              | Optional                   | Numeric¹        | Amount of beneficiaries                              |
@@ -92,6 +93,10 @@ and have `-` instead of spaces. For example, if the work type is `Public space` 
 section).
 
 ³ Altough `comuna` and `jurisdiccion` are optional, one of their must be present
+
+⁴ In case of having images without publicly accesible urls, it is possible to incorporate them as part of the site and
+serve them with the rest of the static files of the site. 
+See the [Construction works images](#construction-works-images) section
 
 ## Required files to run the site
 
@@ -146,7 +151,7 @@ The property `properties.center` is a `[lat, long]` pair that must be defined as
 property `properties.zoomLevel` is the zoom level of the map. This two properties must be fine tuned to place the 
 map properly.
 
-### Images
+### Site images
 
 The "Map" section button uses a svg image. The default image of the project is a map of the Buenos Aires city. To 
 change this image, replace the file placed at `app/images/selectores/mapa.svg`.
@@ -154,6 +159,22 @@ change this image, replace the file placed at `app/images/selectores/mapa.svg`.
 To change the site's favicon, replace the file `app/favicon.ico` with the desired icon.
 
 After any of these modifications is necessary to build again the project. See the next section
+
+### Construction works images
+
+In case of having images with publicly accessible urls, they can be added to the csv as cells in the corresponding
+columns (see the [Data scheme](#data-scheme) section)
+
+If instead the images aren't upload to any public server, it is possible to add them as part of the static files of
+the site in order to be served in the same way as the rest of the static files (html, js, css, etc). 
+
+As specified in the [First time setup](#first-time-setup) section, the `dist` folder is used as the root folder of the
+site. If images are placed in the `dist/images` folder them they will be publicly accessible as the rest of the images
+inside that folder.
+For example, if the base url of the site is `http://some-site.com` and a `example.jpg` image is placed in `dist/images`
+then the final url for that image will be `http://some-site.com/images/example.jpg`.  
+It is also possible to create folders to organize the images. In case of placing the `example.jpg` in a `custom-images`
+folder inside `dist/images`, then the final url will be `http://some-site.com/images/custom-images/example.jpg`.
 
 ## Development instructions
 
