@@ -6,3 +6,4 @@
 .idea
 tmp
 config.js
+*.csv
