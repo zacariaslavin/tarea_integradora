@@ -267,6 +267,7 @@ the data file. For ex, if the data file is named `data.csv` and is placed in `ap
 | `DATA_PATH`           | String                | Url or filename                                                                                                       |
 | `USE_USIG_MAP_TILES`  | `true\|false`         | Flag to determine if the tilemaps must be loaded from USIG (Buenos Aires only)                                        |
 | `CITY_NAME`           | String                | Name of the jurisdiction of the site                                                                                  |
+| `DATA_ORIGIN`         | String                | Default value: `undefined`. Only one other value is supported: `andino-json-api`                                      |
 
 ### i18n
 

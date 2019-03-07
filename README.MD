@@ -264,6 +264,7 @@ valor `data.csv`.
 | `DATA_PATH`           | String                | Url o nombre de archivo                                                                                               |
 | `USE_USIG_MAP_TILES`  | `true\|false`         | Indica si los mapas deberan usar tilemaps de USIG (soporte unicamente para Buenos Aires)                              |
 | `CITY_NAME`           | String                | Nombre de la jurisdicción correspondiente al sitio                                                                    |
+| `DATA_ORIGIN`         | String                | Valor por defecto: `undefined`. Único otro valor soportado: `andino-json-api`                                         |
 
 ### i18n
 
