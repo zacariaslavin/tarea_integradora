@@ -33,7 +33,7 @@ var cleanData = function(oldReg, index, Slug) {
 
   reg.compromiso = reg.compromiso == "SI" ? true : false;
 
-  if (reg.jurisdiccion && reg.jurisdiccion.trim().length) {
+  if (reg.jurisdiccion && reg.jurisdiccion.toString().trim().length) {
     if (!jurisdiccionesIds[reg.jurisdiccion]) {
       jurisdiccionesIds[reg.jurisdiccion] = jurisdiccionesCounter;
       jurisdiccionesCounter += 1;
@@ -45,7 +45,7 @@ var cleanData = function(oldReg, index, Slug) {
   //reg.tipo = (reg.tipo)?reg.tipo.split('|'):[];
   var comunas = reg.comuna ? reg.comuna.split("|") : [null];
   reg.comuna = comunas[0];
-  reg.comuna = reg.comuna ? parseInt(reg.comuna.trim()) : reg.comuna;
+  reg.comuna = reg.comuna ? parseInt(reg.comuna.toString().trim()) : reg.comuna;
   if (!reg.comuna) {
     reg.comuna_from_jurisdiccion = true;
     reg.comuna = reg.jurisdiccion_id;
@@ -60,21 +60,21 @@ var cleanData = function(oldReg, index, Slug) {
   //numbers
   reg.id = parseInt(reg.id || index);
   reg.licitacion_anio = reg.licitacion_anio
-    ? parseInt(reg.licitacion_anio.trim())
+    ? parseInt(reg.licitacion_anio.toString().trim())
     : null;
   reg.monto_contrato = reg.monto_contrato
-    ? parseFloat(reg.monto_contrato.replace(/[$]+/g,"").trim())
+    ? parseFloat(reg.monto_contrato.toString().replace(/[$]+/g,"").trim())
     : null;
   reg.licitacion_presupuesto_oficial = reg.licitacion_presupuesto_oficial
-    ? parseFloat(reg.licitacion_presupuesto_oficial.trim())
+    ? parseFloat(reg.licitacion_presupuesto_oficial.toString().trim())
     : null;
   reg.plazo_meses = reg.plazo_meses
-    ? parseInt(reg.plazo_meses.trim())
+    ? parseInt(reg.plazo_meses.toString().trim())
     : null;
   reg.porcentaje_avance = reg.porcentaje_avance
-    ? reg.porcentaje_avance.trim()
+    ? reg.porcentaje_avance.toString().trim()
     : "";
-  reg.porcentaje_avance.trim();
+  reg.porcentaje_avance.toString().trim();
   reg.porcentaje_avance = isNaN(reg.porcentaje_avance)
     ? ""
     : reg.porcentaje_avance;
@@ -97,19 +97,19 @@ var cleanData = function(oldReg, index, Slug) {
   }
 
   //slug
-  reg.entorno_slug = reg.entorno ? Slug.slugify(reg.entorno.trim()) : null;
+  reg.entorno_slug = reg.entorno ? Slug.slugify(reg.entorno.toString().trim()) : null;
 
-  reg.etapa_slug = reg.etapa ? Slug.slugify(reg.etapa.trim()) : null;
+  reg.etapa_slug = reg.etapa ? Slug.slugify(reg.etapa.toString().trim()) : null;
 
-  reg.tipo_slug = reg.tipo ? Slug.slugify(reg.tipo.trim()) : null;
+  reg.tipo_slug = reg.tipo ? Slug.slugify(reg.tipo.toString().trim()) : null;
 
   reg.entorno = (reg.entorno)?reg.entorno:null;
 
   reg.area_slug = reg.area_responsable
-    ? Slug.slugify(reg.area_responsable.trim())
+    ? Slug.slugify(reg.area_responsable.toString().trim())
     : null;
 
-  reg.red_slug = reg.red ? Slug.slugify(reg.red.trim()) : null;
+  reg.red_slug = reg.red ? Slug.slugify(reg.red.toString().trim()) : null;
 
   reg.monto_slug = reg.monto_contrato
     ? getMontoRange(reg.monto_contrato)
@@ -127,15 +127,14 @@ function loadData ($sce, $q, $http, Slug) {
     throw 'Archivo de configuración inexistente';
   }
 
-  var url = window.MDUYT_CONFIG.DATA_PATH;
-  var trustedUrl = $sce.trustAsResourceUrl(url);
-
   var deferred = $q.defer();
   var data;
 
   var onSuccess = function (result) {
     if (window.MDUYT_CONFIG.LOAD_USING_JSONP) {
       data = result.data;
+    } else if (window.MDUYT_CONFIG.DATA_ORIGIN === 'andino-json-api') {
+      data = result.data.result.records;
     } else {
       data = Papa.parse(result.data, { header:true }).data;
     }
@@ -148,6 +147,7 @@ function loadData ($sce, $q, $http, Slug) {
     deferred.reject(error);
   };
 
+  var trustedUrl = $sce.trustAsResourceUrl(window.MDUYT_CONFIG.DATA_PATH);
   if (window.MDUYT_CONFIG.LOAD_USING_JSONP) {
     $http.jsonp(trustedUrl).then(onSuccess, onError);
   } else {
