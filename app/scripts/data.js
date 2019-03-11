@@ -96,6 +96,8 @@ var cleanData = function(oldReg, index, Slug) {
     }
   }
 
+  reg.thumb = reg.fotos[0] || '';
+
   //slug
   reg.entorno_slug = reg.entorno ? Slug.slugify(reg.entorno.toString().trim()) : null;
 
