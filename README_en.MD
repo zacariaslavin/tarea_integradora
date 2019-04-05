@@ -151,6 +151,11 @@ The property `properties.center` is a `[lat, long]` pair that must be defined as
 property `properties.zoomLevel` is the zoom level of the map. This two properties must be fine tuned to place the 
 map properly.
 
+There are two copies of this geojson file inside the repository. The first one is placed in `app/geo/geometry.geojson` 
+and used for the development server, and the second one placed in `dist/geo/geometry.geojson` and used for the 
+production server. To know more about the different modes of running the site, read the 
+[Development instructions](#development-instructions) section
+
 ### Site images
 
 The "Map" section button uses a svg image. The default image of the project is a map of the Buenos Aires city. To 

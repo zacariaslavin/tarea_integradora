@@ -150,6 +150,11 @@ Cada feature corresponde a una subdivisión del area geografica. Debe haber por 
 La propiedad `properties.center` es un par de `[lat, long]` que debe ser definido como el punto central del 
 mapa, y la propiedad `properties.zoomLevel` es el nivel de zoom al cual debe estar el mapa.
 
+Dentro del repositorio hay dos copias de este archivo geojson. La primera ubicada en `app/geo/geometry.geojson`, usada
+para cuando el sitio se levanta en modo desarrollo, y otra copia ubicada en `dist/geo/geometry.geojson`, usada para
+cuando el sitio se levanta en modo productivo. Para leer más sobre estas dos formas de levantar el sitio, ver la 
+sección de [Instrucciones para desarrolladores](#instrucciones-para-desarrolladores)
+
 ### Imagenes del sitio
 
 El selector de la seccion de "Mapa" usa una imagen en formato svg. La imagen default del proyecto es la del mapa de la
