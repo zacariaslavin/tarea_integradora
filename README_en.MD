@@ -110,6 +110,10 @@ jurisdiction's geometry. This geojson file must have the following scheme
   "features": [
     {
       "type": "Feature",
+      "properties": {
+        "id": "First jurisdiction",
+        "comuna": 1
+      },
       "geometry": {
         "type": "Polygon",
         "coordinates": [
@@ -125,6 +129,10 @@ jurisdiction's geometry. This geojson file must have the following scheme
     {
       "type": "Feature",
       "geometry": {
+        "properties": {
+          "id": "Last jurisdiction",
+          "comuna": 15
+        },
         "type": "Polygon",
         "coordinates": [
           [
@@ -146,6 +154,11 @@ jurisdiction's geometry. This geojson file must have the following scheme
 
 Each feature in the geojson represents a subdivision of the geographic area. There must be at least one feature with
 a polygon.
+
+The properties `properties.id` y `properties.comuna` are referencies to the columns `jurisdiccion` and `comuna`
+of the csv data file, respectively, and must have the same values as the ones in those columns. Remember that only
+one column is obligatory, and so only one property also is obligatory (see note 3 of the [Data scheme](#data-scheme) 
+section)
 
 The property `properties.center` is a `[lat, long]` pair that must be defined as the crental point of the map and the 
 property `properties.zoomLevel` is the zoom level of the map. This two properties must be fine tuned to place the 
