@@ -1066,20 +1066,7 @@
             [
               -58.520377,
               -34.555995
-            ]
-          ]
-        ]
-      },
-      "properties": {
-        "id": "Subdivision primera"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Polygon",
-        "coordinates": [
-          [
+            ],
             [
               -58.520132,
               -34.556335
@@ -2226,9 +2213,6 @@
             ]
           ]
         ]
-      },
-      "properties": {
-        "id": "Subdivision segunda"
       }
     }
   ],

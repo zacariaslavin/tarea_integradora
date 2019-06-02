@@ -111,6 +111,10 @@ información geografica de la geometria de la jurisdicción. Este archivo geojso
   "features": [
     {
       "type": "Feature",
+      "properties": {
+        "id": "First jurisdiction",
+        "comuna": 1
+      },
       "geometry": {
         "type": "Polygon",
         "coordinates": [
@@ -126,6 +130,10 @@ información geografica de la geometria de la jurisdicción. Este archivo geojso
     {
       "type": "Feature",
       "geometry": {
+        "properties": {
+          "id": "Last jurisdiction",
+          "comuna": 15
+        },
         "type": "Polygon",
         "coordinates": [
           [
@@ -146,6 +154,9 @@ información geografica de la geometria de la jurisdicción. Este archivo geojso
 ``` 
 
 Cada feature corresponde a una subdivisión del area geografica. Debe haber por lo menos un feature con un poligono.
+
+La propiedad `properties.id` y `properties.comuna` hacen referencia a las columnas `jurisdiccion` y `comuna`, 
+respecticamente, del csv de datos del sitio y deben coincidir con los valores asignados a esas columnas.
 
 La propiedad `properties.center` es un par de `[lat, long]` que debe ser definido como el punto central del 
 mapa, y la propiedad `properties.zoomLevel` es el nivel de zoom al cual debe estar el mapa.
