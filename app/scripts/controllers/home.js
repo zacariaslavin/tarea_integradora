@@ -1687,4 +1687,13 @@ angular
         .style("top", "-500px")
         .style("opacity", 0);
     };
+
+
+    $scope.closeList = function(){
+
+      $scope.showList = false;
+      $scope.filteredObras = [];
+      $scope.selectedComuna = "";
+
+    }
   });
