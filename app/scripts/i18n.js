@@ -4,6 +4,7 @@ window._i18n = {
   title: "Explorador de obras de SITE_NAME",
   subtitle: "Esta es la página de prueba para visualizar las obras de SITE_NAME. Click para ver página.",
 
+  homeTitle: "Observatorio de Obras",
   homeButton: "Home",
   searchButton: "Buscador",
 
@@ -29,6 +30,7 @@ window._i18n = {
 
   mapLocation: "Ubicación en el Mapa",
   mapTitle: "Conocé las obras de tu jurisdicción",
+  mobileMapTitle: "Tocá sobre una jurisdicción para conocer las obras",
   searchBy: "Buscar por",
   featuredWorks: "Ver Obras Destacadas",
   seeMore: "Ver mas",
