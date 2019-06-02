@@ -1,0 +1,32 @@
+<div class="obras-slider flex-center">
+  <div class="obras-slider-wrapper">
+    <div class="intro flex-center">
+      <div class="intro-wrapper">
+        <img src="{{ data.icon }}" alt="" class="icon">
+        <h1>{{ data.title }}</h1>
+        <p>{{ data.intro }}</p>
+      </div>
+    </div>
+    <div class="body">
+      <div class="navigation-arrow flex-center">
+        <div class="arrow-wrapper flex-center shadow" ng-class="{'disabled' : currentSlide == 0}" ng-click="prevSlide()">
+          <div class="arrow arrow-left"></div>
+        </div>
+      </div>
+      <div class="slide-wrapper">
+        <div class="slide shadow" ng-repeat="(index, obra) in data.obras" ng-class="{active: index==currentSlide, animate: animate }">
+          <obra-content obra="obra" />
+        </div>
+      </div>
+      <div class="navigation-arrow flex-center">
+        <div class="arrow-wrapper flex-center shadow"  ng-class="{'disabled' : currentSlide == data.obras.length - 1 }" ng-click="nextSlide()">
+          <div class="arrow arrow-right"></div>
+        </div>
+      </div>
+    </div>
+    <div class="indicators flex-center">
+      <div class="indicator" ng-repeat="(index, obras) in data.obras" ng-class="{'active' : index == currentSlide}" ng-click="gotoSlide(index)"></div>
+    </div>
+  </div>
+</div>
+

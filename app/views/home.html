@@ -30,11 +30,13 @@
   </div>
   <div class="row">
     <div class="col-sm-12">
-      <h1>{{ useComunas ? "Conocé las obras de tu comuna" : i18n.mapTitle }}</h1>
+      <h1 class="hidden-xs"> <strong>{{ useComunas ? "Conocé las obras de tu comuna" : i18n.mapTitle }}</strong></h1>
+      <h1 class="visible-xs"> <strong> Tocá una comuna para conocer las obras </strong></h1>
+
     </div>
   </div>
-  <div class="row">
-    <div class="col-sm-12 ">
+  <div class="row hidden-xs">
+    <div class="col-md-12 ">
         <div id="search-box" class="row chart-item">
           <div class="col-md-2 hidden-xs" >
             <h4>{{ i18n.searchBy }}</h4>
@@ -46,23 +48,22 @@
       </div>
   </div>
   <div id="main-chart-container" class="row">
-    <div class="col-sm-12 ">
+    <div class="hidden-xs col-sm-12 ">
         <a  ng-click="filterBubbles('destacada')" class="btn btn btn-secondary btn-sm show-destacadas"><i class="glyphicon glyphicon-flag"></i>{{ i18n.featuredWorks }}</a>
         <p> </p>
         <p> </p>
       </div>
     </div>
-    <div class="col-sm-12">
+    <div class="col-sm-12 home-chart-main">
 
  <div id="home-chart-container"></div>
     </div>
   </div>
 
-  <div id="mobile-filler" class="row">
+    <div id="mobile-filler" class="row">
 
+    </div>
   </div>
-
-</div>
 
 <!-- Tooltip OBRAS -->
 <div id="tooltip-home-chart">
@@ -130,4 +131,59 @@
     </div>
   </div>
 
+</div>
+<div ng-show="showList" class="row obra-list open-big">
+  <div class="grey-back col-xs-12">
+    <div class="row">
+      <h4 class="col-xs-10">Obras Comuna {{selectedComuna}}</h4>
+      <h4 class="col-xs-2 right"><a href="" ng-click="closeList()"> <span class="ba-icon ba-no form-control-feedback"></span></a> </h4>
+    </div>
+  </div>
+  <div class="light-grey-back col-xs-12">
+    <div class="row">
+      <div class="col-xs-2">
+        <p>Filtrar:</p>
+        </div>
+      <div class="col-xs-8">
+        <select class="input" ng-options="item as item.label for item in selectTypes track by item.slug" ng-model="obrasTypeFilter"></select>
+
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-2">
+        <p></p>
+        </div>
+      <div class="col-xs-8">
+        <input ng-model="obrasListFilter" type="text" placeholder="Palabra Clave"></p>
+      </div>
+    </div>
+  </div>
+  <div class="detail col-xs-12" ng-repeat="o in filteredObras | filter:obrasListFilter || obrasTypeFilter.slug">
+    <div class="row full">
+      <div class="col-xs-4">
+        <img class="obra-pic img-responsive" ng-src="{{o.thumb}}" />
+      </div>
+      <div class="col-xs-8">
+        <div class="row">
+           <h5> {{o.nombre}} </h5>
+           <p> {{o.descripcion | limitTo:250}}</p>
+           <div class="row data">
+            <div class="col-xs-6 smaller">
+               <div class="row">
+                <div class="col-xs-5"><p>Monto:</p></div>
+                <div class="col-xs-7"> {{o.monto_contrato | currency}}</div>
+               </div>
+               <div class="row">
+                <div class="col-xs-5"><p>Etapa:</p></div>
+                <div class="col-xs-7">{{o.etapa}}</div>
+               </div>
+             </div>
+             <div class="col-xs-6">
+              <p  class="tooltip-text right" ng-show="o.link_interno"><a target="_parent" ng-href="{{o.link_interno}}" class="btn btn-link btn-xs btn-block btn-ver-mas">VER MÁS</a></p>
+             </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
 </div>

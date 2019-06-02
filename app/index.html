@@ -18,6 +18,7 @@
     <!-- build:css(.tmp) styles/main.css -->
     <link rel="stylesheet" href="styles/ng-table.min.css">
     <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/obras-bajo-tierra.css">
     <link rel="stylesheet" href="styles/custom.css">
     <!-- endbuild -->
     <style type="text/css">
@@ -39,14 +40,19 @@
               <h1>{{ i18n.title.replace('SITE_NAME', sitename) }}</h1>
               <p>{{ i18n.subtitle.replace('SITE_NAME', sitename) }}</p>
           </div>
-          <div class="col-md-6">
+          <div class="col-md-4">
               <br>
               <a class="btn btn-primary btn-block btn-lg" target="_blank" href="demo-home.html">{{ i18n.homeButton }} <i class="glyphicon glyphicon-new-window"></i></a>
               <br>
           </div>
-          <div class="col-md-6">
+          <div class="col-md-4">
               <br>
               <a class="btn btn-primary btn-block btn-lg" ng-click="loadModal('buscador')">{{ i18n.searchButton }}</a>
+              <br>
+          </div>
+          <div class="col-md-4">
+              <br>
+              <a class="btn btn-primary btn-block btn-lg" ng-click="loadModal('obras-bajo-tierra')">Obras bajo tierra</a>
               <br>
           </div>
           <div class="col-md-6" ng-repeat="(nombre, obras) in entornos">
@@ -67,7 +73,7 @@
           </div>
           <hr>
         </div>
-        
+
         <div class="modal fade" id="iframeModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
           <div class="modal-dialog modal-lg" style="width: 1170px;max-width: 100%;">
             <div class="modal-content">

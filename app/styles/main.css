@@ -12,7 +12,7 @@ h4 {
 }
 
 p {
-  font-family: "CHANEWEI", Helvetica, Arial, sans-serif !important;
+  font-family: "Open Sans", Helvetica, Arial, sans-serif; 
 }
 
 #stats-home {
@@ -51,17 +51,20 @@ p {
 
 #stats-home .value-container {
   padding-left: 0px;
-  min-height: 80px;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   justify-content: flex-end;
 }
+#stats-home h5{
+  font-size:0.8em;
 
+  
+}
 #stats-home span.value {
   display: block;
-  font-family: "CHANEWEI", Helvetica, Arial, sans-serif;
-  font-size: 30px;
+  font-family: "Open Sans", Helvetica, Arial, sans-serif; 
+  font-size: 1.2em;
   font-weight: normal;
 }
 
@@ -666,12 +669,22 @@ div.obra .ficha-tecnica .progress-bar {
   display: none;
 }
 
+
+/* Medium Devices, Desktops */
+@media only screen and (min-width: 992px) {
+  #stats-home span.value{
+    font-size:2em;
+  }
+  #stats-home h5{
+    font-size:1.25em;
+  }
+}
 /* Medium Devices, Desktops */
 @media only screen and (max-width: 992px) {
   #stats-home .col-custom-1-5 {
     width: 50%;
   }
-
+  
   .chart-item h4 {
     text-align: center;
   }
@@ -679,6 +692,7 @@ div.obra .ficha-tecnica .progress-bar {
   #stats-home .col-custom-2-5 {
     width: 50%;
   }
+
 }
 
 /* Small Devices, Tablets */
@@ -698,10 +712,18 @@ div.obra .ficha-tecnica .progress-bar {
     display: block;
     height: 400px;
   }
+
+
 }
 
 /* Extra Small Devices, Phones */
 @media only screen and (max-width: 480px) {
+  .col-sm-12.home-chart-main{
+    padding: 0;
+    margin: 0;
+    max-width: 100%;
+    width: 100%;
+  }
 }
 
 #tooltip-logo-container.icon {
@@ -759,4 +781,97 @@ div.obra .ficha-tecnica .progress-bar {
     color: black;
     float:right;
     margin-bottom: 2px;
+}
+.obra-list p,.obra-list span {
+  font-family: "Open Sans", Helvetica, Arial, sans-serif; 
+}
+.obra-list p,.obra-list span{
+  font-size:0.85em; 
+  font-family: "Open Sans", Helvetica, Arial, sans-serif; 
+}
+p{
+  font-family: "Open Sans", Helvetica, Arial, sans-serif; 
+}
+.obra-list h4{
+  padding-left: 0;
+}
+.obra-list h4 > a {
+  min-height: 25px;
+  display: block;
+}
+.obra-list .smaller{
+  font-size: 0.8em;
+}
+.obra-list .detail{
+    margin-bottom: 0px;
+    margin-top: 10px;
+    padding:10px;
+    background: #efefef;
+}
+
+.obra-list h5{
+  font-size: 0.95em;
+  padding-top: 0;
+  margin: 0;
+  margin-bottom: 1em;
+
+}
+.obra-list .detail .data p{
+  margin-bottom: 0;
+}
+.obra-list .grey-back{
+  margin-bottom: 0;
+  margin-top: 10px;
+  padding:10px;
+  background: #848689;
+  color:white;
+  padding-bottom: 0;
+  padding-top: 0;
+  font-size: 1.6em;
+}
+.obra-list .grey-back .row{
+  margin: 0;
+}
+.obra-list .light-grey-back{
+  margin-bottom: 0;
+  padding:10px;
+  background: #b5b9bd;
+  color:black;
+}
+.obra-list .full{
+  max-width: 100%;
+}
+.open-big{
+      position: absolute;
+    top: 0;
+    background: white;
+    height: 100vh;
+    overflow: scroll;
+    width: 100%;
+}
+.right{
+  text-align: right;
+}
+select{
+  background: grey;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background: grey;
+  background-image: url("data:image/svg+xml;utf8,<svg fill='black' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/><path d='M0 0h24v24H0z' fill='none'/></svg>");
+  background-repeat: no-repeat;
+  background-position-x: 100%;
+  background-position-y: -3px;
+  border-radius: 10px;
+  margin-right: 2rem;
+  padding-right: 2rem;
+  border-radius: 10px;
+  padding-left: 10px;
+  width: 100%;
+}
+
+
+input{
+  border-radius: 10px;
+  padding-left: 10px;
+  width: 100%;
 }

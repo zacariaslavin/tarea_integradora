@@ -1,0 +1,35 @@
+<div class="obra-content">
+  <div class="row header">
+    <div class="col-xs-12 col-sm-12 col-md-9">
+      <h5>Nombre de la obra</h5>
+      <h2>{{ obra.nombre }}</h2>
+    </div>
+    <div class="col-xs-12 col-sm-12  col-md-3 status">
+      <span class="label label-success {{ obra.etapa_slug }}">{{ obra.etapa }}</span>
+    </div>
+  </div>
+  <div class="row description">
+    <div class="col-md-12">
+      <h5>Descripción</h5>
+      <p>{{ obra.descripcion }}</p>
+    </div>
+  </div>
+  <div class="row details">
+    <div class="col-sm-6 col-xs-6 col-md-3" ng-if="obra.beneficiarios">
+      <h5>Beneficiarios</h5>
+      <span>{{ obra.beneficiarios }}</span>
+    </div>
+    <div class="col-sm-6 col-xs-6 col-md-3" ng-if="obra.monto_contrato">
+      <h5>Monto del contrato</h5>
+      <span>{{ obra.monto_contrato|currency }}</span>
+    </div>
+    <div class="col-sm-6 col-xs-6 col-md-3" ng-if="obra.fecha_inicio">
+      <h5>Inicio</h5>
+      <span>{{ obra.fecha_inicio }}</span>
+    </div>
+    <div class="col-sm-6 col-xs-6 col-md-3" ng-if="obra.fecha_fin_inicial">
+      <h5>Fin</h5>
+      <span>{{ obra.fecha_fin_inicial }}</span>
+    </div>
+  </div>
+</div>

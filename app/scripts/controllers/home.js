@@ -38,6 +38,46 @@ angular
 
     $scope.selectedFilter = false;
     $scope.labels = {};
+    $scope.selectTypes = [];
+
+    var mainSelect = {
+      label: "-Todas las Obras",
+      slug: "",
+    }
+    $scope.obrasTypeFilter = mainSelect;
+    $scope.selectTypes.push(mainSelect)
+    $scope.selectTypes.push({
+      label: "Espacio Público",
+      slug: "espacio-publico"
+    })
+    $scope.selectTypes.push({
+      label: "Escuelas",
+      slug: "escuelas"
+    })
+     $scope.selectTypes.push({
+      label: "Salud",
+      slug: "salud"
+    })
+    $scope.selectTypes.push({
+      label: "Arquitectura",
+      slug: "arquitectura"
+    })
+    $scope.selectTypes.push({
+      label: "Vivienda",
+      slug: "vivienda"
+    })
+      $scope.selectTypes.push({
+      label: "Transporte",
+      slug: "transporte"
+    })
+
+  $scope.selectTypes.push({
+      label: "Hidráulica e Infraestructura",
+      slug: "hidraulica-e-infraestructura"
+    })
+
+
+
     $scope.labels["espacio-publico"] =
       "Obras e intervenciones en el espacio público, tales como obras en plazas y parques, en veredas o de regeneración urbana.";
     $scope.labels["escuelas"] =
@@ -163,9 +203,8 @@ angular
       $scope.isSmallDevice = chart.w < 700 ? true : false;
 
       if ($scope.isSmallDevice) {
-        chart.w = 350;
-        chart.h = 350;
-        chart.margin =  0; //chart.w / 1;
+        chart.w = $(window).width();
+        chart.h = $(window).width();
       } else {
         chart.h = chart.w;
         chart.margin = chart.w / 200;
@@ -440,6 +479,18 @@ angular
       activeMap.classed("active", false);
       activeMap = d3.select(this).classed("active", true);
 
+
+      if($scope.isSmallDevice){
+        // d3.selectAll('#bubbles-group').style('display',"block");
+          $scope.$apply(function(){
+          $scope.showList = true;
+          $scope.selectedComuna = d.properties.comuna;
+          $scope.filteredObras = $scope.obras.filter(function(o){
+           return o.comuna == d.properties.comuna;
+          })
+        })
+      }else {
+
       var bounds = chart.mapPath.bounds(d),
         dx = bounds[1][0] - bounds[0][0],
         dy = bounds[1][1] - bounds[0][1],
@@ -474,8 +525,6 @@ angular
         .duration(750)
         .attr("transform", "translate(" + translate + ")scale(" + scale + ")");
 
-      if($scope.isSmallDevice){
-        d3.selectAll('#bubbles-group').style('display',"block");
       }
     }
 
