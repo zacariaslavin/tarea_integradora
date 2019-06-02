@@ -484,9 +484,12 @@ angular
         // d3.selectAll('#bubbles-group').style('display',"block");
           $scope.$apply(function(){
           $scope.showList = true;
-          $scope.selectedComuna = d.properties.comuna;
+          $scope.selectedComuna = d.properties && d.properties.comuna;
+          $scope.selectedJurisdiccion = d.properties && d.properties.id;
           $scope.filteredObras = $scope.obras.filter(function(o){
-           return o.comuna == d.properties.comuna;
+           return $scope.selectedComuna ?
+             parseInt(o.comuna) === parseInt($scope.selectedComuna) :
+             o.jurisdiccion === $scope.selectedJurisdiccion;
           })
         })
       }else {

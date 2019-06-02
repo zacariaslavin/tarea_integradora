@@ -136,7 +136,7 @@
 <div ng-show="showList" class="row obra-list open-big">
   <div class="grey-back col-xs-12">
     <div class="row">
-      <h4 class="col-xs-10">Obras Comuna {{selectedComuna}}</h4>
+      <h4 class="col-xs-10">{{ i18n.totalWorks }} {{ selectedComuna ? "Comuna " + selectedComuna : selectedJurisdiccion }}</h4>
       <h4 class="col-xs-2 right"><a href="" ng-click="closeList()"> <span class="ba-icon ba-no form-control-feedback"></span></a> </h4>
     </div>
   </div>
