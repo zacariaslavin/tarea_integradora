@@ -253,15 +253,31 @@ finales y compilados.
 
 ### Actualizaciones
 
-En caso de querer actualizar a un tag especifico, ubicarse en la carpeta raíz del proyecto, dentro del servidor y 
-ejecutar el pull al tag de la versión indicada via `git fetch --tags` y luego `git checkout TAG-DE-VERSION`.
-
 En caso de querer actualizar a la ultima version disponible, ubicarse en la carpeta raiz del proyecto y ejecutar
 `git pull`.
 
-En ambos casos, la carpeta `dist` quedara con sus archivos actualizados. Si se han realizados cambios al proyecto
-utilizando versionado via git, mergearlos a la correspondiente nueva version.
+Si no se han realizado cambios en el proyecto respecto a la version de github, entonces `git pull` deberá exitosamente
+actualizar el proyecto a su ultima version.
 
+Si en cambio se han realizado cambios en el proyecto y el comando `git pull` devuelve algun error de conflicto de
+versiones de archivos, debera procederse a mergear manualmente los archivos correspondientes.
+- Realizar copias de resguardo de los archivos que no son parte del proyecto original o que han sido modificados. 
+Por ej, el archivo csv con los datos de las obras del lugar actual, el archivo geometry.geojson, el archivo config.js, 
+el archivo custom.css en caso de haberlo modificado y cualquier otro archivo (como por ej iconos, favicon, etc) que 
+se hayan agregado o reemplazado respecto a la version de github de BA Obras
+- Revertir los cambios de la version local del repositorio para que quede acorde a la version de github. Esto puede
+realizarse mediante `git checkout .` para revertir cambios a archivos registrados en git, y mediante 
+`git clean -d -f .` para eliminar archivos no registrados en git.
+- Ejecutar de vuelta `git pull`. Esta vez no deberia tener conflictos
+- Volver a copiar los archivos resguardados en el primer punto
+- Realizar un `grunt build` para compilar nuevamente el sitio. Este ultimo paso deberia dejar en la carpeta `dist` 
+la version actualizada del sitio productivo.
+
+#### Cambios entre versiones
+
+El dia 3 de junio de 2019 se agregó un requisito al archivo `geomtry.geojson`, siendo ahora necesario que cada 
+componente de primer nivel del mapa disponga de un atributo `"properties": { "id": "Nombre de la subdivision" }`.
+Para mas información, ver la sección sobre [Archivos geoespaciales](#archivos-geoespaciales).
 
 ## Archivo de Configuración
 

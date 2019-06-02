@@ -254,14 +254,28 @@ the configuration file accordingly.
 
 ### Updates
 
-If updating to a specific tag, first fetch all the tags via `git fetch --tags` and the checkout to the desired tag
-running `git checkout VERSION-TAG`
+If updating to the last changes available, simply run a `git pull` while in the root folder of the project.
 
-If updating to the last changes available, simply run a `git pull`
+If the local repository has no changes when comparing to the github repository, then the `git pull` command should
+run successfully and the project should be updated to the last version.
 
-In both cases, the `dist` will be updated with the files of the new version. If the local version of the project was
-modified and the new changes were tracked using git then a git merge will be needed
+Otherwise, if the local repository has changes when comparing to the github repository and the `git pull` returns
+a file conflict error, then the files must be merged manually.
+- Make backup copies of any file that is not part of the original project or has been modified. For example, the csv
+with the works data, the geometry.geojson file, the config.js file, the custom.css file (if modified) and any other
+file (icons, favicons, etc) that has been added or modified from the original github repository of BA Obras.
+- Revert any change of the local repository. This can be achieved with `git checkout .` to revert any change to
+files tracked by git, and by `git clean -d -f .` to delete any file not tracked by git.
+- Again run `git pull`. This time shouldn't return any conflict.
+- Copy again any backuped file in the first step
+- Run a `grunt build` command in order to compile again the site. This should output a final and productive version
+of the site to the `dist` folder
 
+#### Changes between versions
+
+On june 3 2019 a requirement was added to the `geometry.geojson`, now being obligatory to have an attribute
+`"properties": { "id": "Nombre de la subdivision" }` in the first level features of the geojson. For further 
+information read the [geospacial file](#geospacial-file) section.
 
 ## Configuration file
 
