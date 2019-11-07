@@ -1,12 +1,12 @@
-# [BA Obras](https://obras.buenosaires.gob.ar/)
+# [Obras Abiertas](https://obras.buenosaires.gob.ar/)
 
 [![Build Status](https://travis-ci.com/datosgcba/ba_obras.svg?branch=master)](https://travis-ci.com/datosgcba/ba_obras)
 
 [English documentation](./README_en.MD)
 
-Proyecto de visualización y análisis de la información de las obras del Gobierno de la Ciudad de Buenos Aires.
+Proyecto de visualización y análisis de la información de las obras públicas basada en la iniciativa [BA Obras](https://obras.buenosaires.gob.ar/) del Gobierno de la Ciudad de Buenos Aires.
 
-  - [Acerca de BA Obras](#acerca-de-ba-obras)
+  - [Acerca de Obras Abiertas](#acerca-de-obras-abiertas)
   - [Requisitos de datos](#requisitos-de-datos)
     - [Esquema de datos](#esquema-de-datos)
   - [Archivos necesarios para el correcto funcionamiento del sitio](#archivos-necesarios-para-el-correcto-funcionamiento-del-sitio)
@@ -23,9 +23,9 @@ Proyecto de visualización y análisis de la información de las obras del Gobie
   - [Archivo de Configuración](#archivo-de-configuraci%C3%B3n)
     - [i18n](#i18n)
 
-## Acerca de BA Obras 
+## Acerca de Obras Abiertas 
 
-BA Obras es un sitio web que busca informar a la ciudadanía acerca del avance de todas las obras de la jurisdicción.
+Obras Abiertas es un sitio web que busca informar a la ciudadanía acerca del avance de todas las obras de la jurisdicción.
 El sistema es una aplicación frontend que toma información de un csv y crea visualizaciones de datos sobre el 
 cumplimiento de las obras. Se genera una vista para cada obra y una vista general donde pueden verse todas. 
 La misma tiene la capacidad de ser embebida dentro otras páginas correspondientes a organismos relacionados.
