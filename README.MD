@@ -1,7 +1,5 @@
 # [Obras Abiertas](https://obras.buenosaires.gob.ar/)
 
-**ATENCIÓN: Este repositorio fue archivado y no recibirá más actualizaciones. El proyecto de Obras Abiertas fue movido a [obras-abiertas](https://github.com/datosgcba/obras-abiertas/).**
-
 [![Build Status](https://travis-ci.com/datosgcba/ba_obras.svg?branch=master)](https://travis-ci.com/datosgcba/ba_obras)
 
 [English documentation](./README_en.MD)
